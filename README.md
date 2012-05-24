@@ -9,8 +9,8 @@ it accordingly.
 
 where:
 
-* **`action`** is one of **`show`** or **`check`**
-* **`component`** is one of `adapter`, `virtualdrive` (or `vd`) or `physicaldrive` (or `pd`) for **`show`** and `active` or `passive` for **`check`**
+* `action` is one of `show` or `check`
+* `component` is one of `adapter`, `virtualdrive` (or `vd`) or `physicaldrive` (or `pd`) for `show` and `active` or `passive` for `check`
 
 Global options include:
 
