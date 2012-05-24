@@ -1,0 +1,122 @@
+#!/usr/bin/env ruby
+
+lib = File.expand_path(File.dirname(__FILE__) + '/../lib')
+$LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
+
+require 'socket'
+require 'rubygems'
+require 'elesai'
+require 'gli'
+include GLI
+
+module Elesai
+
+  ME = :elesai
+  ID = File.basename($PROGRAM_NAME).to_sym
+
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  CMMDS = [ :show, :check ]
+
+  version Elesai::VERSION
+
+  desc 'Produce verbose'
+  switch :v, :verbose
+
+  desc 'Debug Output'
+  switch :d, :debug
+
+  desc 'Set hostname'
+  flag :H, :hostname
+
+  desc 'No-op; uses static output to do a dry-run'
+  flag :n, :noop
+
+  desc "Shows information about array components"
+  arg_name 'component'
+  command :show do |c|
+
+    COMPS = [ :array, :adapter, :virtualdrive, :vd, :physicaldrive, :pd ]
+
+    c.action do |globops, locops, args|
+
+      raise "specify a single component" unless args.size == 1
+      raise "invalid component" unless COMPS.include?(args[0].to_sym)
+
+      lsiarray = LSIArray.new
+
+      case args[0].to_sym
+        when :virtualdrive, :vd
+          lsiarray.virtualdrives.each do |virtualdrive|
+            print "#{virtualdrive}\n"
+          end
+        when :physicaldrive, :pd
+          lsiarray.physicaldrives.each do |id,physicaldrive|
+            print "#{physicaldrive}\n"
+          end
+      end
+    end
+  end
+
+  desc "Perform health checks on the array and report as active or passive Nagios check"
+  arg_name 'check_type'
+
+  command :check do |c|
+
+    CHECKS = [ :active, :passive ]
+
+    c.desc "hostname or ip address of Nagios server to submit passive check results"
+    c.flag 'nagios-server'
+
+    c.action do |globops, locops, args|
+
+      nagios_server = "nagios"
+      nagios_server = locops[:'nagios-server'] unless locops[:'nagios-server'].nil?
+
+      lsiarray = LSIArray.new
+
+      # Physical Drives
+      # + media errors
+      # + predictive failure
+      # + non-online state
+
+      plugin_output = ""
+      plugin_status = ""
+
+      lsiarray.physicaldrives.each do |id,physicaldrive|
+        drive_plugin_string = "[PD:#{physicaldrive.id}:#{physicaldrive.size}:#{physicaldrive.mediatype}:#{physicaldrive.pdtype}]"
+        unless physicaldrive.state == :online or physicaldrive.state == :hotspare
+          plugin_output += " #{drive_plugin_string}:#{physicaldrive.state}"
+          plugin_status = "WARNING" if plugin_status.empty?
+        end
+        unless physicaldrive.mediaerrors == 0
+          plugin_output += " #{drive_plugin_string}:me:#{physicaldrive.mediaerrors}"
+          plugin_status = "WARNING" if plugin_status.empty?
+        end
+        unless physicaldrive.predictivefailure == 0
+          plugin_output += " #{drive_plugin_string}:pf:#{physicaldrive.predictivefailure}"
+          plugin_status = "WARNING" if plugin_status.empty?
+        end
+      end
+
+      plugin_output = "no RAID subsystems errors found" if plugin_output.empty? and plugin_status.empty?
+      plugin_status = "OK" if plugin_status.empty?
+
+      case args[0].to_sym
+        when :active
+          puts "#{plugin_status}:#{plugin_output}"
+        when :passive
+          sn = SendNSCA.new(nagios_server,Socket.gethostname,'raid/lsi')
+          begin
+            sn.send(0,plugin_output)
+          rescue SendNSCA::SendNSCAError => e
+            $stderr.write "#{ME}: error: send_nsca failed: #{e.message}\n"
+            exit
+          end
+      end
+    end
+  end
+
+  exit GLI.run(ARGV)
+
+end
