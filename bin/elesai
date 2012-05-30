@@ -6,111 +6,14 @@ $LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
 require 'socket'
 require 'rubygems'
 require 'elesai'
-require 'senedsa'
-include Senedsa
-require 'trollop'
+require 'elesai/cli'
 
 module Elesai
 
   ME = :elesai
   ID = File.basename($PROGRAM_NAME).to_sym
 
-# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  app = CLI.new(ARGV)
+  app.run
 
-  CMMDS = %w(show check)
-  COMPS = %w(array adapter virtualdrive vd physicaldrive pd)
-
-  global_opts = Trollop::options do
-    banner "megacli grokking utility"
-    opt :debug, "Enable debug mode", :short => "-d"
-    stop_on CMMDS
-  end
-
-  cmd = ARGV.shift
-
-  cmd_opts = case cmd
-    when 'show'
-
-
-
-    when "check"
-      Trollop::options do
-        opt :monitor, "Monitoring system", :type => String, :default => 'nagios'
-        opt :mode, "Nagios active|passive check", :type => String, :default => 'active'
-        opt :nsca_hostname, "NSCA hostname for passive checks", :type => String, :short => '-H'
-        opt :config, "Configuration file", :type => String, :short => 'c'
-      end
-
-    else
-      Trollop::die "unknown command #{cmd.inspect}"
-    end
-
-  if global_opts[:debug]
-    $stderr.write " debug: global options: #{global_opts.inspect}\n"
-    $stderr.write " debug: command: #{cmd}\n"
-    $stderr.write " debug:   command options: #{cmd_opts.inspect}\n"
-    $stderr.write " debug: arguments: #{ARGV.inspect}\n"
-  end
-
-  case cmd
-    when 'show'
-
-      raise ArgumentError, "missing component" if ARGV.size == 0
-      component = ARGV[0]
-
-      a = LSIArray.new
-
-      case component
-        when 'virtualdrive', 'vd'
-          a.virtualdrives.each do |virtualdrive|
-            print "#{virtualdrive}\n"
-          end
-        when 'physicaldrive', 'pd'
-          a.physicaldrives.each do |id,physicaldrive|
-            print "#{physicaldrive}\n"
-          end
-      end
-
-    when 'check'
-      a = LSIArray.new
-
-      plugin_output = ""
-      plugin_status = ""
-
-      a.physicaldrives.each do |id,physicaldrive|
-        drive_plugin_string = "[PD:#{physicaldrive.id}:#{physicaldrive.size}:#{physicaldrive.mediatype}:#{physicaldrive.pdtype}]"
-        unless physicaldrive.state == :online or physicaldrive.state == :hotspare
-          plugin_output += " #{drive_plugin_string}:#{physicaldrive.state}"
-          plugin_status = :warning if plugin_status.empty?
-        end
-        unless physicaldrive.mediaerrors == 0
-          plugin_output += " #{drive_plugin_string}:me:#{physicaldrive.mediaerrors}"
-          plugin_status = :warning if plugin_status.empty?
-        end
-        unless physicaldrive.predictivefailure == 0
-          plugin_output += " #{drive_plugin_string}:pf:#{physicaldrive.predictivefailure}"
-          plugin_status = :warning if plugin_status.empty?
-        end
-      end
-
-      plugin_output = "no RAID subsystems errors found" if plugin_output.empty? and plugin_status.empty?
-      plugin_status = :ok if plugin_status.empty?
-
-      case cmd_opts[:monitor]
-        when 'nagios'
-          case cmd_opts[:mode]
-            when 'active'
-              puts "#{plugin_status}:#{plugin_output}"
-            when 'passive'
-              sn = SendNsca.new Socket.gethostname,'raid/lsi'
-              sn.nsca_hostname = cmd_opts[:nsca_hostname]
-              begin
-                sn.send plugin_status , plugin_output
-              rescue SendNsca::SendNscaError => e
-                $stderr.write "#{ME}: error: send_nsca failed: #{e.message}\n"
-                exit
-              end
-              end
-      end
-  end
 end
