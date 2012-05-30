@@ -6,6 +6,8 @@ $LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
 require 'socket'
 require 'rubygems'
 require 'elesai'
+require 'senedsa'
+include Senedsa
 require 'gli'
 include GLI
 
@@ -66,12 +68,12 @@ module Elesai
     CHECKS = [ :active, :passive ]
 
     c.desc "hostname or ip address of Nagios server to submit passive check results"
-    c.flag 'nagios-server'
+    c.flag 'nsca_hostname'
 
     c.action do |globops, locops, args|
 
-      nagios_server = "nagios"
-      nagios_server = locops[:'nagios-server'] unless locops[:'nagios-server'].nil?
+      nsca_hostname = "nagios"
+      nsca_hostname = locops[:'nsca_hostname'] unless locops[:'nsca_hostname'].nil?
 
       lsiarray = LSIArray.new
 
@@ -87,29 +89,32 @@ module Elesai
         drive_plugin_string = "[PD:#{physicaldrive.id}:#{physicaldrive.size}:#{physicaldrive.mediatype}:#{physicaldrive.pdtype}]"
         unless physicaldrive.state == :online or physicaldrive.state == :hotspare
           plugin_output += " #{drive_plugin_string}:#{physicaldrive.state}"
-          plugin_status = "WARNING" if plugin_status.empty?
+          plugin_status = :warning if plugin_status.empty?
         end
         unless physicaldrive.mediaerrors == 0
           plugin_output += " #{drive_plugin_string}:me:#{physicaldrive.mediaerrors}"
-          plugin_status = "WARNING" if plugin_status.empty?
+          plugin_status = :warning if plugin_status.empty?
         end
         unless physicaldrive.predictivefailure == 0
           plugin_output += " #{drive_plugin_string}:pf:#{physicaldrive.predictivefailure}"
-          plugin_status = "WARNING" if plugin_status.empty?
+          plugin_status = :warning if plugin_status.empty?
         end
       end
 
       plugin_output = "no RAID subsystems errors found" if plugin_output.empty? and plugin_status.empty?
-      plugin_status = "OK" if plugin_status.empty?
+      plugin_status = :ok if plugin_status.empty?
 
+      puts args
       case args[0].to_sym
         when :active
           puts "#{plugin_status}:#{plugin_output}"
         when :passive
-          sn = SendNSCA.new(nagios_server,Socket.gethostname,'raid/lsi')
+
+          sn = SendNsca.new Socket.gethostname,'raid/lsi'
+          sn.nsca_hostname = nsca_hostname
           begin
-            sn.send(0,plugin_output)
-          rescue SendNSCA::SendNSCAError => e
+            sn.send plugin_status , plugin_output
+          rescue SendNsca::SendNscaError => e
             $stderr.write "#{ME}: error: send_nsca failed: #{e.message}\n"
             exit
           end
