@@ -45,11 +45,12 @@ module Elesai
       Trollop::die "unknown command #{cmd.inspect}"
     end
 
-
-  puts "Global options: #{global_opts.inspect}"
-  puts "Command: #{cmd}"
-  puts "Command options: #{cmd_opts.inspect}"
-  puts "Remaining arguments: #{ARGV.inspect}"
+  if global_opts[:debug]
+    $stderr.write " debug: global options: #{global_opts.inspect}\n"
+    $stderr.write " debug: command: #{cmd}\n"
+    $stderr.write " debug:   command options: #{cmd_opts.inspect}\n"
+    $stderr.write " debug: arguments: #{ARGV.inspect}\n"
+  end
 
   case cmd
     when 'show'
@@ -102,7 +103,7 @@ module Elesai
               puts "#{plugin_status}:#{plugin_output}"
             when 'passive'
               sn = SendNsca.new Socket.gethostname,'raid/lsi'
-              sn.nsca_hostname = nsca_hostname
+              sn.nsca_hostname = cmd_opts[:nsca_hostname]
               begin
                 sn.send plugin_status , plugin_output
               rescue SendNsca::SendNscaError => e
