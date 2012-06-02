@@ -1,5 +1,4 @@
 module Elesai
-  module MegaCli
 
     MEGACLI_PDINFO_AALL_OUT = <<END
 
@@ -1025,7 +1024,5 @@ Drive Temperature : N/A
 Exit Code: 0x00
 END
 
-
-  end
 
 end

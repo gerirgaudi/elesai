@@ -1,230 +1,221 @@
-require 'rubygems'
-require 'statemachine'
+require 'workflow'
+require './lsi'
+require './sample_output'
+require 'awesome_print'
 
 module Elesai
 
-  module MegaCli
+  class Megacli
 
-    class Context
+    ADAPTER_RE = /^Adapter\s+#*(?<value>\d+)/
+    VIRTUALDRIVE_RE = /^Virtual\s+Drive:\s+\d+\s+\((?<key>Target\s+Id):\s+(?<value>\d+)\)/
+    SPAN_RE = /^Span:\s+(?<value>\d+)/
+    PHYSICALDRIVE_RE = /^(?<key>Enclosure\s+Device\s+ID):\s+(?<value>\d+)/
+    EXIT_RE = /^Exit Code: /
 
-      attr_accessor :lsiarray, :current_adapter, :current_virtualdrive, :current_physicaldrive, :statemachine
+    include Workflow
 
-      class Error < StandardError; end
-      class ConfigurationError < Error; end
+    ### State machine handlers
 
-      def initialize
-        @lsiarray = nil
-        @current_adapter = nil
-        @current_virtualdrive = nil
-        @current_physicaldrive = nil
-      end
+    # Start
 
-      def create_adapter(id)
-        @current_adapter = @lsiarray.create_adapter(id)
-      end
-
-      def add_adapter
-        @lsiarray.add_adapter(@current_adapter)
-      end
-
-      def create_virtualdrive(id)
-        @current_virtualdrive = @lsiarray.create_virtualdrive(id)
-      end
-
-      def process_virtualdrive
-        @lsiarray.add_virtualdrive(@current_virtualdrive)
-        @current_adapter.virtualdrives.push(@current_virtualdrive)
-      end
-
-      def create_physicaldrive(attribute=nil,value=nil)
-        @current_physicaldrive = @lsiarray.create_physicaldrive
-        case attribute
-          when :enclosure
-            @current_physicaldrive.enclosure = value
-          when :id
-            @current_physicaldrive.id = value
-        end
-      end
-
-      def process_physicaldrive
-        id = @current_physicaldrive.id
-
-        @current_physicaldrive = @lsiarray.physicaldrives[id] if @lsiarray.physicaldrives[id]
-        @lsiarray.add_physicaldrive(@current_physicaldrive)
-
-        @current_physicaldrive.virtualdrives.push(@current_virtualdrive)
-        @current_virtualdrive.physicaldrives[id] = @current_physicaldrive unless @current_virtualdrive.nil?
-        @current_adapter.physicaldrives.push(@current_physicaldrive)
-      end
-
-      def add_attribute(rawkey,rawvalue)
-        rawkey.strip!
-        rawvalue.strip!
-        key = rawkey.gsub(/\s/,'').downcase.to_sym
-        value = rawvalue.strip
-
-        case @statemachine.state
-          when :adapter_found, :adapter_created
-            @current_adapter.rawattributes[key] = value
-          when :virtualdrive_found, :virtualdrive_created
-            if rawkey =~ /^RAID Level/
-              /Primary-(\d+),\s+Secondary-(\d+)/.match(value)
-              @current_virtualdrive.raidlevel = [$1,$2]
-            end
-            @current_virtualdrive.size = value.split(/\s/)[0] if rawkey =~ /^Size$/
-            @current_virtualdrive.state = value if rawkey =~ /State/
-          when :physicaldrive_found, :physicaldrive_created
-            if rawkey =~ /Device Id/
-              @current_physicaldrive.deviceid = value.to_i
-            elsif rawkey =~ /Coerced Size/
-              /([0-9\.]+)\s+([A-Z]+)/.match(value)
-              @current_physicaldrive.size = [$1,$2]
-            elsif rawkey =~ /Firmware state/
-              state,spin = value.gsub(/\s/,'').split(/,/)
-              @current_physicaldrive.state = state.gsub(/\s/,'_').downcase.to_sym
-              @current_physicaldrive.spin = spin.gsub(/\s/,'_').downcase.to_sym
-            elsif rawkey =~ /^PD Type/
-              @current_physicaldrive.pdtype = value
-            elsif rawkey =~ /Media Type/
-              @current_physicaldrive.mediatype = value.scan(/[A-Z]/).join
-            elsif rawkey =~ /Inquiry Data/
-              @current_physicaldrive.inquirydata = value.gsub(/\s+/,' ')
-            end
-            @current_physicaldrive.slot = value.to_i if rawkey =~ /Slot Number/
-            @current_physicaldrive.mediaerrors = value.to_i if rawkey =~ /Media Error Count/
-            @current_physicaldrive.predictivefailure = value.to_i if rawkey =~ /Predictive Failure Count/
-            @current_physicaldrive.enclosure = value.to_i if rawkey =~ /Enclosure Device ID/
-          else
-            raise Statemachine::StatemachineException, "invalid state machine state #{@statemachine.state}"
-        end
-      end
-
-      def process_exit
-      end
-
+    def on_start_exit(new_state, event, *args)
+      puts "    on_#{current_state}_exit: entering #{new_state}"
+      new_state.meta = current_state.meta
     end
 
-    class Command
+    # Adapter
 
-      attr_reader :statemachine, :regexes, :lsiarray
+    def adapter_line(adapter,key,value)
+      puts "event adapter_line: #{adapter}"
+      adapter.instance_variable_set("@#{key}".to_sym,value.to_i)
+      current_state.meta[:adapter] = adapter
+      current_state.meta[:component] = adapter
+    end
 
-      def initialize(cmdsig,lsiarray)
-        @cmdsig = cmdsig
-        @lsiarray = lsiarray
-        @statemachine = nil
-        @regexes = {}
-        case cmdsig
-          when :megacli_pdinfo_aall
-            @statemachine = Statemachine.build do
-              state :start do
-                event :exitline, :exit, :process_exit
-                event :adapterline, :adapter_found
-              end
-              state :adapter_found do
-                on_entry :create_adapter
-                event :physicaldriveline, :physicaldrive_found
-                on_exit :add_adapter
-              end
-              state :physicaldrive_found do
-                on_entry :create_physicaldrive
-                event :line, :physicaldrive_created, :add_attribute
-              end
-              state :physicaldrive_created do
-                event :exitline, :exit, :process_exit
-                event :adapterline, :adapter
-                event :physicaldriveline, :physicaldrive_found
-                event :line, :physicaldrive_created, :add_attribute
-                on_exit :process_physicaldrive
-              end
-              context Context.new
-            end
-            @statemachine.context.statemachine = @statemachine
-            @statemachine.context.lsiarray = @lsiarray
-            @regexes = {
-              :adapter        => /^Adapter\s+#*(\d+)/,
-              :virtualdrive   => /^Virtual\s+Drive:\s+(\d+)/,
-              :physicaldrive  => /^Enclosure Device ID:\s+(\d+)/,
-              :exit           => /^Exit Code: /
-            }
-            @output = MEGACLI_PDINFO_AALL_OUT
-          when :megacli_ldpdinfo_aall
-            @statemachine = Statemachine.build do
-              state :start do
-                event :exitline, :exit, :process_exit
-                event :adapterline, :adapter_found
-              end
-              state :adapter_found do
-                on_entry :create_adapter
-                event :line, :adapter_created, :add_attribute
-              end
-              state :adapter_created do
-                event :virtualdriveline, :virtualdrive_found
-                event :line, :adapter_created, :add_attribute
-                on_exit :add_adapter
-              end
-              state :virtualdrive_found do
-                on_entry :create_virtualdrive
-                event :line, :virtualdrive_created, :add_attribute
-              end
-              state :virtualdrive_created do
-                event :exitline, :exit, :process_exit
-                event :adapterline, :adapter_found
-                event :virtualdriveline, :virtualdrive_found
-                event :physicaldriveline, :physicaldrive_found
-                event :line, :virtualdrive_created, :add_attribute
-                on_exit :process_virtualdrive
-              end
-              state :physicaldrive_found do
-                on_entry :create_physicaldrive
-                event :line, :physicaldrive_created, :add_attribute
-              end
-              state :physicaldrive_created do
-                event :exitline, :exit, :process_exit
-                event :adapterline, :adapter
-                event :virtualdriveline, :virtualdrive_found
-                event :physicaldriveline, :physicaldrive_found
-                event :line, :physicaldrive_created, :add_attribute
-                on_exit :process_physicaldrive
-              end
-              context Context.new
-            end
-            @statemachine.context.statemachine = @statemachine
-            @statemachine.context.lsiarray = @lsiarray
-            @regexes = {
-              :adapter        => /^Adapter\s+#*(\d+)/,
-              :virtualdrive   => /^Virtual\s+Drive:\s+(\d+)/,
-              :physicaldrive  => /^PD:\s+(\d+)\s+Information/,
-              :exit           => /^Exit Code: /
-            }
-            @output = MEGACLI_LDPDINFO_AALL_OUT
-          else
-            raise Exception, "invalid megacli signature"
-        end
+    def on_adapter_entry(old_state, event, *args)
+      puts "      on_#{current_state}_entry: leaving #{old_state}"
+    end
+
+    def on_adapter_exit(new_state, event, *args)
+      puts "    on_#{current_state}_exit: entering #{new_state}"
+      new_state.meta = current_state.meta
+    end
+
+    # Virtual Drive
+
+    def virtualdrive_line(virtualdrive,attr,value)
+      puts "event: virtualdrive_line"
+      current_state.meta[:virtualdrive] = virtualdrive
+      current_state.meta[:component] = virtualdrive
+    end
+
+    def on_virtualdrive_entry(old_state, event, *args)
+      puts "      on_#{current_state}_entry: leaving #{old_state}"
+    end
+
+    def on_virtualdrive_exit(new_state, event, *args)
+      puts "    on_#{current_state}_exit: entering #{new_state}"
+      new_state.meta = current_state.meta
+    end
+
+    # Physical Drive
+
+    def physicaldrive_line(physicaldrive,key,value)
+      puts "event: physicaldrive_line #{physicaldrive}"
+      physicaldrive.instance_variable_set("@#{key}".to_sym,value.to_i)
+      current_state.meta[:physicaldrive] = physicaldrive
+      current_state.meta[:component] = physicaldrive
+    end
+
+    def on_physicaldrive_entry(old_state, event, *args)
+      puts "      on_#{current_state}_entry: leaving #{old_state}"
+    end
+
+    def on_physicaldrive_exit(new_state, event, *args)
+      puts "    on_#{current_state}_exit: entering #{new_state}"
+      new_state.meta = current_state.meta
+    end
+
+    # Attribute
+
+    def attribute_line(key,value)
+      puts "event: attribute_line: #{key} => #{value}"
+    end
+
+    def on_attribute_entry(old_state, event, *args)
+      puts "      on_#{current_state}_entry: leaving #{old_state}; component: #{current_state.meta[:component]}; args: #{args}"
+
+      component = current_state.meta[:component]
+      key = args[0].to_sym
+      value = args[1]
+
+      # Some attributes need special treatment so they're actually useful
+
+      case key
+        when :coercedsize, :noncoercedsize, :rawsize
+          m = /(?<number>[0-9\.]+)\s+(?<unit>[A-Z]+)/.match(value)
+          value = LSIArray::PhysicalDrive::Size.new(m[:number],m[:unit])
+        when :raidlevel
+          m = /Primary-(?<primary>\d+),\s+Secondary-(?<secondary>\d+)/.match(value)
+          value = LSIArray::PhysicalDrive::RaidLevel.new(m[:primary],m[:secondary])
+        when :firmwarestate
+          state,spin = value.gsub(/\s/,'').split(/,/)
+          value = LSIArray::PhysicalDrive::FirmwareState.new(state.gsub(/\s/,'_').downcase.to_sym,spin.gsub(/\s/,'_').downcase.to_sym)
+        when :mediatype
+          value = value.scan(/[A-Z]/).join
+        when :inquirydata
+          value = value.gsub(/\s+/,' ')
       end
+      component[key] = value
+    end
 
-      def run
-        @output.each_line do |line|
-          line.strip!
-          next if line == ''
-          if @regexes[:adapter].match(line)
-            @statemachine.adapterline($1.to_i)
-          elsif @regexes[:virtualdrive].match(line)
-            @statemachine.virtualdriveline($1.to_i)
-          elsif @regexes[:physicaldrive].match(line)
-            case @cmdsig
-              when :megacli_pdinfo_aall
-                @statemachine.physicaldriveline(:enclosure,$1.to_i)
-              when :megacli_ldpdinfo_aall
-                @statemachine.physicaldriveline(:id,$1.to_i)
-            end
-          elsif @regexes[:exit].match(line)
-            @statemachine.exitline
-          else
-            key,value = line.split(':',2)
-            @statemachine.line(key.to_s,value.to_s)
-          end
+    def on_attribute_exit(new_state, event, *args)
+      puts "    on_#{current_state}_exit: entering #{new_state}"
+    end
+
+    # Exit
+
+    def exit_line
+      puts "event: exit_line"
+    end
+
+    ### Regular Expression Match Handlers
+
+    # Adapter
+
+    def adapter_match(match)
+      key = 'id'
+      value = match[:value]
+      adapter_line!(LSIArray::Adapter.new,key,value)
+    end
+
+    # Virtual Drive
+
+    def virtualdrive_match(match)
+      key = match[:key].gsub(/\s+/,"").downcase
+      value = match[:value]
+      virtual_driveline!(LSIArray::VirtualDrive.new,key,value)
+    end
+
+    # Physical Drive
+
+    def physicaldrive_match(match)
+      key = match[:key].gsub(/\s+/,"").downcase
+      value = match[:value]
+      physicaldrive_line!(LSIArray::PhysicalDrive.new,key,value)
+    end
+
+    # Attribute
+
+    def attribute_match(line)
+      key,value = line.split(':',2)
+      attribute_line!(key.gsub(/\s+/,"").downcase,value)
+    end
+
+    # Exit
+
+    def exit_match(match)
+      exit_line!
+    end
+
+    ### Parse!
+
+    def parse!(output)
+      output.each_line do |line|
+        line.strip!
+        next if line == ''
+        puts "#{line}"
+        if    line =~ ADAPTER_RE        then adapter_match(ADAPTER_RE.match(line))
+        elsif line =~ VIRTUALDRIVE_RE   then virtualdrive_match(VIRTUALDRIVE_RE.match(line))
+        elsif line =~ PHYSICALDRIVE_RE  then physicaldrive_match(PHYSICALDRIVE_RE.match(line))
+        elsif line =~ EXIT_RE           then exit_match(EXIT_RE.match(line))
+        else                                 attribute_match(line)
         end
+        puts "***************************************************************************************"
       end
     end
+
   end
+
+  class PDinfo_aAll < Megacli
+
+    workflow do
+
+      state :start do
+        event :exit_line, :transitions_to => :exit_state
+        event :adapter_line, :transitions_to => :adapter
+      end
+
+      state :adapter do
+        event :physicaldrive_line, :transitions_to => :physicaldrive
+      end
+
+      state :physicaldrive do
+        event :attribute_line, :transitions_to => :physicaldrive
+        event :exit_line, :transitions_to => :exit
+        event :adapter_line, :transitions_to => :adapter
+        event :physicaldrive_line, :transitions_to => :physicaldrive
+        event :attribute_line, :transitions_to => :attribute
+      end
+
+      state :attribute do
+        event :attribute_line, :transitions_to => :attribute
+        event :physicaldrive_line, :transitions_to => :physicaldrive
+        event :exit_line, :transitions_to => :exit
+      end
+
+      state :exit
+
+      on_transition do |from, to, triggering_event, *event_args|
+        #puts self.spec.states[to].class
+        puts "  transition: #{from} >> #{triggering_event}! >> #{to}: #{event_args.join(' ')}"
+        ap current_state.meta[:component]
+      end
+    end
+
+  end
+
+  megacli = PDinfo_aAll.new.parse! MEGACLI_PDINFO_AALL_OUT
+
 end
