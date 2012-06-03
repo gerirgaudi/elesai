@@ -1,6 +1,6 @@
 require 'elesai/version'
 require 'elesai/lsi'
-require 'elesai/old_megacli'
+require 'elesai/megacli'
 require 'elesai/sample_output'
 
 module Elesai

@@ -13,23 +13,20 @@ module Elesai
       @enclosures = []
       @spans = []
 
-#      PDinfo_aAll.new.parse
+      megacli = PDinfo_aAll.new
+      megacli.parse!(self,MEGACLI_PDINFO_AALL_OUT)
     end
 
-    def create_adapter(id)
-      Adapter.new(id)
+    def add_adapter(a)
+      @adapters[a[:id]] = a if @adapters[a[:id]].nil?
     end
 
-    def add_adapter(adapter)
-      @adapters[adapter.id] = adapter
+    def add_virtualdrive(vd)
+      @virtualdrives.push(vd)
     end
 
-    def add_virtualdrive(virtualdrive)
-      @virtualdrives.push(virtualdrive)
-    end
-
-    def add_physicaldrive(physicaldrive)
-      @physicaldrives[physicaldrive.id] = physicaldrive
+    def add_physicaldrive(pd)
+      @physicaldrives[pd._id] = pd if @physicaldrives[pd._id].nil?
     end
 
     def to_s
@@ -46,21 +43,19 @@ module Elesai
       lsiarrayout
     end
 
-    class Adapter
+    class Adapter < Hash
 
-      attr_accessor :id, :virtualdrives, :physicaldrives, :rawattributes
+      def inspect
+        "#{self.class}:#{self.__id__}"
+      end
 
-      def initialize
-        @id = nil
-        @rawattributes = {}
-        @lsiarray = nil
-        @virtualdrives = []
-        @physicaldrives = []
+      def _id
+        "#{self[:id]}"
       end
 
     end
 
-    class VirtualDrive
+    class VirtualDrive < Hash
 
       STATES = {
           :optimal              => 'Optimal',
@@ -70,25 +65,14 @@ module Elesai
           :offline              => 'Offline'
       }
 
-      attr_reader :id
-      attr_accessor :rawattributes, :raidlevel, :size, :state, :physicaldrives
+      class Size < Struct.new(:number, :unit); end
+      class RaidLevel < Struct.new(:primary, :secondary); end
 
-      def initialize
-        @id = nil
-        @rawattributes = {}
-        @physicaldrives = {}
-        @_raidlevel = OpenStruct.new
+      def inspect
+        "#{self.class}:#{self.__id__}"
       end
 
-      def raidlevel
-        [@_raidlevel.primary,@_raidlevel.secondary]
-      end
 
-      def raidlevel=raidlevel
-        raise "raid level must be [primary,secondary]" unless raidlevel.size == 2
-        @_raidlevel.primary = raidlevel[0].to_i
-        @_raidlevel.secondary = raidlevel[1].to_i
-      end
 
 #      def to_s
 #        "[VD] %4s %18s %7.2f %s %d" % [ @id, @state, @size, self.raidlevel, @physicaldrives.size ]
@@ -115,44 +99,21 @@ module Elesai
           :spun_up              => 'Spun up'
       }
 
+      def _id
+        "e#{self[:enclosuredeviceid].to_s}s#{self[:slotnumber].to_s}".to_sym
+      end
+
+      def to_s
+        self.__id__
+      end
+
+      def inspect
+        "#{self.class}:#{self.__id__}"
+      end
+
       class Size < Struct.new(:number, :unit); end
-      class RaidLevel < Struct.new(:primary, :secondary); end
       class FirmwareState < Struct.new(:state, :spin); end
 
     end
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

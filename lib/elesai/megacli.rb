@@ -1,6 +1,4 @@
 require 'workflow'
-require './lsi'
-require './sample_output'
 require 'awesome_print'
 
 module Elesai
@@ -15,109 +13,164 @@ module Elesai
 
     include Workflow
 
-    ### State machine handlers
+    ### Helpers
+
+    class Context
+
+      def initialize(current_state,lsi)
+        current_state.meta[:context] = []
+        @context = current_state.meta[:context]
+        @lsi = lsi
+      end
+
+      def flash!(new_state)
+        new_state.meta[:context] = @context
+        @context = nil
+        @context = new_state.meta[:context]
+        puts "         + Flash context: #@context"
+      end
+
+      def open(component)
+        puts "         + Push #{component.inspect}"
+        @context.push(component)
+        puts "         + context: #@context"
+      end
+
+      def close
+        component = @context.pop
+        puts "         + Pop #{component.inspect}"
+        puts "         * Closing #{component.inspect}"
+        if component.kind_of? LSIArray::PhysicalDrive
+          @lsi.add_physicaldrive(component)
+        elsif component.kind_of? LSIArray::VirtualDrive
+          id = component._id
+        elsif component.kind_of? LSIArray::Adapter
+          @lsi.add_adapter(component)
+        end
+        puts "         + context: #@context"
+      end
+
+      def current
+        @context[-1]
+      end
+
+    end
+
+    ### State Machine Handlers
 
     # Start
 
     def on_start_exit(new_state, event, *args)
-      puts "    on_#{current_state}_exit: entering #{new_state}"
-      new_state.meta = current_state.meta
+      puts "      [#{current_state}]: on_exit : #{event} -> #{new_state}; args: #{args}"
+      @context = Context.new(current_state,@lsi)
     end
 
     # Adapter
 
     def adapter_line(adapter,key,value)
-      puts "event adapter_line: #{adapter}"
-      adapter.instance_variable_set("@#{key}".to_sym,value.to_i)
-      current_state.meta[:adapter] = adapter
-      current_state.meta[:component] = adapter
+      puts "  [#{current_state}] event adapter_line: new #{adapter.inspect}"
+      adapter[key.to_sym] = value.to_i
     end
 
     def on_adapter_entry(old_state, event, *args)
-      puts "      on_#{current_state}_entry: leaving #{old_state}"
+      puts "        [#{current_state}] on_entry: leaving #{old_state}; args: #{args}"
+
+      @context.close if @context.current.kind_of? LSIArray::Adapter
+      adapter = args[0]
+      @context.open adapter
+
     end
 
     def on_adapter_exit(new_state, event, *args)
-      puts "    on_#{current_state}_exit: entering #{new_state}"
-      new_state.meta = current_state.meta
+      puts "      [#{current_state}] on_exit: entering #{new_state}; args: #{args}"
+      @context.flash!(new_state)
     end
 
     # Virtual Drive
 
     def virtualdrive_line(virtualdrive,attr,value)
-      puts "event: virtualdrive_line"
-      current_state.meta[:virtualdrive] = virtualdrive
-      current_state.meta[:component] = virtualdrive
+      puts "  [#{current_state}] event: virtualdrive_line: new #{virtualdrive.inspect}"
     end
 
     def on_virtualdrive_entry(old_state, event, *args)
-      puts "      on_#{current_state}_entry: leaving #{old_state}"
+      puts "        [#{current_state}] on_entry: leaving #{old_state}; args: #{args}"
+      virtualdrive = args[0]
+      @context.open virtualdrive
     end
 
     def on_virtualdrive_exit(new_state, event, *args)
-      puts "    on_#{current_state}_exit: entering #{new_state}"
-      new_state.meta = current_state.meta
+      puts "      [#{current_state}] on_exit: entering #{new_state}; args: #{args}"
+      @context.flash!(new_state)
     end
 
     # Physical Drive
 
     def physicaldrive_line(physicaldrive,key,value)
-      puts "event: physicaldrive_line #{physicaldrive}"
-      physicaldrive.instance_variable_set("@#{key}".to_sym,value.to_i)
-      current_state.meta[:physicaldrive] = physicaldrive
-      current_state.meta[:component] = physicaldrive
+      puts "  [#{current_state}] event: physicaldrive_line: new #{physicaldrive.inspect}"
+      physicaldrive[key.to_sym] = value.to_i
     end
 
     def on_physicaldrive_entry(old_state, event, *args)
-      puts "      on_#{current_state}_entry: leaving #{old_state}"
+      puts "        [#{current_state}] on_entry: leaving #{old_state}; args: #{args}"
+      @context.open args[0]
     end
 
     def on_physicaldrive_exit(new_state, event, *args)
-      puts "    on_#{current_state}_exit: entering #{new_state}"
-      new_state.meta = current_state.meta
+      puts "      [#{current_state}] on_exit: entering #{new_state}; args: #{args}"
+      @context.flash!(new_state)
     end
 
     # Attribute
 
     def attribute_line(key,value)
-      puts "event: attribute_line: #{key} => #{value}"
+      puts "  [#{current_state}] event: attribute_line: #{key} => #{value}"
     end
 
     def on_attribute_entry(old_state, event, *args)
-      puts "      on_#{current_state}_entry: leaving #{old_state}; component: #{current_state.meta[:component]}; args: #{args}"
+      puts "        [#{current_state}] entry: leaving #{old_state}; args: #{args}"
 
-      component = current_state.meta[:component]
-      key = args[0].to_sym
-      value = args[1]
 
-      # Some attributes need special treatment so they're actually useful
+      c = current_state.meta[:context][-1]
+      k = args[0].to_sym
+      v = args[1]
 
-      case key
+      # Some attributes require special treatment for our purposes
+
+      case k
         when :coercedsize, :noncoercedsize, :rawsize
-          m = /(?<number>[0-9\.]+)\s+(?<unit>[A-Z]+)/.match(value)
-          value = LSIArray::PhysicalDrive::Size.new(m[:number],m[:unit])
+          m = /(?<number>[0-9\.]+)\s+(?<unit>[A-Z]+)/.match(v)
+          v = LSIArray::PhysicalDrive::Size.new(m[:number],m[:unit])
         when :raidlevel
-          m = /Primary-(?<primary>\d+),\s+Secondary-(?<secondary>\d+)/.match(value)
-          value = LSIArray::PhysicalDrive::RaidLevel.new(m[:primary],m[:secondary])
+          m = /Primary-(?<primary>\d+),\s+Secondary-(?<secondary>\d+)/.match(v)
+          v = LSIArray::PhysicalDrive::RaidLevel.new(m[:primary],m[:secondary])
         when :firmwarestate
-          state,spin = value.gsub(/\s/,'').split(/,/)
-          value = LSIArray::PhysicalDrive::FirmwareState.new(state.gsub(/\s/,'_').downcase.to_sym,spin.gsub(/\s/,'_').downcase.to_sym)
+          state,spin = v.gsub(/\s/,'').split(/,/)
+          v = LSIArray::PhysicalDrive::FirmwareState.new(state.gsub(/\s/,'_').downcase.to_sym,spin.gsub(/\s/,'_').downcase.to_sym)
         when :mediatype
-          value = value.scan(/[A-Z]/).join
+          v = v.scan(/[A-Z]/).join
         when :inquirydata
-          value = value.gsub(/\s+/,' ')
+          v = v.gsub(/\s+/,' ')
       end
-      component[key] = value
+      c[k] = v
     end
 
     def on_attribute_exit(new_state, event, *args)
-      puts "    on_#{current_state}_exit: entering #{new_state}"
+      puts "      [#{current_state}] exit: entering #{new_state} throught event #{event}; args: #{args}"
+      @context.close  unless event == :attribute_line
+
+      @context.flash!(new_state)
     end
 
     # Exit
 
     def exit_line
-      puts "event: exit_line"
+      puts "  [#{current_state}] event: exit_line"
+    end
+
+    def on_exit_entry(new_state, event, *args)
+      puts "      [#{current_state}] exit: entering #{new_state} throught event #{event}; args: #{args}"
+      puts "         + context: #{current_state.meta[:context]}"
+      @context.close
     end
 
     ### Regular Expression Match Handlers
@@ -150,7 +203,7 @@ module Elesai
 
     def attribute_match(line)
       key,value = line.split(':',2)
-      attribute_line!(key.gsub(/\s+/,"").downcase,value)
+      attribute_line!(key.gsub(/\s+/,"").downcase,value.strip)
     end
 
     # Exit
@@ -161,18 +214,22 @@ module Elesai
 
     ### Parse!
 
-    def parse!(output)
+    def parse!(lsi,output)
+
+      @lsi = lsi
+
       output.each_line do |line|
         line.strip!
         next if line == ''
-        puts "#{line}"
-        if    line =~ ADAPTER_RE        then adapter_match(ADAPTER_RE.match(line))
-        elsif line =~ VIRTUALDRIVE_RE   then virtualdrive_match(VIRTUALDRIVE_RE.match(line))
-        elsif line =~ PHYSICALDRIVE_RE  then physicaldrive_match(PHYSICALDRIVE_RE.match(line))
-        elsif line =~ EXIT_RE           then exit_match(EXIT_RE.match(line))
-        else                                 attribute_match(line)
+
+        if    line =~ ADAPTER_RE        then puts "ADAPTER! #{line}";       adapter_match(ADAPTER_RE.match(line))
+        elsif line =~ VIRTUALDRIVE_RE   then puts "VIRTUALDRIVE! #{line}";  virtualdrive_match(VIRTUALDRIVE_RE.match(line))
+        elsif line =~ PHYSICALDRIVE_RE  then puts "PHYSICALDRIVE! #{line}"; physicaldrive_match(PHYSICALDRIVE_RE.match(line))
+        elsif line =~ EXIT_RE           then puts "EXIT! #{line}";          exit_match(EXIT_RE.match(line))
+        else                                 puts "ATTRIBUTE! #{line}";     attribute_match(line)
         end
-        puts "***************************************************************************************"
+
+        print "\n\n"
       end
     end
 
@@ -183,12 +240,14 @@ module Elesai
     workflow do
 
       state :start do
-        event :exit_line, :transitions_to => :exit_state
         event :adapter_line, :transitions_to => :adapter
+        event :exit_line, :transitions_to => :exit
       end
 
       state :adapter do
+        event :adapter_line, :transitions_to => :adapter                 # empty adapter
         event :physicaldrive_line, :transitions_to => :physicaldrive
+        event :exit_line, :transitions_to => :exit
       end
 
       state :physicaldrive do
@@ -202,6 +261,7 @@ module Elesai
       state :attribute do
         event :attribute_line, :transitions_to => :attribute
         event :physicaldrive_line, :transitions_to => :physicaldrive
+        event :adapter_line, :transitions_to => :adapter
         event :exit_line, :transitions_to => :exit
       end
 
@@ -209,13 +269,17 @@ module Elesai
 
       on_transition do |from, to, triggering_event, *event_args|
         #puts self.spec.states[to].class
-        puts "  transition: #{from} >> #{triggering_event}! >> #{to}: #{event_args.join(' ')}"
-        ap current_state.meta[:component]
+        # puts "    transition: #{from} >> #{triggering_event}! >> #{to}: #{event_args.join(' ')}"
+        #puts "                #{current_state.meta}"
       end
     end
 
   end
 
-  megacli = PDinfo_aAll.new.parse! MEGACLI_PDINFO_AALL_OUT
+#  l = LSIArray.new
+#  megacli = PDinfo_aAll.new
+#  megacli.parse! l, MEGACLI_PDINFO_AALL_OUT
+
+#  ap l.physicaldrives.size
 
 end

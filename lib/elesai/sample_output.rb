@@ -193,6 +193,9 @@ Hotspare Information:
 Type: Dedicated, is revertible
 Array #: 0
 
+Adapter #1
+
+Adapter #2
 
 Exit Code: 0x00
 
