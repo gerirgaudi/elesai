@@ -1,6 +1,6 @@
 module Elesai
 
-    MEGACLI_PDINFO_AALL_OUT = <<END
+    MEGACLI_PDLIST_AALL_OUT = <<END
 
 Adapter #0
 

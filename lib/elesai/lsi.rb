@@ -11,8 +11,8 @@ module Elesai
       @enclosures = []
       @spans = []
 
-      megacli = LDPDinfo_aAll.new
-      megacli.parse!(self,MEGACLI_LDPDINFO_AALL_OUT)
+      PDlist_aAll.new.parse!(self,MEGACLI_PDLIST_AALL_OUT)
+      LDPDinfo_aAll.new.parse!(self,MEGACLI_LDPDINFO_AALL_OUT)
     end
 
     def add_adapter(a)
