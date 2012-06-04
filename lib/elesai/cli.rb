@@ -32,7 +32,7 @@ module Elesai
           when 'check' then run_check
         end
       rescue => e
-        @log.error e.message
+        @log.fatal e.message
         @log.debug e.backtrace
       end
     end
@@ -88,8 +88,9 @@ module Elesai
             a.physicaldrives.each do |id,physicaldrive|
               print "#{physicaldrive}\n"
             end
-        end
-
+          else
+            raise ArgumentError, "invalid component #{component}"
+          end
       end
 
       def run_check

@@ -90,7 +90,7 @@ module Elesai
         def to_s ; "%8.2f%s" % [self.number,self.unit] end
       end
       class RaidLevel < Struct.new(:primary, :secondary)
-        def to_s ; "%s:%s" % [self.primary,self.secondary] end
+        def to_s ; "raid%s:raid%s" % [self.primary,self.secondary] end
       end
 
       def initialize
