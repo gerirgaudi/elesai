@@ -1,0 +1,194 @@
+                                     
+Adapter #0
+
+Enclosure Device ID: 252
+Slot Number: 0
+Enclosure position: 0
+Device Id: 11
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Online, Spun Up
+SAS Address(0): 0x4433221103000000
+Connected Port Number: 3(path0) 
+Inquiry Data: CVPR140201KZ300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive:  Not Certified
+Drive Temperature : N/A
+
+
+
+Enclosure Device ID: 252
+Slot Number: 1
+Enclosure position: 0
+Device Id: 10
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Online, Spun Up
+SAS Address(0): 0x4433221102000000
+Connected Port Number: 2(path0) 
+Inquiry Data: CVPR141300K9300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive:  Not Certified
+Drive Temperature : N/A
+
+
+
+Enclosure Device ID: 252
+Slot Number: 2
+Enclosure position: 0
+Device Id: 9
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Online, Spun Up
+SAS Address(0): 0x4433221101000000
+Connected Port Number: 1(path0) 
+Inquiry Data: CVPR140100MQ300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive:  Not Certified
+Drive Temperature : N/A
+
+
+
+Enclosure Device ID: 252
+Slot Number: 3
+Enclosure position: 0
+Device Id: 8
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Online, Spun Up
+SAS Address(0): 0x4433221100000000
+Connected Port Number: 0(path0) 
+Inquiry Data: CVPR141301KG300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive:  Not Certified
+Drive Temperature : N/A
+
+
+
+Enclosure Device ID: 252
+Slot Number: 4
+Enclosure position: 0
+Device Id: 12
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Online, Spun Up
+SAS Address(0): 0x4433221104000000
+Connected Port Number: 4(path0) 
+Inquiry Data: CVPR138405AQ300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive:  Not Certified
+Drive Temperature : N/A
+
+
+
+Enclosure Device ID: 252
+Slot Number: 5
+Enclosure position: 0
+Device Id: 13
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Hotspare, Spun Up
+SAS Address(0): 0x4433221105000000
+Connected Port Number: 5(path0) 
+Inquiry Data: CVPR140100TT300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive:  Not Certified
+Drive Temperature : N/A
+
+
+Hotspare Information: 
+Type: Dedicated, is revertible
+Array #: 0
+
+
+Exit Code: 0x00
