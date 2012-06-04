@@ -1,17 +1,19 @@
 require 'trollop'
 require 'senedsa'
 include Senedsa
-require 'log4r'
+require 'elesai/version'
+require 'elesai/about'
 
 module Elesai
 
   class CLI
 
     COMMANDS = %w(show check)
-    COMPONENTS = %w(array adapter virtualdrive vd physicaldrive pd)
+    COMPONENTS = %w(virtualdrive vd physicaldrive pd)
 
     def initialize(argv)
       @argv = argv
+
       parse_global_options
       parse_command
       parse_arguments
@@ -26,6 +28,13 @@ module Elesai
     end
 
     def run
+      if @global_opts[:about]
+        puts ABOUT
+        exit 0
+      end
+
+      @lsi = LSIArray.new(:megacli => @global_opts[:megacli], :fake => @global_opts[:fake])
+
       begin
         case @command
           when 'show' then run_show
@@ -41,7 +50,8 @@ module Elesai
 
       def parse_global_options
         @global_opts = Trollop::options @argv do
-          banner "megacli grokking utility"
+          banner "MegaCli grokking utility"
+          opt :about, "Display #{ME} information"
           opt :debug, "Enable debug mode", :short => "-d"
           opt :fake, "Directory with fake Megacli output", :type => :string
           opt :megacli, "Path to Megacli binary", :type => :string, :default => "Megacli"
@@ -77,15 +87,13 @@ module Elesai
         raise ArgumentError, "missing component" if @arguments.size == 0
         component = @arguments[0]
 
-        a = LSIArray.new(:megacli => @global_opts[:megacli], :fake => @global_opts[:fake])
-
         case component
           when 'virtualdrive', 'vd'
-            a.virtualdrives.each do |virtualdrive|
+            @lsi.virtualdrives.each do |virtualdrive|
               print "#{virtualdrive}\n"
             end
           when 'physicaldrive', 'pd'
-            a.physicaldrives.each do |id,physicaldrive|
+            @lsi.physicaldrives.each do |id,physicaldrive|
               print "#{physicaldrive}\n"
             end
           else
@@ -95,23 +103,21 @@ module Elesai
 
       def run_check
 
-        a = LSIArray.new :debug => @global_opts[:debug]
-
         plugin_output = ""
         plugin_status = ""
 
-        a.physicaldrives.each do |id,physicaldrive|
-          drive_plugin_string = "[PD:#{physicaldrive.id}:#{physicaldrive.size}:#{physicaldrive.mediatype}:#{physicaldrive.pdtype}]"
-          unless physicaldrive.state == :online or physicaldrive.state == :hotspare
-            plugin_output += " #{drive_plugin_string}:#{physicaldrive.state}"
+        @lsi.physicaldrives.each do |id,physicaldrive|
+          drive_plugin_string = "[PD:#{physicaldrive._id}:#{physicaldrive[:size]}:#{physicaldrive[:mediatype]}:#{physicaldrive[:pdtype]}]"
+          unless physicaldrive[:firmwarestate].state == :online or physicaldrive[:firmwarestate].state == :hotspare
+            plugin_output += " #{drive_plugin_string}:#{physicaldrive[:firmwarestate].state}"
             plugin_status = :warning if plugin_status.empty?
           end
-          unless physicaldrive.mediaerrors == 0
-            plugin_output += " #{drive_plugin_string}:me:#{physicaldrive.mediaerrors}"
+          unless physicaldrive[:mediaerrorcount].to_i == 0
+            plugin_output += " #{drive_plugin_string}:me:#{physicaldrive[:mediaerrorcount]}"
             plugin_status = :warning if plugin_status.empty?
           end
-          unless physicaldrive.predictivefailure == 0
-            plugin_output += " #{drive_plugin_string}:pf:#{physicaldrive.predictivefailure}"
+          unless physicaldrive[:predictivefailurecount].to_i == 0
+            plugin_output += " #{drive_plugin_string}:pf:#{physicaldrive[:predictivefailurecount]}"
             plugin_status = :warning if plugin_status.empty?
           end
         end
