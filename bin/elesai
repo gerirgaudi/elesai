@@ -10,7 +10,6 @@ require 'elesai/cli'
 
 module Elesai
 
-  ME = :elesai
   ID = File.basename($PROGRAM_NAME).to_sym
 
   app = CLI.new(ARGV)
