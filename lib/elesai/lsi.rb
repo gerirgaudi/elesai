@@ -4,15 +4,15 @@ module Elesai
 
     attr_reader :adapters, :virtualdrives, :physicaldrives, :enclosures
 
-    def initialize
+    def initialize(opts)
       @adapters = []
       @virtualdrives = []
       @physicaldrives = {}
       @enclosures = []
       @spans = []
 
-      PDlist_aAll.new.parse!(self,MEGACLI_PDLIST_AALL_OUT)
-      LDPDinfo_aAll.new.parse!(self,MEGACLI_LDPDINFO_AALL_OUT)
+      PDlist_aAll.new.parse!(self,opts)
+      LDPDinfo_aAll.new.parse!(self,opts)
     end
 
     def add_adapter(a)

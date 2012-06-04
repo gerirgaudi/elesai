@@ -1,7 +1,7 @@
 require 'elesai/version'
+require 'elesai/logger'
 require 'elesai/lsi'
 require 'elesai/megacli'
-require 'elesai/sample_output'
 
 module Elesai
 end

@@ -1,19 +1,20 @@
 require 'workflow'
-require 'awesome_print'
+require 'open3'
 
 module Elesai
 
   class Megacli
 
+    include Workflow
+
     ADAPTER_RE = /^Adapter\s+#*(?<value>\d+)/
     VIRTUALDRIVE_RE = /^Virtual\s+Drive:\s+\d+\s+\((?<key>Target\s+Id):\s+(?<value>\d+)\)/
     SPAN_RE = /^Span:\s+(?<value>\d+)/
     PHYSICALDRIVE_RE = /^(?<key>Enclosure\s+Device\s+ID):\s+(?<value>\d+)/
+    ATTRIBUTE_RE = /^(?<key>[A-Za-z0-9()\s]+):(?<value>.*)/
     EXIT_RE = /^Exit Code: /
 
-    include Workflow
-
-    ### Helpers
+    ### Context
 
     class Context
 
@@ -21,26 +22,27 @@ module Elesai
         current_state.meta[:context] = { :stack => [], :adapter => nil, :virtualdrive => nil, :physicaldrive => nil }
         @context = current_state.meta[:context]
         @lsi = lsi
+        @log = Elesai::Logger.instance.log
       end
 
       def open(component)
-        puts "         * Open #{component.inspect}"
+        @log.debug "         * Open #{component.inspect}"
         @context[:stack].push(component)
         @context[component.type] = component
-        puts "           + context: #{@context[:stack]}"
+        @log.debug "           + context: #{@context[:stack]}"
       end
 
       def flash!(new_state)
         new_state.meta[:context] = @context
         @context = nil
         @context = new_state.meta[:context]
-        puts "         + Flash context: #{@context[:stack]}"
+        @log.debug "         + Flash context: #{@context[:stack]}"
       end
 
       def close
         component = @context[:stack].pop
         @context[component.type] = nil
-        puts "         * Close #{component.inspect}"
+        @log.debug "         * Close #{component.inspect}"
         if component.type_of? :physicaldrive
           pd = @lsi.add_physicaldrive(component)
           pd.add_adapter(adapter)
@@ -51,7 +53,7 @@ module Elesai
         elsif component.type_of? :adapter
           @lsi.add_adapter(component)
         end
-        puts "           + context: #{@context[:stack]}"
+        @log.debug "           + context: #{@context[:stack]}"
       end
 
       def current
@@ -77,40 +79,39 @@ module Elesai
     # Start
 
     def on_start_exit(new_state, event, *args)
-      puts "      [#{current_state}]: on_exit : #{event} -> #{new_state}; args: #{args}"
+      @log.debug "      [#{current_state}]: on_exit : #{event} -> #{new_state}; args: #{args}"
       @context = Context.new(current_state,@lsi)
     end
 
     # Adapter
 
     def adapter_line(adapter,key,value)
-      puts "  [#{current_state}] event adapter_line: new #{adapter.inspect}"
+      @log.debug "  [#{current_state}] event adapter_line: new #{adapter.inspect}"
       adapter[key.to_sym] = value.to_i
     end
 
     def on_adapter_entry(old_state, event, *args)
-      puts "        [#{current_state}] on_entry: leaving #{old_state}; args: #{args}"
+      @log.debug "        [#{current_state}] on_entry: leaving #{old_state}; args: #{args}"
 
       @context.close unless @context.current.nil? or @context.current.type_of? :adapter
-      adapter = args[0]
-      @context.open adapter
+      @context.open args[0]
 
     end
 
     def on_adapter_exit(new_state, event, *args)
-      puts "      [#{current_state}] on_exit: entering #{new_state}; args: #{args}"
+      @log.debug "      [#{current_state}] on_exit: entering #{new_state}; args: #{args}"
       @context.flash!(new_state)
     end
 
     # Virtual Drive
 
     def virtualdrive_line(virtualdrive,key,value)
-      puts "  [#{current_state}] event: virtualdrive_line: new #{virtualdrive.inspect}"
+      @log.debug "  [#{current_state}] event: virtualdrive_line: new #{virtualdrive.inspect}"
       virtualdrive[key.to_sym] = value.to_i
     end
 
     def on_virtualdrive_entry(old_state, event, *args)
-      puts "        [#{current_state}] on_entry: leaving #{old_state}; args: #{args}"
+      @log.debug "        [#{current_state}] on_entry: leaving #{old_state}; args: #{args}"
 
       unless @context.current.nil?
         if @context.current.type_of? :virtualdrive
@@ -122,35 +123,35 @@ module Elesai
     end
 
     def on_virtualdrive_exit(new_state, event, *args)
-      puts "      [#{current_state}] on_exit: entering #{new_state}; args: #{args}"
+      @log.debug "      [#{current_state}] on_exit: entering #{new_state}; args: #{args}"
       @context.flash!(new_state)
     end
 
     # Physical Drive
 
     def physicaldrive_line(physicaldrive,key,value)
-      puts "  [#{current_state}] event: physicaldrive_line: new #{physicaldrive.inspect}"
+      @log.debug "  [#{current_state}] event: physicaldrive_line: new #{physicaldrive.inspect}"
       physicaldrive[key.to_sym] = value.to_i
     end
 
     def on_physicaldrive_entry(old_state, event, *args)
-      puts "        [#{current_state}] on_entry: leaving #{old_state}; args: #{args}"
+      @log.debug "        [#{current_state}] on_entry: leaving #{old_state}; args: #{args}"
       @context.open args[0]
     end
 
     def on_physicaldrive_exit(new_state, event, *args)
-      puts "      [#{current_state}] on_exit: entering #{new_state}; args: #{args}"
+      @log.debug "      [#{current_state}] on_exit: entering #{new_state}; args: #{args}"
       @context.flash!(new_state)
     end
 
     # Attribute
 
     def attribute_line(key,value)
-      puts "  [#{current_state}] event: attribute_line: #{key} => #{value}"
+      @log.debug "  [#{current_state}] event: attribute_line: #{key} => #{value}"
     end
 
     def on_attribute_entry(old_state, event, *args)
-      puts "        [#{current_state}] entry: leaving #{old_state}; args: #{args}"
+      @log.debug "        [#{current_state}] entry: leaving #{old_state}; args: #{args}"
 
 
       c = @context.current
@@ -180,7 +181,7 @@ module Elesai
     end
 
     def on_attribute_exit(new_state, event, *args)
-      puts "      [#{current_state}] exit: entering #{new_state} throught event #{event}; args: #{args}"
+      @log.debug "      [#{current_state}] exit: entering #{new_state} throught event #{event}; args: #{args}"
       @context.close if @context.current.type_of? :physicaldrive and event != :attribute_line
 
       @context.flash!(new_state)
@@ -189,11 +190,11 @@ module Elesai
     # Exit
 
     def exit_line
-      puts "  [#{current_state}] event: exit_line"
+      @log.debug "  [#{current_state}] event: exit_line"
     end
 
     def on_exit_entry(new_state, event, *args)
-      puts "      [#{current_state}] exit: entering #{new_state} throught event #{event}; args: #{args}"
+      @log.debug "      [#{current_state}] exit: entering #{new_state} throught event #{event}; args: #{args}"
       until @context.current.nil? do
         @context.close
       end
@@ -204,6 +205,7 @@ module Elesai
     # Adapter
 
     def adapter_match(match)
+      @log.debug "ADAPTER! #{match.string}"
       key = 'id'
       value = match[:value]
       adapter_line!(LSIArray::Adapter.new,key,value)
@@ -212,6 +214,7 @@ module Elesai
     # Virtual Drive
 
     def virtualdrive_match(match)
+      @log.debug "VIRTUALDRIVE! #{match.string}"
       key = match[:key].gsub(/\s+/,"").downcase
       value = match[:value]
       virtualdrive_line!(LSIArray::VirtualDrive.new,key,value)
@@ -220,6 +223,7 @@ module Elesai
     # Physical Drive
 
     def physicaldrive_match(match)
+      @log.debug "PHYSICALDRIVE! #{match.string}"
       key = match[:key].gsub(/\s+/,"").downcase
       value = match[:value]
       physicaldrive_line!(LSIArray::PhysicalDrive.new,key,value)
@@ -227,41 +231,64 @@ module Elesai
 
     # Attribute
 
-    def attribute_match(line)
-      key,value = line.split(':',2)
-      attribute_line!(key.gsub(/\s+/,"").downcase,value.strip)
+    def attribute_match(match)
+      @log.debug "ATTRIBUTE! #{match.string}"
+      key = match[:key].gsub(/\s+/,"").downcase
+      value = match[:value].strip
+      attribute_line!(key,value)
     end
 
     # Exit
 
     def exit_match(match)
+      @log.debug "EXIT! #{match.string}"
       exit_line!
     end
 
     ### Parse!
 
-    def parse!(lsi,output)
+    def parse!(lsi,opts)
 
       @lsi = lsi
+      @log = Elesai::Logger.instance.log
+
+      if opts[:fake].start_with? '-'
+        megacli = opts[:megacli].nil? ? "Megacli" : opts[:megacli]
+        command = "#{megacli} #{opts[:fake]}"
+        output = Open3.popen3(command) do |stdin, stdout, stderr, wait_thr|
+          stdin.close
+          raise RuntimeError, stderr.gets.chomp unless wait_thr.value.exitstatus == 0
+          stdout.gets
+        end
+      else
+        output = File.read(opts[:fake])
+      end
 
       output.each_line do |line|
         line.strip!
         next if line == ''
 
-        if    line =~ ADAPTER_RE        then puts "ADAPTER! #{line}";       adapter_match(ADAPTER_RE.match(line))
-        elsif line =~ VIRTUALDRIVE_RE   then puts "VIRTUALDRIVE! #{line}";  virtualdrive_match(VIRTUALDRIVE_RE.match(line))
-        elsif line =~ PHYSICALDRIVE_RE  then puts "PHYSICALDRIVE! #{line}"; physicaldrive_match(PHYSICALDRIVE_RE.match(line))
-        elsif line =~ EXIT_RE           then puts "EXIT! #{line}";          exit_match(EXIT_RE.match(line))
-        else                                 puts "ATTRIBUTE! #{line}";     attribute_match(line)
+        case line
+          when ADAPTER_RE       then  adapter_match(ADAPTER_RE.match(line))
+          when VIRTUALDRIVE_RE  then  virtualdrive_match(VIRTUALDRIVE_RE.match(line))
+          when PHYSICALDRIVE_RE then  physicaldrive_match(PHYSICALDRIVE_RE.match(line))
+          when EXIT_RE          then  exit_match(EXIT_RE.match(line))
+          when ATTRIBUTE_RE     then  attribute_match(ATTRIBUTE_RE.match(line))
+          else raise StandardError, "cannot parse '#{line}'"
         end
 
-        print "\n\n"
+        @log.debug "\n\n"
       end
     end
 
   end
 
   class PDlist_aAll < Megacli
+
+    def parse!(lsi,opts)
+      fake = opts[:fake].nil? ? "-pdlist -aall" : File.join(opts[:fake],"pdlist_aall")
+      super lsi, :fake => fake, :megacli => opts[:megacli]
+    end
 
     workflow do
 
@@ -303,6 +330,12 @@ module Elesai
   end
 
   class LDPDinfo_aAll < Megacli
+
+    def parse!(lsi,opts)
+      fake = opts[:fake].nil? ? "-ldpdinfo -aall" : File.join(opts[:fake],"ldpdinfo_aall")
+      super lsi, :fake => fake, :megacli => opts[:megacli]
+    end
+
 
     workflow do
 

@@ -1,6 +1,7 @@
 require 'trollop'
 require 'senedsa'
 include Senedsa
+require 'log4r'
 
 module Elesai
 
@@ -15,18 +16,25 @@ module Elesai
       parse_command
       parse_arguments
 
-      if @global_opts[:debug]
-        $stderr.write " debug: global options: #{@global_opts.inspect}\n"
-        $stderr.write " debug: command: #{@command}\n"
-        $stderr.write " debug:   command options: #{@command_opts.inspect}\n"
-        $stderr.write " debug: arguments: #{@arguments.inspect}\n"
-      end
+      @log = Elesai::Logger.instance.log
+      @log.level = Log4r::INFO unless @global_opts[:debug]
+
+      @log.debug "global options: #{@global_opts.inspect}"
+      @log.debug "command: #{@command}; options #{@command_opts.inspect}"
+      @log.debug "arguments: #{@arguments.inspect}"
 
     end
 
     def run
-      run_show if @command == 'show'
-      run_check if @command == 'check'
+      begin
+        case @command
+          when 'show' then run_show
+          when 'check' then run_check
+        end
+      rescue => e
+        @log.error e.message
+        @log.debug e.backtrace
+      end
     end
 
     protected
@@ -35,6 +43,8 @@ module Elesai
         @global_opts = Trollop::options @argv do
           banner "megacli grokking utility"
           opt :debug, "Enable debug mode", :short => "-d"
+          opt :fake, "Directory with fake Megacli output", :type => :string
+          opt :megacli, "Path to Megacli binary", :type => :string, :default => "Megacli"
           stop_on COMMANDS
         end
       end
@@ -67,7 +77,7 @@ module Elesai
         raise ArgumentError, "missing component" if @arguments.size == 0
         component = @arguments[0]
 
-        a = LSIArray.new
+        a = LSIArray.new(:megacli => @global_opts[:megacli], :fake => @global_opts[:fake])
 
         case component
           when 'virtualdrive', 'vd'
@@ -84,7 +94,7 @@ module Elesai
 
       def run_check
 
-        a = LSIArray.new
+        a = LSIArray.new :debug => @global_opts[:debug]
 
         plugin_output = ""
         plugin_status = ""
