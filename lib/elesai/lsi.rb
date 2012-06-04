@@ -1,44 +1,31 @@
-require 'ostruct'
-
 module Elesai
 
   class LSIArray
 
     attr_reader :adapters, :virtualdrives, :physicaldrives, :enclosures
 
-    def initialize
+    def initialize(opts)
       @adapters = []
       @virtualdrives = []
       @physicaldrives = {}
       @enclosures = []
-      megacli = MegaCli::Command.new(:megacli_pdinfo_aall,self)
-      megacli.run
-      megacli = MegaCli::Command.new(:megacli_ldpdinfo_aall,self)
-      megacli.run
+      @spans = []
+
+      PDlist_aAll.new.parse!(self,opts)
+      LDPDinfo_aAll.new.parse!(self,opts)
     end
 
-    def create_adapter(id)
-      Adapter.new(id)
+    def add_adapter(a)
+      @adapters[a[:id]] = a if @adapters[a[:id]].nil?
     end
 
-    def add_adapter(adapter)
-      @adapters[adapter.id] = adapter
+    def add_virtualdrive(vd)
+      @virtualdrives.push(vd)
     end
 
-    def create_virtualdrive(id)
-      VirtualDrive.new(id)
-    end
-
-    def add_virtualdrive(virtualdrive)
-      @virtualdrives.push(virtualdrive)
-    end
-
-    def create_physicaldrive
-      PhysicalDrive.new
-    end
-
-    def add_physicaldrive(physicaldrive)
-      @physicaldrives[physicaldrive.id] = physicaldrive
+    def add_physicaldrive(pd)
+      @physicaldrives[pd._id] = pd if @physicaldrives[pd._id].nil?
+      @physicaldrives[pd._id]
     end
 
     def to_s
@@ -55,22 +42,41 @@ module Elesai
       lsiarrayout
     end
 
-    class Adapter
+    ### Adapter
 
-      attr_reader :id
-      attr_accessor :virtualdrives, :physicaldrives, :rawattributes
+    class Adapter < Hash
 
-      def initialize(id)
-        @id = id
-        @rawattributes = {}
-        @lsiarray = nil
-        @virtualdrives = []
-        @physicaldrives = []
+      def initialize
+        self[:virtualdrives] = []
+        self[:physicaldrives] = {}
+        super
+      end
+
+      def _id
+        "#{self[:id]}"
+      end
+
+      def type
+        :adapter
+      end
+
+      def type_of?(type)
+        self.type == type
+      end
+
+      def inspect
+        "#{self.class}:#{self.__id__}"
+      end
+
+      def add_physicaldrive(pd)
+        self[:physicaldrives][pd._id] = pd unless self[:physicaldrives][pd._id].nil?
       end
 
     end
 
-    class VirtualDrive
+    ### Virtual Drive
+
+    class VirtualDrive < Hash
 
       STATES = {
           :optimal              => 'Optimal',
@@ -80,33 +86,46 @@ module Elesai
           :offline              => 'Offline'
       }
 
-      attr_reader :id
-      attr_accessor :rawattributes, :raidlevel, :size, :state, :physicaldrives
-
-      def initialize(id)
-        @id = id
-        @rawattributes = {}
-        @physicaldrives = {}
-        @_raidlevel = OpenStruct.new
+      class Size < Struct.new(:number, :unit)
+        def to_s ; "%8.2f%s" % [self.number,self.unit] end
+      end
+      class RaidLevel < Struct.new(:primary, :secondary)
+        def to_s ; "raid%s:raid%s" % [self.primary,self.secondary] end
       end
 
-      def raidlevel
-        [@_raidlevel.primary,@_raidlevel.secondary]
+      def initialize
+        self[:physicaldrives] = []
       end
 
-      def raidlevel=raidlevel
-        raise "raid level must be [primary,secondary]" unless raidlevel.size == 2
-        @_raidlevel.primary = raidlevel[0].to_i
-        @_raidlevel.secondary = raidlevel[1].to_i
+      def _id
+        self[:targetid]
+      end
+
+      def type
+        :virtualdrive
+      end
+
+      def type_of?(type)
+        self.type == type
+      end
+
+      def inspect
+        "#{self.class}:#{self.__id__}"
+      end
+
+      def add_physicaldrive(pd)
+
       end
 
       def to_s
-        "[VD] %4s %18s %7.2f %s %d" % [ @id, @state, @size, self.raidlevel, @physicaldrives.size ]
+        "[VD] %4s %18s %s %s %d" % [ self._id, self[:state], self[:size], self[:raidlevel], self[:physicaldrives].size ]
       end
 
     end
 
-    class PhysicalDrive
+    ### Physical Drive
+
+    class PhysicalDrive < Hash
 
       STATES = {
           :online               => 'Online',
@@ -120,61 +139,64 @@ module Elesai
       }
 
       SPINS = {
-          :spun_up               => 'Spun up'
+          :spun_up              => 'Spun up'
       }
 
-      # Physical drives are keyed by :id -> e<enclosure>s<slot>
-
-      attr_accessor :id, :rawattributes, :deviceid, :size, :state, :slot, :mediaerrors, :predictivefailure, :inquirydata, :mediatype, :virtualdrives, :target, :enclosure, :spin, :pdtype
+      class Size < Struct.new(:number, :unit)
+        def to_s ; "%8.2f%s" % [self.number,self.unit] end
+      end
+      class FirmwareState < Struct.new(:state, :spin)
+        def to_s
+          "#{self.state}:#{self.spin}"
+        end
+      end
 
       def initialize
-        @id = nil
-        @target = nil
-        @rawattributes = {}
-        @deviceid = nil
-        @_size = OpenStruct.new
-        @state = nil
-        @spin = nil
-        @slot = nil
-        @enclosure = nil
-        @mediaerrors = nil
-        @predictivefailure = nil
-        @inquirydata = nil
-        @mediatype = nil
-        @pdtype = nil
-        @virtualdrives = []
+        self[:_adapter] = nil
+        self[:_virtualdrives] = []
       end
 
-      def deviceid
-        @deviceid
+      def _id
+        "e#{self[:enclosuredeviceid].to_s}s#{self[:slotnumber].to_s}".to_sym
       end
 
-      def deviceid=(deviceid)
-        @deviceid = deviceid
+      def type
+        :physicaldrive
       end
 
-      def id
-        "e#{@enclosure.to_s}s#{@slot.to_s}".to_sym
-      end
-
-      def ==(anotherphysicaldrive)
-        self.id == anotherphysicaldrive.id
-      end
-
-      def size=size
-        raise "size must be specified as [number,unit]" unless size.size == 2
-        @_size.number = size[0].to_f
-        @_size.unit = size[1].to_s
-      end
-
-      def size
-        "%.2f%s" % [@_size.number,@_size.unit]
+      def type_of?(type)
+        self.type == type
       end
 
       def to_s
-        "[PD] %8s %4s %19s %8.2f%s %5s %5s %3d %3d   %s" % [ self.id, @deviceid, "#{@state}:#{@spin}", @_size.number, @_size.unit, @mediatype, @pdtype, @mediaerrors, @predictivefailure, @inquirydata  ]
+        keys = [:deviceid, :firmwarestate, :coercedsize, :mediatype, :pdtype, :mediaerrorcount, :predictivefailurecount,:inquirydata]
+        #"[PD] %8s %4s %19s %8.2f%s %5s %5s %3d %3d   %s" % [ self.id, @deviceid, "#{@state}:#{@spin}", @_size.number, @_size.unit, @mediatype, @pdtype, @mediaerrors, @predictivefailure, @inquirydata  ]
+        "[PD] %8s %4s %19s %s %5s %5s %3d %3d  a%s  %s" % [ self._id, self[:deviceid], self[:firmwarestate], self[:coercedsize], self[:mediatype], self[:pdtype], self[:mediaerrorcount], self[:predictivefailurecount], self[:_adapter]._id, self[:inquirydata] ]
       end
 
+      def inspect
+        "#{self.class}:#{self.__id__}"
+      end
+
+      def add_adapter(a)
+        self[:_adapter] = a
+      end
+
+      def get_adapter
+        self[:_adapter]
+      end
+
+      def add_virtualdrive(vd)
+         self[:_virtualdrives][vd._id] = vd if self[:_virtualdrives][vd._id].nil?
+      end
+
+      def get_virtualdrive(vd_id)
+        self[:_virtualdrives][vd_id]
+      end
+
+      def get_virtualdrives
+        self[:_virtualdrives]
+      end
     end
   end
 end
