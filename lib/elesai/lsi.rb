@@ -129,11 +129,11 @@ module Elesai
 
       STATES = {
           :online               => 'Online',
-          :unconfigured_good    => 'Unconfigured Good',
+          :unconfigured_good    => 'Unconfigured(good)',
           :hotspare             => 'Hotspare',
           :failed               => 'Failed',
           :rebuild              => 'Rebuild',
-          :unconfigured_bad     => 'Unconfigured Bad',
+          :unconfigured_bad     => 'Unconfigured(bad)',
           :missing              => 'Missing',
           :offline              => 'Offline'
       }
