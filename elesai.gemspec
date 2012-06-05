@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.5"
 
   s.add_dependency('log4r', '>= 1.1.9')
-  s.add_dependency('senedsa', '>= 0.1.0')
+  s.add_dependency('senedsa', '>= 0.2.0')
 
   s.files        = Dir['lib/**/*.rb'] + Dir['bin/*'] + %w(LICENSE README.md)
   s.executables  = %w(elesai check_elesai)

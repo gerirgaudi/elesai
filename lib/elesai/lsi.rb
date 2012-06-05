@@ -15,7 +15,6 @@ module Elesai
         when :pd,:physicaldrive
           PDlist_aAll.new.parse!(self,opts)
         when :vd, :virtualdrive
-          puts "vd!"
           LDPDinfo_aAll.new.parse!(self,opts)
         else
           PDlist_aAll.new.parse!(self,opts)
