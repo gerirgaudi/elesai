@@ -168,8 +168,10 @@ module Elesai
           m = /Primary-(?<primary>\d+),\s+Secondary-(?<secondary>\d+)/.match(v)
           v = LSIArray::VirtualDrive::RaidLevel.new(m[:primary],m[:secondary])
         when :firmwarestate
-          state,spin = v.gsub(/\s/,'').split(/,/)
-          v = LSIArray::PhysicalDrive::FirmwareState.new(state.gsub(/\s/,'_').downcase.to_sym,spin.gsub(/\s/,'_').downcase.to_sym)
+          st,sp = v.gsub(/\s/,'').split(/,/)
+          state = st.gsub(/\s/,'_').downcase.to_sym
+          spin = sp.gsub(/\s/,'_').downcase.to_sym unless sp.nil?
+          v = LSIArray::PhysicalDrive::FirmwareState.new(state,spin)
         when :state
           v = v.gsub(/\s/,'_').downcase.to_sym
         when :mediatype
@@ -252,16 +254,20 @@ module Elesai
       @lsi = lsi
       @log = Elesai::Logger.instance.log
 
-      if opts[:fake].start_with? '-'
-        megacli = opts[:megacli].nil? ? "Megacli" : opts[:megacli]
-        command = "#{megacli} #{opts[:fake]}"
-        output = Open3.popen3(command) do |stdin, stdout, stderr, wait_thr|
-          stdin.close
-          raise RuntimeError, stderr.gets.chomp unless wait_thr.value.exitstatus == 0
-          stdout.gets
+      if STDIN.tty?
+        if opts[:fake].start_with? '-'
+          megacli = opts[:megacli].nil? ? "Megacli" : opts[:megacli]
+          command = "#{megacli} #{opts[:fake]}"
+          output = Open3.popen3(command) do |stdin, stdout, stderr, wait_thr|
+            stdin.close
+            raise RuntimeError, stderr.gets.chomp unless wait_thr.value.exitstatus == 0
+            stdout.gets
+          end
+        else
+          output = File.read(opts[:fake])
         end
       else
-        output = File.read(opts[:fake])
+        output = STDIN.read
       end
 
       output.each_line do |line|
