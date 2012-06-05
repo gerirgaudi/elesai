@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
   s.authors                   = "Gerardo López-Fernádez"
   s.email                     = 'gerir@evernote.com'
   s.homepage                  = 'https://github.com/evernote/ops-elesai'
-  s.summary                   = "Utility and library wrapper for Nagios send_nsca utility"
-  s.description               = "Senedsa is a small utility and library wrapper for the Nagios send_nsca."
+  s.summary                   = "Wrapper for LSI's MegaCli utility"
+  s.description               = "Elesai is a wrapper around LSI's MegaCli utility that provides access to common types of information about the RAID controllers. It also has Nagios plugin personalities"
   s.license                   = "Apache License, Version 2.0"
   s.required_rubygems_version = ">= 1.3.5"
 

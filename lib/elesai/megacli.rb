@@ -257,7 +257,7 @@ module Elesai
       if STDIN.tty?
         if opts[:fake].start_with? '-'
           megacli = opts[:megacli].nil? ? "Megacli" : opts[:megacli]
-          command = "#{megacli} #{opts[:fake]}"
+          command = "#{megacli} #{opts[:fake]} -nolog"
           output = Open3.popen3(command) do |stdin, stdout, stderr, wait_thr|
             stdin.close
             raise RuntimeError, stderr.gets.chomp unless wait_thr.value.exitstatus == 0

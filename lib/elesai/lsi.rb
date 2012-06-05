@@ -14,7 +14,7 @@ module Elesai
       case opts[:hint]
         when :pd,:physicaldrive
           PDlist_aAll.new.parse!(self,opts)
-        when :vd, :virtualdrive
+        when :vd,:virtualdrive
           LDPDinfo_aAll.new.parse!(self,opts)
         else
           PDlist_aAll.new.parse!(self,opts)
