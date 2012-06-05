@@ -11,8 +11,16 @@ module Elesai
       @enclosures = []
       @spans = []
 
-      PDlist_aAll.new.parse!(self,opts)
-      LDPDinfo_aAll.new.parse!(self,opts)
+      case opts[:hint]
+        when :pd,:physicaldrive
+          PDlist_aAll.new.parse!(self,opts)
+        when :vd, :virtualdrive
+          puts "vd!"
+          LDPDinfo_aAll.new.parse!(self,opts)
+        else
+          PDlist_aAll.new.parse!(self,opts)
+          LDPDinfo_aAll.new.parse!(self,opts)
+      end
     end
 
     def add_adapter(a)
