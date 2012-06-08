@@ -18,7 +18,8 @@ Gem::Specification.new do |s|
   s.license                   = "Apache License, Version 2.0"
   s.required_rubygems_version = ">= 1.3.5"
 
-  s.add_dependency('log4r', '>= 1.1.9')
+  s.add_dependency('workflow')
+  s.add_dependency('log4r')
   s.add_dependency('senedsa', '>= 0.2.0')
 
   s.files        = Dir['lib/**/*.rb'] + Dir['bin/*'] + %w(LICENSE README.md)
