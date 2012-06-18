@@ -72,10 +72,3 @@ Pipe output to `elesai`:
 	[PD]   e253s5   29       online:spunup     1.82TB   HDD  SATA   0   0  a0  9WM7L834ST32000644NS SN12
 	[PD]   e253s6   31  unconfigured(bad):     0.00KB   HDD   SAS   0   0  a0  SEAGATE ST33000650SS 0003Z29182VM
 	[PD]   e253s7   32  unconfigured(bad):     0.00KB   HDD   SAS   0   0  a0  SEAGATE ST33000650SS 0003Z291A3QV
-    
-# STATUS
-
-Very much in progress. The tool does not yet poke MegaCli itself.
-
-
-
