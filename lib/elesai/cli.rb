@@ -1,4 +1,5 @@
 require 'optparse'
+require 'syslog'
 require 'senedsa'
 include Senedsa
 require 'elesai/version'
@@ -16,7 +17,7 @@ module Elesai
       @arguments = arguments
 
       @global_options = { :debug => false, :megacli => 'MegaCli' }
-      @action_options = { :monitor => 'nagios', :mode => 'active' }
+      @action_options = { :monitor => :nagios, :mode => :active }
       @action = nil
     end
 
@@ -171,19 +172,17 @@ module Elesai
         plugin_status = :ok if plugin_status.empty?
 
         case @action_options[:monitor]
-          when 'nagios'
+          when :nagios
             case @action_options[:mode]
-              when 'active'
+              when :active
                 puts "#{plugin_status}: #{plugin_output}"
                 exit SendNsca::STATUS[plugin_status]
-              when 'passive'
-                sn = SendNsca.new Socket.gethostname,'raid/lsi'
-                sn.nsca_hostname = @command_opts[:nsca_hostname]
+              when :passive
+                sn = SendNsca.new @action_options
                 begin
                   sn.send plugin_status , plugin_output
                 rescue SendNsca::SendNscaError => e
-                  $stderr.write "#{ME}: error: send_nsca failed: #{e.message}\n"
-                  exit
+                  output_message "send_nsca failed: #{e.message}", 1
                 end
             end
         end
@@ -191,7 +190,8 @@ module Elesai
 
       def output_message(message, exitstatus=nil)
         m = (! exitstatus.nil? and exitstatus > 0) ? "%s: error: %s" % [ID, message] : message
-        $stderr.write "#{m}\n"
+        Syslog.open("elesai", Syslog::LOG_PID | Syslog::LOG_CONS) { |s| s.err "error: #{message}" } unless @global_options[:debug] or  STDIN.tty?
+        $stderr.write "#{m}\n" if STDIN.tty?
         exit exitstatus unless exitstatus.nil?
       end
 
