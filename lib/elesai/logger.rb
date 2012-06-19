@@ -14,7 +14,5 @@ module Elesai
       @log.add Log4r::StderrOutputter.new('console', :formatter => Log4r::PatternFormatter.new(:pattern => "%c [%l] %m"), :level => Log4r::DEBUG)
     end
 
-
-
   end
 end

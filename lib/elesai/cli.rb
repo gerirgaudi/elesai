@@ -1,4 +1,5 @@
 require 'optparse'
+require 'syslog'
 require 'senedsa'
 include Senedsa
 require 'elesai/version'
@@ -16,7 +17,7 @@ module Elesai
       @arguments = arguments
 
       @global_options = { :debug => false, :megacli => 'MegaCli' }
-      @action_options = { :monitor => 'nagios', :mode => 'active' }
+      @action_options = { :monitor => :nagios, :mode => :active }
       @action = nil
     end
 
@@ -80,6 +81,7 @@ module Elesai
         output_message opts, 0 if @arguments.size == 0 or @global_options[:HELP]
 
         @action = ARGV.shift.to_sym
+        raise OptionParser::InvalidArgument, "invalid action #@action" if actions[@action].nil?
         actions[@action].order!
       end
 
@@ -101,8 +103,8 @@ module Elesai
       def options_valid?
         case @action
           when :check
-            raise OptionParser::MissingArgument, "NSCA hostname (-H) must be specified" if @action_options[:nsca_hostname].nil?
-            raise OptionParser::MissingArgument, "service description (-S) must be specified" if @action_options[:svc_descr].nil?
+            raise OptionParser::MissingArgument, "NSCA hostname (-H) must be specified" if @action_options[:nsca_hostname].nil? and @action_options[:mode] == 'passive'
+            raise OptionParser::MissingArgument, "service description (-S) must be specified" if @action_options[:svc_descr].nil? and @action_options[:mode] == 'passive'
         end
       end
 
@@ -166,23 +168,21 @@ module Elesai
           end
         end
 
-        plugin_output = "no RAID subsystems errors found" if plugin_output.empty? and plugin_status.empty?
+        plugin_output = "no LSI RAID errors found" if plugin_output.empty? and plugin_status.empty?
         plugin_status = :ok if plugin_status.empty?
 
         case @action_options[:monitor]
-          when 'nagios'
+          when :nagios
             case @action_options[:mode]
-              when 'active'
+              when :active
                 puts "#{plugin_status}: #{plugin_output}"
                 exit SendNsca::STATUS[plugin_status]
-              when 'passive'
-                sn = SendNsca.new Socket.gethostname,'raid/lsi'
-                sn.nsca_hostname = @command_opts[:nsca_hostname]
+              when :passive
+                sn = SendNsca.new @action_options
                 begin
                   sn.send plugin_status , plugin_output
                 rescue SendNsca::SendNscaError => e
-                  $stderr.write "#{ME}: error: send_nsca failed: #{e.message}\n"
-                  exit
+                  output_message "send_nsca failed: #{e.message}", 1
                 end
             end
         end
@@ -190,7 +190,8 @@ module Elesai
 
       def output_message(message, exitstatus=nil)
         m = (! exitstatus.nil? and exitstatus > 0) ? "%s: error: %s" % [ID, message] : message
-        $stderr.write "#{m}\n"
+        Syslog.open("elesai", Syslog::LOG_PID | Syslog::LOG_CONS) { |s| s.err "error: #{message}" } unless @global_options[:debug] or  STDIN.tty?
+        $stderr.write "#{m}\n" if STDIN.tty?
         exit exitstatus unless exitstatus.nil?
       end
 
