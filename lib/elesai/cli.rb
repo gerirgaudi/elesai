@@ -34,7 +34,7 @@ module Elesai
         process_arguments
         process_command
 
-      rescue ArgumentError, OptionParser::MissingArgument, Senedsa::SendNsca::ConfigurationError => e
+      rescue => e #ArgumentError, OptionParser::MissingArgument, Senedsa::SendNsca::ConfigurationError => e
         output_message e.message, 1
       end
     end
@@ -42,52 +42,49 @@ module Elesai
     protected
 
       def parsed_options?
-        begin
-          opts = OptionParser.new
+        opts = OptionParser.new
 
-          opts.banner = "Usage: #{ID} [options] <action> [options]"
-          opts.separator ""
-          opts.separator "Actions:"
-          opts.separator "    show                             Displays component information"
-          opts.separator "    check                            Performs health checks"
-          opts.separator ""
-          opts.separator "General options:"
-          opts.on('-m', '--megacli MEGACLI',                String,              "Path to MegaCli binary")                             { |megacli| @global_options[:megacli] = megacli }
-          opts.on('-f', '--fake DIRECTORY',                 String,              "Path to directory with Megacli output")              { |dir| @global_options[:fake] = dir }
-          opts.on('-d', '--debug',                                               "Enable debug mode")                                  { @global_options[:debug] = true}
-          opts.on('-a', '--about',                                               "Display #{ID} information")                          { output_message ABOUT, 0 }
-          opts.on('-V', '--version',                                             "Display #{ID} version")                              { output_message VERSION, 0 }
-          opts.on_tail('--help',                                                 "Show this message")                                  { output_message opts 0 }
+        opts.banner = "Usage: #{ID} [options] <action> [options]"
+        opts.separator ""
+        opts.separator "Actions:"
+        opts.separator "    show                             Displays component information"
+        opts.separator "    check                            Performs health checks"
+        opts.separator ""
+        opts.separator "General options:"
+        opts.on('-m', '--megacli MEGACLI',                String,              "Path to MegaCli binary")                             { |megacli| @global_options[:megacli] = megacli }
+        opts.on('-f', '--fake DIRECTORY',                 String,              "Path to directory with Megacli output")              { |dir| @global_options[:fake] = dir }
+        opts.on('-d', '--debug',                                               "Enable debug mode")                                  { @global_options[:debug] = true}
+        opts.on('-a', '--about',                                               "Display #{ID} information")                          { output_message ABOUT, 0 }
+        opts.on('-V', '--version',                                             "Display #{ID} version")                              { output_message VERSION, 0 }
+        opts.on_tail('--help',                                                 "Show this message")                                  { @global_options[:HELP] = true }
 
-          output_message opts, 0 if @arguments.size == 0
+        actions = {
+            :show => OptionParser.new do |aopts|
+                aopts.banner = "Usage: #{ID} [options] show <component>"
+                aopts.separator ""
+                aopts.separator "      <component> is physicaldisk|pd, virtualdisk|vd"
+              end,
+            :check => OptionParser.new do |aopts|
+                aopts.banner = "Usage: #{ID} [options] check [check_options]"
+                aopts.separator ""
+                aopts.separator "Check Options"
+                aopts.on('-M', '--monitor [nagios]',            [:nagios],            "Monitoring system")                                 { |monitor| @action_options[:monitor] = monitor }
+                aopts.on('-m', '--mode [active|passive]',       [:active, :passive],  "Monitoring mode")                                   { |mode| @action_options[:mode] = mode }
+                aopts.on('-H', '--nsca_hostname HOSTNAME',      String,               "NSCA hostname to send passive checks")              { |nsca_hostname| @action_options[:nsca_hostame] = nsca_hostname }
+                aopts.on('-c', '--config CONFIG',               String,               "Path to Senedsa (send_nsca) configuration" )        { |config| @action_options[:senedsa_config] = config }
+                aopts.on('-S', '--svc_descr SVC_DESR',          String,               "Nagios service description")                        { |svc_descr| @action_options[:svc_descr] = svc_descr }
+              end
+            }
 
-          actions = {
-              :show => OptionParser.new do |aopts|
-                  aopts.banner = "Usage: #{ID} [options] show <component>"
-                  aopts.separator ""
-                  aopts.separator "      <component> is physicaldisk|pd, virtualdisk|vd"
-                end,
-              :check => OptionParser.new do |aopts|
-                  aopts.banner = "Usage: #{ID} [options] check [check_options]"
-                  aopts.separator ""
-                  aopts.separator "Check Options"
-                  aopts.on('-M', '--monitor [nagios]',            [:nagios],            "Monitoring system")                                 { |monitor| @action_options[:monitor] = monitor }
-                  aopts.on('-m', '--mode [active|passive]',       [:active, :passive],  "Monitoring mode")                                   { |mode| @action_options[:mode] = mode }
-                  aopts.on('-H', '--nsca_hostname HOSTNAME',      String,               "NSCA hostname to send passive checks")              { |nsca_hostname| @action_options[:nsca_hostame] = nsca_hostname }
-                  aopts.on('-c', '--config CONFIG',               String,               "Path to Senedsa (send_nsca) configuration" )        { |config| @action_options[:senedsa_config] = config }
-                  aopts.on('-S', '--svc_descr SVC_DESR',          String,               "Nagios service description")                        { |svc_descr| @action_options[:svc_descr] = svc_descr }
-                end
-              }
+        opts.order!
+        output_message opts, 0 if @arguments.size == 0 or @global_options[:HELP]
 
-          opts.order!
-          @action = ARGV.shift.to_sym
-          actions[@action].order!
-        rescue => e
-          output_message e.message, 1
-        end
+        @action = ARGV.shift.to_sym
+        actions[@action].order!
       end
 
       def config_options?
+        cfg_file = nil
         cfg_file = @action_options[:senedsa_config] unless @action_options[:senedsa_config].nil?
         cfg_file = DEFAULT_CONFIG_FILE if @action_options[:senedsa_config].nil? and File.readable? DEFAULT_CONFIG_FILE
 
@@ -114,12 +111,13 @@ module Elesai
       end
 
       def process_arguments
+        @action_options[:hint] = @arguments[0].nil? ? nil : @arguments[0].to_sym
         true
       end
 
       def process_command
 
-        @lsi = LSIArray.new(:megacli => @global_options[:megacli], :fake => @global_options[:fake])
+        @lsi = LSIArray.new(:megacli => @global_options[:megacli], :fake => @global_options[:fake], :hint => @action_options[:hint])
 
         case @action
           when :show then run_show

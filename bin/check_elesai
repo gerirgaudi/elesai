@@ -1,1 +1,18 @@
-elesai
+#!/usr/bin/env ruby
+
+lib = File.expand_path(File.dirname(__FILE__) + '/../lib')
+$LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
+
+require 'socket'
+require 'rubygems'
+require 'elesai'
+require 'elesai/cli'
+
+module Elesai
+
+  ID = File.basename($PROGRAM_NAME).to_sym
+
+  app = CLI.new(ARGV)
+  app.run
+
+end
