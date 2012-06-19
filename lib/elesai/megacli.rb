@@ -253,16 +253,14 @@ module Elesai
 
       @lsi = lsi
       @log = Elesai::Logger.instance.log
+      output = nil
 
       if STDIN.tty?
         if opts[:fake].start_with? '-'
           megacli = opts[:megacli].nil? ? "Megacli" : opts[:megacli]
           command = "#{megacli} #{opts[:fake]} -nolog"
-          output = Open3.popen3(command) do |stdin, stdout, stderr, wait_thr|
-            stdin.close
-            raise RuntimeError, stderr.gets.chomp unless wait_thr.value.exitstatus == 0
-            stdout.gets
-          end
+          output, stderr_str, status = Open3.capture3(command)
+          raise RuntimeError, stderr_str unless status.exitstatus == 0
         else
           output = File.read(opts[:fake])
         end
