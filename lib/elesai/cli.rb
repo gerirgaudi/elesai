@@ -80,6 +80,7 @@ module Elesai
         output_message opts, 0 if @arguments.size == 0 or @global_options[:HELP]
 
         @action = ARGV.shift.to_sym
+        raise OptionParser::InvalidArgument, "invalid action #@action" if actions[@action].nil?
         actions[@action].order!
       end
 
@@ -101,8 +102,8 @@ module Elesai
       def options_valid?
         case @action
           when :check
-            raise OptionParser::MissingArgument, "NSCA hostname (-H) must be specified" if @action_options[:nsca_hostname].nil?
-            raise OptionParser::MissingArgument, "service description (-S) must be specified" if @action_options[:svc_descr].nil?
+            raise OptionParser::MissingArgument, "NSCA hostname (-H) must be specified" if @action_options[:nsca_hostname].nil? and @action_options[:mode] == 'passive'
+            raise OptionParser::MissingArgument, "service description (-S) must be specified" if @action_options[:svc_descr].nil? and @action_options[:mode] == 'passive'
         end
       end
 
@@ -166,7 +167,7 @@ module Elesai
           end
         end
 
-        plugin_output = "no RAID subsystems errors found" if plugin_output.empty? and plugin_status.empty?
+        plugin_output = "no LSI RAID errors found" if plugin_output.empty? and plugin_status.empty?
         plugin_status = :ok if plugin_status.empty?
 
         case @action_options[:monitor]

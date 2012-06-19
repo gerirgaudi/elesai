@@ -11,7 +11,7 @@ module Elesai
     VIRTUALDRIVE_RE = /^Virtual\s+Drive:\s+\d+\s+\((?<key>Target\s+Id):\s+(?<value>\d+)\)/
     SPAN_RE = /^Span:\s+(?<value>\d+)/
     PHYSICALDRIVE_RE = /^(?<key>Enclosure\s+Device\s+ID):\s+(?<value>\d+)/
-    ATTRIBUTE_RE = /^(?<key>[A-Za-z0-9()\s#]+):(?<value>.*)/
+    ATTRIBUTE_RE = /^(?<key>[A-Za-z0-9()\s#']+):(?<value>.*)/
     EXIT_RE = /^Exit Code: /
 
     ### Context
