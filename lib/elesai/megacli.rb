@@ -1,5 +1,6 @@
 require 'workflow'
 require 'open3'
+require 'io/wait'
 
 module Elesai
 
@@ -255,7 +256,9 @@ module Elesai
       @log = Elesai::Logger.instance.log
       output = nil
 
-      if STDIN.tty?
+      if STDIN.ready?
+        output = $stdin.read
+      else
         if opts[:fake].start_with? '-'
           megacli = opts[:megacli].nil? ? "Megacli" : opts[:megacli]
           command = "#{megacli} #{opts[:fake]} -nolog"
@@ -264,8 +267,6 @@ module Elesai
         else
           output = File.read(opts[:fake])
         end
-      else
-        output = STDIN.read
       end
 
       output.each_line do |line|
