@@ -1,5 +1,6 @@
 require 'optparse'
 require 'syslog'
+require 'io/wait'
 require 'senedsa'
 include Senedsa
 require 'elesai/version'
@@ -190,7 +191,7 @@ module Elesai
 
       def output_message(message, exitstatus=nil)
         m = (! exitstatus.nil? and exitstatus > 0) ? "%s: error: %s" % [ID, message] : message
-        Syslog.open("elesai", Syslog::LOG_PID | Syslog::LOG_CONS) { |s| s.err "error: #{message}" } unless @global_options[:debug] or  STDIN.tty?
+        Syslog.open("elesai", Syslog::LOG_PID | Syslog::LOG_CONS) { |s| s.err "error: #{message}" } unless @global_options[:debug]
         $stderr.write "#{m}\n" if STDIN.tty?
         exit exitstatus unless exitstatus.nil?
       end

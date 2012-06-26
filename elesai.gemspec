@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency('workflow')
   s.add_dependency('log4r')
-  s.add_dependency('senedsa', '>= 0.2.2')
+  s.add_dependency('senedsa', '>= 0.2.5')
 
   s.files        = Dir['lib/**/*.rb'] + Dir['bin/*'] + %w(LICENSE README.md)
   s.executables  = %w(elesai check_elesai)
