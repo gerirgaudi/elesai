@@ -37,7 +37,11 @@ module Elesai
         process_command
 
       rescue => e #ArgumentError, OptionParser::MissingArgument, Senedsa::SendNsca::ConfigurationError => e
-        output_message e.message, 1
+        if @global_options[:debug]
+          output_message "#{e.message}\n  #{e.backtrace.join("\n  ")}",1
+        else
+          output_message e.message,1
+        end
       end
     end
 
