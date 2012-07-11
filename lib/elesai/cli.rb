@@ -16,6 +16,7 @@ module Elesai
 
     def initialize(arguments)
       @arguments = arguments
+      @whoami = File.basename($PROGRAM_NAME).to_sym
 
       @global_options = { :debug => false, :megacli => 'MegaCli' }
       @action_options = { :monitor => :nagios, :mode => :active }
@@ -85,7 +86,7 @@ module Elesai
         opts.order!
         output_message opts, 0 if @arguments.size == 0 or @global_options[:HELP]
 
-        @action = ARGV.shift.to_sym
+        @action = @whoami == :check_lsi ? :check : @arguments.shift.to_sym
         raise OptionParser::InvalidArgument, "invalid action #@action" if actions[@action].nil?
         actions[@action].order!
       end
