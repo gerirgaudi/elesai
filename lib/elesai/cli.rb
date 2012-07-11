@@ -84,7 +84,7 @@ module Elesai
             }
 
         opts.order!
-        output_message opts, 0 if @arguments.size == 0 or @global_options[:HELP]
+        output_message opts, 0 if (@arguments.size == 0 and @whoami != :check_lsi) or @global_options[:HELP]
 
         @action = @whoami == :check_lsi ? :check : @arguments.shift.to_sym
         raise OptionParser::InvalidArgument, "invalid action #@action" if actions[@action].nil?
