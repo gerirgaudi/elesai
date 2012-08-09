@@ -16,6 +16,7 @@ module Elesai
 
     def initialize(arguments)
       @arguments = arguments
+      @whoami = File.basename($PROGRAM_NAME).to_sym
 
       @global_options = { :debug => false, :megacli => 'MegaCli' }
       @action_options = { :monitor => :nagios, :mode => :active }
@@ -37,7 +38,11 @@ module Elesai
         process_command
 
       rescue => e #ArgumentError, OptionParser::MissingArgument, Senedsa::SendNsca::ConfigurationError => e
-        output_message e.message, 1
+        if @global_options[:debug]
+          output_message "#{e.message}\n  #{e.backtrace.join("\n  ")}",1
+        else
+          output_message e.message,1
+        end
       end
     end
 
@@ -79,9 +84,9 @@ module Elesai
             }
 
         opts.order!
-        output_message opts, 0 if @arguments.size == 0 or @global_options[:HELP]
+        output_message opts, 0 if (@arguments.size == 0 and @whoami != :check_lsi) or @global_options[:HELP]
 
-        @action = ARGV.shift.to_sym
+        @action = @whoami == :check_lsi ? :check : @arguments.shift.to_sym
         raise OptionParser::InvalidArgument, "invalid action #@action" if actions[@action].nil?
         actions[@action].order!
       end
