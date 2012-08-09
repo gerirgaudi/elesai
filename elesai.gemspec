@@ -23,6 +23,6 @@ Gem::Specification.new do |s|
   s.add_dependency('senedsa', '>= 0.2.5')
 
   s.files        = Dir['lib/**/*.rb'] + Dir['bin/*'] + %w(LICENSE README.md)
-  s.executables  = %w(elesai check_elesai)
+  s.executables  = %w(elesai check_lsi)
   s.require_path = 'lib'
 end
