@@ -164,11 +164,11 @@ module Elesai
             plugin_output += " #{drive_plugin_string}:#{physicaldrive[:firmwarestate].state}"
             plugin_status = :warning if plugin_status.empty?
           end
-          unless physicaldrive[:mediaerrorcount].to_i == 0
+          unless physicaldrive[:mediaerrorcount].to_i < 10
             plugin_output += " #{drive_plugin_string}:me:#{physicaldrive[:mediaerrorcount]}"
             plugin_status = :warning if plugin_status.empty?
           end
-          unless physicaldrive[:predictivefailurecount].to_i == 0
+          unless physicaldrive[:predictivefailurecount].to_i < 5
             plugin_output += " #{drive_plugin_string}:pf:#{physicaldrive[:predictivefailurecount]}"
             plugin_status = :warning if plugin_status.empty?
           end
@@ -181,7 +181,7 @@ module Elesai
           when :nagios
             case @action_options[:mode]
               when :active
-                puts "#{plugin_status}: #{plugin_output}"
+                puts "#{plugin_status.to_s.upcase}: #{plugin_output}"
                 exit SendNsca::STATUS[plugin_status]
               when :passive
                 sn = SendNsca.new @action_options
