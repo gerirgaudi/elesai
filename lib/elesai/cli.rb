@@ -162,6 +162,7 @@ module Elesai
           drive_plugin_string = "[PD:#{physicaldrive._id}:#{physicaldrive[:size]}:#{physicaldrive[:mediatype]}:#{physicaldrive[:pdtype]}]"
           unless physicaldrive[:firmwarestate].state == :online or physicaldrive[:firmwarestate].state == :hotspare
             plugin_output += " #{drive_plugin_string}:#{physicaldrive[:firmwarestate].state}"
+            plugin_status = :critical if physicaldrive[:firmwarestate] == :failed
             plugin_status = :warning if plugin_status.empty?
           end
           unless physicaldrive[:mediaerrorcount].to_i < 10
@@ -174,14 +175,14 @@ module Elesai
           end
         end
 
-        plugin_output = "no LSI RAID errors found" if plugin_output.empty? and plugin_status.empty?
+        plugin_output = " no LSI RAID errors found" if plugin_output.empty? and plugin_status.empty?
         plugin_status = :ok if plugin_status.empty?
 
         case @action_options[:monitor]
           when :nagios
             case @action_options[:mode]
               when :active
-                puts "#{plugin_status.to_s.upcase}: #{plugin_output}"
+                puts "#{plugin_status.to_s.upcase}:#{plugin_output}"
                 exit SendNsca::STATUS[plugin_status]
               when :passive
                 sn = SendNsca.new @action_options
