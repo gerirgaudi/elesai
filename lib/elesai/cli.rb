@@ -141,6 +141,7 @@ module Elesai
 
         case component
           when 'virtualdrive', 'vd'
+            puts @lsi.virtualdrives.class
             @lsi.virtualdrives.each do |virtualdrive|
               print "#{virtualdrive}\n"
             end
@@ -175,7 +176,7 @@ module Elesai
           end
         end
 
-        @lsi.virtualdrives.each do |id,vd|
+        @lsi.virtualdrives.each do |vd|
           vd_plugin_string = "[VD:#{vd._id}]"
           unless vd[:state] == :optimal
             plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
