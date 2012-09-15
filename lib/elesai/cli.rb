@@ -166,12 +166,20 @@ module Elesai
             plugin_status = :warning if plugin_status.empty?
           end
           unless physicaldrive[:mediaerrorcount].to_i < 10
-            plugin_output += " #{drive_plugin_string}:me:#{physicaldrive[:mediaerrorcount]}"
+            plugin_output += " #{drive_plugin_string}:MediaError:#{physicaldrive[:mediaerrorcount]}"
             plugin_status = :warning if plugin_status.empty?
           end
           unless physicaldrive[:predictivefailurecount].to_i < 5
-            plugin_output += " #{drive_plugin_string}:pf:#{physicaldrive[:predictivefailurecount]}"
+            plugin_output += " #{drive_plugin_string}:PredictiveFailure:#{physicaldrive[:predictivefailurecount]}"
             plugin_status = :warning if plugin_status.empty?
+          end
+        end
+
+        @lsi.virtualdrives.each do |id,vd|
+          vd_plugin_string = "[VD:#{vd._id}]"
+          unless vd[:state] == :optimal
+            plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
+            plugin_status = :critical
           end
         end
 
