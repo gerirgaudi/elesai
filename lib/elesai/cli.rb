@@ -213,8 +213,3 @@ module Elesai
 
   end
 end
-
-
-
-
-

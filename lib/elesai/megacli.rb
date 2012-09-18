@@ -262,6 +262,7 @@ module Elesai
         if opts[:fake].start_with? '-'
           megacli = opts[:megacli].nil? ? "Megacli" : opts[:megacli]
           command = "#{megacli} #{opts[:fake]} -nolog"
+          command = Process.uid == 0 ? command : "sudo " << command
           output, stderr_str, status = Open3.capture3(command)
           raise RuntimeError, stderr_str unless status.exitstatus == 0
         else
