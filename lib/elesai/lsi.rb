@@ -2,7 +2,7 @@ module Elesai
 
   class LSIArray
 
-    attr_reader :adapters, :virtualdrives, :physicaldrives, :enclosures
+    attr_reader :adapters, :virtualdrives, :physicaldrives, :bbus, :enclosures
 
     def initialize(opts)
       @adapters = []
@@ -10,12 +10,15 @@ module Elesai
       @physicaldrives = {}
       @enclosures = []
       @spans = []
+      @bbus = []
 
       case opts[:hint]
         when :pd,:physicaldrive
           PDlist_aAll.new.parse!(self,opts)
         when :vd,:virtualdrive
           LDPDinfo_aAll.new.parse!(self,opts)
+        when :bbu
+          AdpBbuCmd_aAll.new.parse!(self,opts)
         else
           PDlist_aAll.new.parse!(self,opts)
           LDPDinfo_aAll.new.parse!(self,opts)
@@ -33,6 +36,10 @@ module Elesai
     def add_physicaldrive(pd)
       @physicaldrives[pd._id] = pd if @physicaldrives[pd._id].nil?
       @physicaldrives[pd._id]
+    end
+
+    def add_bbu(bbu)
+      @bbus.push(bbu)
     end
 
     def to_s
@@ -203,6 +210,42 @@ module Elesai
 
       def get_virtualdrives
         self[:_virtualdrives]
+      end
+    end
+
+    ### BBU
+
+    class BBU < Hash
+
+      class Stub < Hash
+        def inspect
+          "#{self.class}:#{self.__id__}"
+        end
+      end
+      class Status < Stub; end
+      class FirmwareStatus < Stub; end
+      class DesignInfo < Stub; end
+      class Properties < Stub; end
+      class CapacityInfo < Stub; end
+      class GasGaugeStatus < Stub; end
+
+      def initialize
+        self[:status] = Status.new
+        self[:firmwarestatus] = FirmwareStatus.new
+        self[:designinfo] = DesignInfo.new
+        self[:properties] = Properties.new
+        self[:capacityinfo] = CapacityInfo.new
+        self[:gasgaugestatus] = GasGaugeStatus.new
+        self[:capacityinfo][:absolutestateofcharge] = '-'
+      end
+
+      def inspect
+        "#{self.class}:#{self.__id__}"
+      end
+
+      def to_s
+        "[BBU] %-5s %-4s %-11s %3s:%s  %s:%s  %s:%s  %-4s  %s" % [self[:batterytype],self[:designinfo][:devicechemistry],self[:firmwarestatus][:chargingstatus],self[:firmwarestatus][:learncycleactive],self[:firmwarestatus][:learncyclestatus],self[:voltage].gsub(/\s/,''),self[:firmwarestatus][:voltage],self[:temperature].gsub(/\s/,''),self[:firmwarestatus][:temperature],self[:capacityinfo][:absolutestateofcharge].gsub(/\s/,''),self[:properties][:nextlearntime]]
+        #puts self[:firmwarestatus].keys
       end
     end
   end

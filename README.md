@@ -9,14 +9,18 @@
 where:
 
 * `<action>` is one of `show` or `check`
-* `<component>` is one of `virtualdrive` (or `vd`) or `physicaldrive` (or `pd`) (for `show` action)
+* `<component>` (for `show` action) is one of 
+	* `virtualdrive` (or `vd`)
+	* `physicaldrive` (or `pd`)
+	* `bbu` 
 
 Global options include:
 
 * `-d`, `--debug`: enable *debug* mode
 * `-f`, `--fake DIRECTORY`: specifies path to directory containing output of MegaCli invocations:
-	* `ldlist_aall`: output from `MegaCli -pdlist -aall`
-	* `ldpdinfo_aall`: output from `MegaCli -ldpdinfo -aall`
+	* `ldlist_aall`: output from `MegaCli -pdlist -aall -nolog`
+	* `ldpdinfo_aall`: output from `MegaCli -ldpdinfo -aall -nolog`
+	* `adpbbucmd_aall`: output from `MegaCli -adpcbucmd -aall -nolog`
 * `-m`, `--megacli MEGACLI`: path to `MegaCli` binary (if noth in `$PATH`)
 * `-a`, `--about`: display general information about `elesai`
 * `-V`, `--version`: display `elesai`'s version
@@ -29,7 +33,7 @@ The `<check>` can have options specific to itself:
 * `-c`, `--config CONFIG`:              Path to Senedsa (send_nsca) configuration
 * `-S`, `--svc_descr SVC_DESCR`:        Nagios service description
 
-*Elesai* uses [Senedsa](https://rubygems.org/gems/senedsa "Senedsa") for Nagios passive check submission, which can use a configuration file to set options.
+*Elesai* uses [Senedsa](https://rubygems.org/gems/senedsa "Senedsa") for Nagios passive check submission, which can use a configuration file to set options. Additionally, it will invoke `MegaCli` with `sudo` if not run by `root`.
 
 # Invocations
 

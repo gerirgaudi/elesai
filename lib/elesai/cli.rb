@@ -69,7 +69,7 @@ module Elesai
             :show => OptionParser.new do |aopts|
                 aopts.banner = "Usage: #{ID} [options] show <component>"
                 aopts.separator ""
-                aopts.separator "      <component> is physicaldisk|pd, virtualdisk|vd"
+                aopts.separator "      <component> is physicaldisk|pd, virtualdisk|vd, bbu"
               end,
             :check => OptionParser.new do |aopts|
                 aopts.banner = "Usage: #{ID} [options] check [check_options]"
@@ -148,6 +148,10 @@ module Elesai
             @lsi.physicaldrives.each do |id,physicaldrive|
               print "#{physicaldrive}\n"
             end
+          when 'bbu'
+            @lsi.bbus.each do |bbu|
+              print "#{bbu}\n"
+            end
           else
             raise ArgumentError, "invalid component #{component}"
         end
@@ -162,26 +166,35 @@ module Elesai
           drive_plugin_string = "[PD:#{physicaldrive._id}:#{physicaldrive[:size]}:#{physicaldrive[:mediatype]}:#{physicaldrive[:pdtype]}]"
           unless physicaldrive[:firmwarestate].state == :online or physicaldrive[:firmwarestate].state == :hotspare
             plugin_output += " #{drive_plugin_string}:#{physicaldrive[:firmwarestate].state}"
+            plugin_status = :critical if physicaldrive[:firmwarestate] == :failed
             plugin_status = :warning if plugin_status.empty?
           end
-          unless physicaldrive[:mediaerrorcount].to_i == 0
-            plugin_output += " #{drive_plugin_string}:me:#{physicaldrive[:mediaerrorcount]}"
+          unless physicaldrive[:mediaerrorcount].to_i < 10
+            plugin_output += " #{drive_plugin_string}:MediaError:#{physicaldrive[:mediaerrorcount]}"
             plugin_status = :warning if plugin_status.empty?
           end
-          unless physicaldrive[:predictivefailurecount].to_i == 0
-            plugin_output += " #{drive_plugin_string}:pf:#{physicaldrive[:predictivefailurecount]}"
+          unless physicaldrive[:predictivefailurecount].to_i < 5
+            plugin_output += " #{drive_plugin_string}:PredictiveFailure:#{physicaldrive[:predictivefailurecount]}"
             plugin_status = :warning if plugin_status.empty?
           end
         end
 
-        plugin_output = "no LSI RAID errors found" if plugin_output.empty? and plugin_status.empty?
+        @lsi.virtualdrives.each do |vd|
+          vd_plugin_string = "[VD:#{vd._id}]"
+          unless vd[:state] == :optimal
+            plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
+            plugin_status = :critical
+          end
+        end
+
+        plugin_output = " no LSI RAID errors found" if plugin_output.empty? and plugin_status.empty?
         plugin_status = :ok if plugin_status.empty?
 
         case @action_options[:monitor]
           when :nagios
             case @action_options[:mode]
               when :active
-                puts "#{plugin_status}: #{plugin_output}"
+                puts "#{plugin_status.to_s.upcase}:#{plugin_output}"
                 exit SendNsca::STATUS[plugin_status]
               when :passive
                 sn = SendNsca.new @action_options
@@ -203,8 +216,3 @@ module Elesai
 
   end
 end
-
-
-
-
-
