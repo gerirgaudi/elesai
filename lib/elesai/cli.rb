@@ -69,7 +69,7 @@ module Elesai
             :show => OptionParser.new do |aopts|
                 aopts.banner = "Usage: #{ID} [options] show <component>"
                 aopts.separator ""
-                aopts.separator "      <component> is physicaldisk|pd, virtualdisk|vd"
+                aopts.separator "      <component> is physicaldisk|pd, virtualdisk|vd, bbu"
               end,
             :check => OptionParser.new do |aopts|
                 aopts.banner = "Usage: #{ID} [options] check [check_options]"
@@ -141,13 +141,16 @@ module Elesai
 
         case component
           when 'virtualdrive', 'vd'
-            puts @lsi.virtualdrives.class
             @lsi.virtualdrives.each do |virtualdrive|
               print "#{virtualdrive}\n"
             end
           when 'physicaldrive', 'pd'
             @lsi.physicaldrives.each do |id,physicaldrive|
               print "#{physicaldrive}\n"
+            end
+          when 'bbu'
+            @lsi.bbus.each do |bbu|
+              print "#{bbu}\n"
             end
           else
             raise ArgumentError, "invalid component #{component}"
