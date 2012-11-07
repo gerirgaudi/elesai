@@ -11,7 +11,7 @@ module Elesai
   class CLI
 
     COMMANDS = %w(show check)
-    COMPONENTS = %w(virtualdrive vd physicaldrive pd)
+    COMPONENTS = %w(virtualdrive vd physicaldrive pd bbu)
     DEFAULT_CONFIG_FILE = File.join(ENV['HOME'],"/.senedsa/config")
 
     def initialize(arguments)
