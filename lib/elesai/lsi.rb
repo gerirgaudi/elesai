@@ -1,3 +1,5 @@
+require 'ap'
+
 module Elesai
 
   class LSIArray
@@ -22,6 +24,7 @@ module Elesai
         else
           PDlist_aAll.new.parse!(self,opts)
           LDPDinfo_aAll.new.parse!(self,opts)
+          AdpBbuCmd_aAll.new.parse!(self,opts)
       end
     end
 
@@ -217,6 +220,10 @@ module Elesai
 
     class BBU < Hash
 
+      class NumberUnit < Struct.new(:number, :unit)
+        def to_s ; "%d%s" % [self.number,self.unit] end
+      end
+
       class Stub < Hash
         def inspect
           "#{self.class}:#{self.__id__}"
@@ -239,12 +246,18 @@ module Elesai
         self[:capacityinfo][:absolutestateofcharge] = '-'
       end
 
+      def _id
+        self[:id]
+      end
+
       def inspect
         "#{self.class}:#{self.__id__}"
       end
 
       def to_s
-        "[BBU] %-5s %-4s %-11s %3s:%s  %s:%s  %s:%s  %-4s  %s" % [self[:batterytype],self[:designinfo][:devicechemistry],self[:firmwarestatus][:chargingstatus],self[:firmwarestatus][:learncycleactive],self[:firmwarestatus][:learncyclestatus],self[:voltage].gsub(/\s/,''),self[:firmwarestatus][:voltage],self[:temperature].gsub(/\s/,''),self[:firmwarestatus][:temperature],self[:capacityinfo][:absolutestateofcharge].gsub(/\s/,''),self[:properties][:nextlearntime]]
+        self[:capacityinfo][:absolutestateofcharge] = '-' unless self[:batterytype] == "iBBU"
+        self[:capacityinfo][:remainingcapacity] = '-' unless self[:batterytype] == "iBBU"
+        "[BBU] %s %-5s %-4s %-11s %3s:%-8s  %s:%s  %s:%s  %7s:%-4s  %s" % [self[:id],self[:batterytype],self[:designinfo][:devicechemistry],self[:firmwarestatus][:chargingstatus],self[:firmwarestatus][:learncycleactive],self[:firmwarestatus][:learncyclestatus],self[:voltage].gsub(/\s/,''),self[:firmwarestatus][:voltage],self[:temperature].gsub(/\s/,''),self[:firmwarestatus][:temperature],self[:capacityinfo][:remainingcapacity],self[:capacityinfo][:absolutestateofcharge],self[:properties][:nextlearntime]]
         #puts self[:firmwarestatus].keys
       end
     end

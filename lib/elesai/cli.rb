@@ -11,7 +11,7 @@ module Elesai
   class CLI
 
     COMMANDS = %w(show check)
-    COMPONENTS = %w(virtualdrive vd physicaldrive pd)
+    COMPONENTS = %w(virtualdrive vd physicaldrive pd bbu)
     DEFAULT_CONFIG_FILE = File.join(ENV['HOME'],"/.senedsa/config")
 
     def initialize(arguments)
@@ -184,6 +184,33 @@ module Elesai
           unless vd[:state] == :optimal
             plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
             plugin_status = :critical
+          end
+        end
+
+        @lsi.bbus.each do |bbu|
+          [:voltage, :temperature, :learncyclestatus].each do |attr|
+            unless bbu[:firmwarestatus][attr] == 'OK'
+              plugin_output += " [BBU:#{bbu._id}:#{attr}:#{bbu[:firmwarestatus][attr]}]"
+              plugin_status = :warning if plugin_status == ""
+            end
+          end
+          [:batterypackmissing, :batteryreplacementrequired].each do |attr|
+            unless bbu[:firmwarestatus][attr] == 'No'
+              plugin_output += " [BBU:#{attr}:#{bbu[:firmwarestatus][attr]}]"
+              plugin_status = :warning if plugin_status == ""
+            end
+          end
+
+          if bbu[:batterytype] == 'iBBU'
+            if bbu[:gasgaugestatus][:absolutestateofcharge].number <= 50
+              plugin_output += " [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
+              plugin_status = :warning if plugin_status == ""
+            end
+
+            if bbu[:capacityinfo][:remainingcapacity].number <= bbu[:capacityinfo][:remainingcapacityalarm].number
+              plugin_output += " [BBU:remainingcapacity:#{bbu[:capacityinfo][:remainingcapacityalarm]}]"
+              plugin_status = :warning if plugin_status == ""
+            end
           end
         end
 
