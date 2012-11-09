@@ -187,6 +187,33 @@ module Elesai
           end
         end
 
+        @lsi.bbus.each do |bbu|
+          [:voltage, :temperature, :learncyclestatus].each do |attr|
+            unless bbu[:firmwarestatus][attr] == 'OK'
+              plugin_output += " [BBU:#{bbu._id}:#{attr}:#{bbu[:firmwarestatus][attr]}]"
+              plugin_status = :warning if plugin_status == ""
+            end
+          end
+          [:batterypackmissing, :batteryreplacementrequired].each do |attr|
+            unless bbu[:firmwarestatus][attr] == 'No'
+              plugin_output += " [BBU:#{attr}:#{bbu[:firmwarestatus][attr]}]"
+              plugin_status = :warning if plugin_status == ""
+            end
+          end
+
+          if bbu[:batterytype] == 'iBBU'
+            if bbu[:gasgaugestatus][:absolutestateofcharge].number <= 50
+              plugin_output += " [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
+              plugin_status = :warning if plugin_status == ""
+            end
+
+            if bbu[:capacityinfo][:remainingcapacity].number <= bbu[:capacityinfo][:remainingcapacityalarm].number
+              plugin_output += " [BBU:remainingcapacity:#{bbu[:capacityinfo][:remainingcapacityalarm]}]"
+              plugin_status = :warning if plugin_status == ""
+            end
+          end
+        end
+
         plugin_output = " no LSI RAID errors found" if plugin_output.empty? and plugin_status.empty?
         plugin_status = :ok if plugin_status.empty?
 

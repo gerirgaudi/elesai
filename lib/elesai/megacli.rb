@@ -219,6 +219,9 @@ module Elesai
           v = v.scan(/[A-Z]/).join
         when :inquirydata
           v = v.gsub(/\s+/,' ')
+        when :relativedtateofcharge, :absolutestateofcharge, :remainingcapacityalarm, :remainingcapacity
+          m = /(?<number>[0-9\.]+)\s+(?<unit>[A-Za-z%]+)/.match(v)
+          v = LSIArray::BBU::NumberUnit.new(m[:number].to_f,m[:unit])
       end
       c[k] = v
     end
