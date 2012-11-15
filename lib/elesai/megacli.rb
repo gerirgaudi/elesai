@@ -464,19 +464,23 @@ module Elesai
         line.strip!
         next if line == ''
 
-        case line
-          when ADAPTER_RE              then  adapter_match(ADAPTER_RE.match(line))
-          when BBU_RE                  then  bbu_match(BBU_RE.match(line))
-          when VIRTUALDRIVE_RE         then  virtualdrive_match(VIRTUALDRIVE_RE.match(line))
-          when PHYSICALDRIVE_RE        then  physicaldrive_match(PHYSICALDRIVE_RE.match(line))
-          when BBU_FIRMWARESTATUS_RE   then  bbu_firmwarestatus_match(BBU_FIRMWARESTATUS_RE.match(line))
-          when BBU_DESIGNINFO_RE       then  bbu_designinfo_match(BBU_DESIGNINFO_RE.match(line))
-          when BBU_PROPERTIES_RE       then  bbu_properties_match(BBU_PROPERTIES_RE.match(line))
-          when BBU_CAPACITYINFO_RE     then  bbu_capacityinfo_match(BBU_CAPACITYINFO_RE.match(line))
-          when BBU_GASGAUGESTATUS_RE   then  bbu_gasgaugestatus_match(BBU_GASGAUGESTATUS_RE.match(line))
-          when EXIT_RE                 then  exit_match(EXIT_RE.match(line))
-          when ATTRIBUTE_RE            then  attribute_match(ATTRIBUTE_RE.match(line))
-          else raise StandardError, "cannot parse '#{line}'"
+        begin
+          case line
+            when ADAPTER_RE              then  adapter_match(ADAPTER_RE.match(line))
+            when BBU_RE                  then  bbu_match(BBU_RE.match(line))
+            when VIRTUALDRIVE_RE         then  virtualdrive_match(VIRTUALDRIVE_RE.match(line))
+            when PHYSICALDRIVE_RE        then  physicaldrive_match(PHYSICALDRIVE_RE.match(line))
+            when BBU_FIRMWARESTATUS_RE   then  bbu_firmwarestatus_match(BBU_FIRMWARESTATUS_RE.match(line))
+            when BBU_DESIGNINFO_RE       then  bbu_designinfo_match(BBU_DESIGNINFO_RE.match(line))
+            when BBU_PROPERTIES_RE       then  bbu_properties_match(BBU_PROPERTIES_RE.match(line))
+            when BBU_CAPACITYINFO_RE     then  bbu_capacityinfo_match(BBU_CAPACITYINFO_RE.match(line))
+            when BBU_GASGAUGESTATUS_RE   then  bbu_gasgaugestatus_match(BBU_GASGAUGESTATUS_RE.match(line))
+            when EXIT_RE                 then  exit_match(EXIT_RE.match(line))
+            when ATTRIBUTE_RE            then  attribute_match(ATTRIBUTE_RE.match(line))
+            else raise StandardError, "cannot parse '#{line}'"
+          end
+        rescue ArgumentError # ignore lines with invalid byte sequence in UTF-8
+          next
         end
 
         @log.debug "\n\n"
