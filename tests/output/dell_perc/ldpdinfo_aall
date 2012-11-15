@@ -1,0 +1,1136 @@
+                                     
+Adapter #0
+
+Number of Virtual Disks: 2
+Virtual Drive: 0 (Target Id: 0)
+Name                :vd0
+RAID Level          : Primary-1, Secondary-0, RAID Level Qualifier-0
+Size                : 9.999 GB
+Mirror Data         : 9.999 GB
+State               : Optimal
+Strip Size          : 64 KB
+Number Of Drives per span:2
+Span Depth          : 6
+Default Cache Policy: WriteBack, ReadAdaptive, Direct, No Write Cache if Bad BBU
+Current Cache Policy: WriteBack, ReadAdaptive, Direct, No Write Cache if Bad BBU
+Default Access Policy: Read/Write
+Current Access Policy: Read/Write
+Disk Cache Policy   : Disk's Default
+Encryption Type     : None
+Bad Blocks Exist: No
+Is VD Cached: Yes
+Cache Cade Type : Read Only
+Number of Spans: 6
+Span: 0 - Number of PDs: 2
+
+PD: 0 Information
+Enclosure Device ID: 32
+Slot Number: 0
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 0
+Enclosure position: N/A
+Device Id: 0
+WWN: 50014ee25c42a13d
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe2
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31524557WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 32
+Slot Number: 1
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 1
+Enclosure position: N/A
+Device Id: 1
+WWN: 50014ee25c4e1ce4
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe5
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31617042WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Span: 1 - Number of PDs: 2
+
+PD: 0 Information
+Enclosure Device ID: 32
+Slot Number: 2
+Drive's postion: DiskGroup: 0, Span: 1, Arm: 0
+Enclosure position: N/A
+Device Id: 2
+WWN: 50014ee206f0b924
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe6
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31549273WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 32
+Slot Number: 3
+Drive's postion: DiskGroup: 0, Span: 1, Arm: 1
+Enclosure position: N/A
+Device Id: 3
+WWN: 50014ee25c45e178
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe7
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31549090WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Span: 2 - Number of PDs: 2
+
+PD: 0 Information
+Enclosure Device ID: 32
+Slot Number: 4
+Drive's postion: DiskGroup: 0, Span: 2, Arm: 0
+Enclosure position: N/A
+Device Id: 4
+WWN: 50014ee2b198b90d
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe3
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31524537WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 32
+Slot Number: 5
+Drive's postion: DiskGroup: 0, Span: 2, Arm: 1
+Enclosure position: N/A
+Device Id: 5
+WWN: 50014ee25c460933
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe4
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31549262WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Span: 3 - Number of PDs: 2
+
+PD: 0 Information
+Enclosure Device ID: 32
+Slot Number: 6
+Drive's postion: DiskGroup: 0, Span: 3, Arm: 0
+Enclosure position: N/A
+Device Id: 6
+WWN: 50014ee2b19a5ad1
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abf0
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31523967WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 32
+Slot Number: 7
+Drive's postion: DiskGroup: 0, Span: 3, Arm: 1
+Enclosure position: N/A
+Device Id: 7
+WWN: 50014ee25c460d67
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abea
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31549379WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Span: 4 - Number of PDs: 2
+
+PD: 0 Information
+Enclosure Device ID: 32
+Slot Number: 8
+Drive's postion: DiskGroup: 0, Span: 4, Arm: 0
+Enclosure position: N/A
+Device Id: 8
+WWN: 50014ee25c4e204c
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abeb
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31603608WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 32
+Slot Number: 9
+Drive's postion: DiskGroup: 0, Span: 4, Arm: 1
+Enclosure position: N/A
+Device Id: 9
+WWN: 50014ee25c44573c
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abf1
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31561652WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Span: 5 - Number of PDs: 2
+
+PD: 0 Information
+Enclosure Device ID: 32
+Slot Number: 10
+Drive's postion: DiskGroup: 0, Span: 5, Arm: 0
+Enclosure position: N/A
+Device Id: 10
+WWN: 50014ee25c4e1ee6
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe8
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31620519WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 32
+Slot Number: 11
+Drive's postion: DiskGroup: 0, Span: 5, Arm: 1
+Enclosure position: N/A
+Device Id: 11
+WWN: 50014ee2b19bf255
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe9
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31549061WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Virtual Drive: 1 (Target Id: 1)
+Name                :vd1
+RAID Level          : Primary-1, Secondary-0, RAID Level Qualifier-0
+Size                : 5.445 TB
+Mirror Data         : 5.445 TB
+State               : Optimal
+Strip Size          : 64 KB
+Number Of Drives per span:2
+Span Depth          : 6
+Default Cache Policy: WriteBack, ReadAdaptive, Direct, No Write Cache if Bad BBU
+Current Cache Policy: WriteBack, ReadAdaptive, Direct, No Write Cache if Bad BBU
+Default Access Policy: Read/Write
+Current Access Policy: Read/Write
+Disk Cache Policy   : Disk's Default
+Encryption Type     : None
+Bad Blocks Exist: No
+Is VD Cached: Yes
+Cache Cade Type : Read Only
+Number of Spans: 6
+Span: 0 - Number of PDs: 2
+
+PD: 0 Information
+Enclosure Device ID: 32
+Slot Number: 0
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 0
+Enclosure position: N/A
+Device Id: 0
+WWN: 50014ee25c42a13d
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe2
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31524557WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 32
+Slot Number: 1
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 1
+Enclosure position: N/A
+Device Id: 1
+WWN: 50014ee25c4e1ce4
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe5
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31617042WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Span: 1 - Number of PDs: 2
+
+PD: 0 Information
+Enclosure Device ID: 32
+Slot Number: 2
+Drive's postion: DiskGroup: 0, Span: 1, Arm: 0
+Enclosure position: N/A
+Device Id: 2
+WWN: 50014ee206f0b924
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe6
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31549273WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 32
+Slot Number: 3
+Drive's postion: DiskGroup: 0, Span: 1, Arm: 1
+Enclosure position: N/A
+Device Id: 3
+WWN: 50014ee25c45e178
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe7
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31549090WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Span: 2 - Number of PDs: 2
+
+PD: 0 Information
+Enclosure Device ID: 32
+Slot Number: 4
+Drive's postion: DiskGroup: 0, Span: 2, Arm: 0
+Enclosure position: N/A
+Device Id: 4
+WWN: 50014ee2b198b90d
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe3
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31524537WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 32
+Slot Number: 5
+Drive's postion: DiskGroup: 0, Span: 2, Arm: 1
+Enclosure position: N/A
+Device Id: 5
+WWN: 50014ee25c460933
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe4
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31549262WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Span: 3 - Number of PDs: 2
+
+PD: 0 Information
+Enclosure Device ID: 32
+Slot Number: 6
+Drive's postion: DiskGroup: 0, Span: 3, Arm: 0
+Enclosure position: N/A
+Device Id: 6
+WWN: 50014ee2b19a5ad1
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abf0
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31523967WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 32
+Slot Number: 7
+Drive's postion: DiskGroup: 0, Span: 3, Arm: 1
+Enclosure position: N/A
+Device Id: 7
+WWN: 50014ee25c460d67
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abea
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31549379WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Span: 4 - Number of PDs: 2
+
+PD: 0 Information
+Enclosure Device ID: 32
+Slot Number: 8
+Drive's postion: DiskGroup: 0, Span: 4, Arm: 0
+Enclosure position: N/A
+Device Id: 8
+WWN: 50014ee25c4e204c
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abeb
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31603608WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 32
+Slot Number: 9
+Drive's postion: DiskGroup: 0, Span: 4, Arm: 1
+Enclosure position: N/A
+Device Id: 9
+WWN: 50014ee25c44573c
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abf1
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31561652WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Span: 5 - Number of PDs: 2
+
+PD: 0 Information
+Enclosure Device ID: 32
+Slot Number: 10
+Drive's postion: DiskGroup: 0, Span: 5, Arm: 0
+Enclosure position: N/A
+Device Id: 10
+WWN: 50014ee25c4e1ee6
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe8
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31620519WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 32
+Slot Number: 11
+Drive's postion: DiskGroup: 0, Span: 5, Arm: 1
+Enclosure position: N/A
+Device Id: 11
+WWN: 50014ee2b19bf255
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 931.512 GB [0x74706db0 Sectors]
+Non Coerced Size: 931.012 GB [0x74606db0 Sectors]
+Coerced Size: 931.0 GB [0x74600000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 1V02
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500065b36789abe9
+Connected Port Number: 0(path0) 
+Inquiry Data:      WD-WMAW31549061WDC WD1003FBYX-18Y7B0                   01.01V02
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+Exit Code: 0x00

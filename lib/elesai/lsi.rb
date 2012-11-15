@@ -1,5 +1,3 @@
-require 'ap'
-
 module Elesai
 
   class LSIArray
