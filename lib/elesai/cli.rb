@@ -188,12 +188,14 @@ module Elesai
         end
 
         @lsi.bbus.each do |bbu|
+
           [:voltage, :temperature, :learncyclestatus].each do |attr|
             unless bbu[:firmwarestatus][attr] == 'OK'
               plugin_output += " [BBU:#{bbu._id}:#{attr}:#{bbu[:firmwarestatus][attr]}]"
               plugin_status = :warning if plugin_status == ""
             end
           end
+
           [:batterypackmissing, :batteryreplacementrequired].each do |attr|
             unless bbu[:firmwarestatus][attr] == 'No'
               plugin_output += " [BBU:#{attr}:#{bbu[:firmwarestatus][attr]}]"
@@ -202,14 +204,19 @@ module Elesai
           end
 
           if bbu[:batterytype] == 'iBBU'
-            if bbu[:gasgaugestatus][:absolutestateofcharge].number <= 50
+            if bbu[:firmwarestatus][:learncycleactive] == 'Yes'
               plugin_output += " [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
-              plugin_status = :warning if plugin_status == ""
-            end
-
-            if bbu[:capacityinfo][:remainingcapacity].number <= bbu[:capacityinfo][:remainingcapacityalarm].number
-              plugin_output += " [BBU:remainingcapacity:#{bbu[:capacityinfo][:remainingcapacityalarm]}]"
-              plugin_status = :warning if plugin_status == ""
+            else
+              if bbu[:firmwarestatus][:chargingstatus] == 'None'
+                if bbu[:gasgaugestatus][:absolutestateofcharge].number <= 65
+                  plugin_output += " [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
+                  plugin_status = :warning if plugin_status == ""
+                end
+                if bbu[:capacityinfo][:remainingcapacity].number <= bbu[:capacityinfo][:remainingcapacityalarm].number
+                  plugin_output += " [BBU:remainingcapacity:#{bbu[:capacityinfo][:remainingcapacityalarm]}]"
+                  plugin_status = :warning if plugin_status == ""
+                end
+              end
             end
           end
         end

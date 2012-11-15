@@ -1,0 +1,86 @@
+                                     
+BBU status for Adapter: 0
+
+BatteryType: iBBU
+Voltage: 3619 mV
+Current: -428 mA
+Temperature: 43 C
+Battery State     : Non Operational
+
+BBU Firmware Status:
+
+  Charging Status              : Discharging
+  Voltage                                 : OK
+  Temperature                             : OK
+  Learn Cycle Requested	                  : Yes
+  Learn Cycle Active                      : Yes
+  Learn Cycle Status                      : OK
+  Learn Cycle Timeout                     : No
+  I2c Errors Detected                     : No
+  Battery Pack Missing                    : No
+  Battery Replacement required            : No
+  Remaining Capacity Low                  : No
+  Periodic Learn Required                 : No
+  Transparent Learn                       : No
+  No space to cache offload               : No
+  Pack is about to fail & should be replaced : No
+  Cache Offload premium feature required  : No
+  Module microcode update required        : No
+
+
+GasGuageStatus:
+  Fully Discharged        : No
+  Fully Charged           : No
+  Discharging             : Yes
+  Initialized             : Yes
+  Remaining Time Alarm    : No
+  Discharge Terminated    : No
+  Over Temperature        : No
+  Charging Terminated     : No
+  Over Charged            : No
+  Relative State of Charge: 25 %
+  Charger System State: 49169
+  Charger System Ctrl: 0
+  Charging current: 512 mA
+  Absolute state of charge: 26 %
+  Max Error: 2 %
+
+  Battery backup charge time : 0 hours
+
+BBU Capacity Info for Adapter: 0
+
+  Relative State of Charge: 25 %
+  Absolute State of charge: 25 %
+  Remaining Capacity: 250 mAh
+  Full Charge Capacity: 1016 mAh
+  Run time to empty: 35 Min. 
+  Average time to empty: 35 Min. 
+  Estimated Time to full recharge: Battery is not being charged.  
+  Cycle Count: 62
+Max Error = 2 %
+Remaining Capacity Alarm = 100 mAh
+Remining Time Alarm = 10 Min
+
+BBU Design Info for Adapter: 0
+
+  Date of Manufacture: 01/27, 2010
+  Design Capacity: 990 mAh
+  Design Voltage: 3700 mV
+  Specification Info: 33
+  Serial Number: 9
+  Pack Stat Configuration: 0x64b0
+  Manufacture Name: LS1115001B
+  Device Name: 3598401
+  Device Chemistry: LION
+  Battery FRU: N/A
+  Transparent Learn = 0
+  App Data = 0
+
+BBU Properties for Adapter: 0
+
+  Auto Learn Period: 30 Days
+  Next Learn time: Nov 12 2012 10:34:47  
+  Learn Delay Interval:0 Hours
+  Auto-Learn Mode: Enabled
+
+Exit Code: 0x00
