@@ -218,13 +218,18 @@ module Elesai; module Megacli
         next if line == ''
 
         begin
+          match_flag = false
           @megacli.each do |component, c|
             if line =~ c[:re]
               c[:method].call(c[:re].match(line))
+              match_flag = true
               break
+            else
+              match_flag = false
+              next
             end
           end
-#                raise StandardError, "cannot parse '#{line}'"
+          raise StandardError, "cannot parse '#{line}'" unless match_flag
         rescue ArgumentError # ignore lines with invalid byte sequence in UTF-8
           next
         end
@@ -234,4 +239,4 @@ module Elesai; module Megacli
 
   end
 
-end; end
+end end
