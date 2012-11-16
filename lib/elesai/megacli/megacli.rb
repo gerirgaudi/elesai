@@ -213,11 +213,11 @@ module Elesai; module Megacli
       end
 
       output.each_line do |line|
-        line.strip!
-        line.gsub(/$=+^/,'')
-        next if line == ''
-
         begin
+          line.strip!
+          line.gsub(/$=+^/,'')
+          next if line == ''
+
           match_flag = false
           @megacli.each do |component, c|
             if line =~ c[:re]
@@ -233,7 +233,6 @@ module Elesai; module Megacli
         rescue ArgumentError # ignore lines with invalid byte sequence in UTF-8
           next
         end
-
       end
     end
 
