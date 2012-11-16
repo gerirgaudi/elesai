@@ -3,6 +3,7 @@ require 'syslog'
 require 'io/wait'
 require 'senedsa'
 include Senedsa
+require 'elesai'
 require 'elesai/version'
 require 'elesai/about'
 
