@@ -1,3 +1,4 @@
+require 'senedsa'
 require 'awesome_print'
 
 module Elesai; module Action
@@ -6,6 +7,7 @@ module Elesai; module Action
 
     DEFAULT_SENEDSA_CONFIG_FILE = File.join(ENV['HOME'],"/.senedsa/config")
 
+    include Senedsa
 
     def initialize(arguments,options)
       @options = options.merge!({ :monitor => :nagios, :mode => :active })
@@ -16,12 +18,12 @@ module Elesai; module Action
       opts.banner = "Usage: #{ID} [options] check [check_options]"
       opts.separator ""
       opts.separator "Check Options"
-      opts.on('-M', '--monitor [nagios]',            [:nagios],            "Monitoring system")                                 { |o| @options[:monitor]        = monitor }
-      opts.on('-m', '--mode [active|passive]',       [:active, :passive],  "Monitoring mode")                                   { |o| @options[:mode]           = mode }
-      opts.on('-H', '--nsca_hostname HOSTNAME',      String,               "NSCA hostname to send passive checks")              { |o| @options[:nsca_hostame]   = nsca_hostname }
-      opts.on('-c', '--config CONFIG',               String,               "Path to Senedsa (send_nsca) configuration" )        { |o| @options[:senedsa_config] = config }
-      opts.on('-S', '--svc_descr SVC_DESR',          String,               "Nagios service description")                        { |o| @options[:svc_descr]      = svc_descr }
-      opts.order!
+      opts.on('-M', '--monitor [nagios]',            [:nagios],            "Monitoring system")                                 { |o| @options[:monitor]        = o }
+      opts.on('-m', '--mode [active|passive]',       [:active, :passive],  "Monitoring mode")                                   { |o| @options[:mode]           = o }
+      opts.on('-H', '--nsca_hostname HOSTNAME',      String,               "NSCA hostname to send passive checks")              { |o| @options[:nsca_hostame]   = o }
+      opts.on('-c', '--config CONFIG',               String,               "Path to Senedsa (send_nsca) configuration" )        { |o| @options[:senedsa_config] = o }
+      opts.on('-S', '--svc_descr SVC_DESR',          String,               "Nagios service description")                        { |o| @options[:svc_descr]      = o }
+      opts.order!(arguments)
 
       options_valid?
     end
@@ -94,8 +96,6 @@ module Elesai; module Action
 
       plugin_output = " no LSI RAID errors found" if plugin_output.empty? and plugin_status.empty?
       plugin_status = :ok if plugin_status.empty?
-
-      puts "READY"
 
       case @options[:monitor]
         when :nagios

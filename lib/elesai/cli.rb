@@ -1,8 +1,6 @@
 require 'optparse'
 require 'syslog'
 require 'io/wait'
-require 'senedsa'
-include Senedsa
 require 'elesai'
 require 'elesai/action'
 require 'elesai/version'
