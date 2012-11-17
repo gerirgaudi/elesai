@@ -1,15 +1,15 @@
-                                     
+                                     
 BBU status for Adapter: 0
 
-BatteryType: BBU
-Voltage: 4052 mV
-Current: 0 mA
-Temperature: 23 C
+BatteryType: iBBU
+Voltage: 3916 mV
+Current: 504 mA
+Temperature: 38 C
 Battery State     : Operational
 
 BBU Firmware Status:
 
-  Charging Status              : None
+  Charging Status              : Charging
   Voltage                                 : OK
   Temperature                             : OK
   Learn Cycle Requested	                  : No
@@ -31,55 +31,55 @@ BBU Firmware Status:
 GasGuageStatus:
   Fully Discharged        : No
   Fully Charged           : No
-  Discharging             : Yes
+  Discharging             : No
   Initialized             : Yes
   Remaining Time Alarm    : No
   Discharge Terminated    : No
   Over Temperature        : No
   Charging Terminated     : No
   Over Charged            : No
-Relative State of Charge: 95 %
-Charger Status: Complete
-Remaining Capacity: 1608 mAh
-Full Charge Capacity: 1697 mAh
-isSOHGood: Yes
+  Relative State of Charge: 27 %
+  Charger System State: 49168
+  Charger System Ctrl: 0
+  Charging current: 512 mA
+  Absolute state of charge: 30 %
+  Max Error: 2 %
 
   Battery backup charge time : 0 hours
 
 BBU Capacity Info for Adapter: 0
 
-  Relative State of Charge: 95 %
-  Absolute State of charge: 90 %
-  Remaining Capacity: 1608 mAh
-  Full Charge Capacity: 1697 mAh
+  Relative State of Charge: 28 %
+  Absolute State of charge: 31 %
+  Remaining Capacity: 302 mAh
+  Full Charge Capacity: 1082 mAh
   Run time to empty: Battery is not being discharged.  
   Average time to empty: Battery is not being discharged.  
-  Estimated Time to full recharge: Battery is not being charged.  
-  Cycle Count: 6
+  Estimated Time to full recharge: 2 Hour, 42 Min. 
+  Cycle Count: 78
 Max Error = 2 %
-Remaining Capacity Alarm = 180 mAh
+Remaining Capacity Alarm = 100 mAh
 Remining Time Alarm = 10 Min
 
 BBU Design Info for Adapter: 0
 
-  Date of Manufacture: 02/18, 2012
-  Design Capacity: 1800 mAh
+  Date of Manufacture: 03/31, 2010
+  Design Capacity: 990 mAh
   Design Voltage: 3700 mV
-  Specification Info: 49
-  Serial Number: 279
-  Pack Stat Configuration: 0x0014
-  Manufacture Name: SMP-SDI2.0
-  Device Name: DLFR463
+  Specification Info: 33
+  Serial Number: 920
+  Pack Stat Configuration: 0x64a0
+  Manufacture Name: LS1115001B
+  Device Name: 3598401
   Device Chemistry: LION
   Battery FRU: N/A
-Module Version = ú.
   Transparent Learn = 0
   App Data = 0
 
 BBU Properties for Adapter: 0
 
-  Auto Learn Period: 90 Days
-  Next Learn time: Dec 15 2012 18:50:51  
+  Auto Learn Period: 30 Days
+  Next Learn time: Dec 13 2012 08:49:24  
   Learn Delay Interval:0 Hours
   Auto-Learn Mode: Enabled
 

@@ -1,3 +1,5 @@
+require 'elesai/megacli'
+
 module Elesai
 
   class LSIArray
@@ -14,15 +16,15 @@ module Elesai
 
       case opts[:hint]
         when :pd,:physicaldrive
-          PDlist_aAll.new.parse!(self,opts)
+          Megacli::PDlist_aAll.new.parse!(self,opts)
         when :vd,:virtualdrive
-          LDPDinfo_aAll.new.parse!(self,opts)
+          Megacli::LDPDinfo_aAll.new.parse!(self,opts)
         when :bbu
-          AdpBbuCmd_aAll.new.parse!(self,opts)
+          Megacli::AdpBbuCmd_aAll.new.parse!(self,opts)
         else
-          PDlist_aAll.new.parse!(self,opts)
-          LDPDinfo_aAll.new.parse!(self,opts)
-          AdpBbuCmd_aAll.new.parse!(self,opts)
+          Megacli::PDlist_aAll.new.parse!(self,opts)
+          Megacli::LDPDinfo_aAll.new.parse!(self,opts)
+          Megacli::AdpBbuCmd_aAll.new.parse!(self,opts)
       end
     end
 
