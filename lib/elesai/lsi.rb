@@ -54,15 +54,6 @@ module Elesai
 
 
 
-
-
-
-
-
-
-
-    ### Adapter
-
     class Adapter < Hash
 
       class Section < Hash
@@ -85,14 +76,6 @@ module Elesai
         "#{self[:id]}"
       end
 
-      def type
-        :adapter
-      end
-
-      def type_of?(type)
-        self.type == type
-      end
-
       def inspect
         "#{self.class}:#{self.__id__}"
       end
@@ -110,8 +93,6 @@ module Elesai
       end
 
     end
-
-    ### Virtual Drive
 
     class VirtualDrive < Hash
 
@@ -138,14 +119,6 @@ module Elesai
         self[:targetid]
       end
 
-      def type
-        :virtualdrive
-      end
-
-      def type_of?(type)
-        self.type == type
-      end
-
       def inspect
         "#{self.class}:#{self.__id__}"
       end
@@ -159,8 +132,6 @@ module Elesai
       end
 
     end
-
-    ### Physical Drive
 
     class PhysicalDrive < Hash
 
@@ -197,14 +168,6 @@ module Elesai
         "e#{self[:enclosuredeviceid].to_s}s#{self[:slotnumber].to_s}".to_sym
       end
 
-      def type
-        :physicaldrive
-      end
-
-      def type_of?(type)
-        self.type == type
-      end
-
       def to_s
         keys = [:deviceid, :firmwarestate, :coercedsize, :mediatype, :pdtype, :mediaerrorcount, :predictivefailurecount,:inquirydata]
         #"[PD] %8s %4s %19s %8.2f%s %5s %5s %3d %3d   %s" % [ self.id, @deviceid, "#{@state}:#{@spin}", @_size.number, @_size.unit, @mediatype, @pdtype, @mediaerrors, @predictivefailure, @inquirydata  ]
@@ -235,8 +198,6 @@ module Elesai
         self[:_virtualdrives]
       end
     end
-
-    ### BBU
 
     class BBU < Hash
 
