@@ -79,7 +79,7 @@ module Elesai; module Megacli
 
     # Adapter
 
-    def adapter_match(match)
+    def adapter_match(k,match)
       @log.debug "ADAPTER! #{match.string}"
       key = 'id'
       value = match[:value]
@@ -88,16 +88,17 @@ module Elesai; module Megacli
 
     # Attribute
 
-    def attribute_match(match)
+    def attribute_match(k,match)
       @log.debug "ATTRIBUTE! #{match.string}"
       key = match[:key].gsub(/\s+/,"").downcase
-      value = match[:value].strip
+      value_tmp = match[:value]
+      value = value_tmp.nil? ? nil : value_tmp.strip
       attribute_line!(key,value)
     end
 
     # Exit
 
-    def exit_match(match)
+    def exit_match(k,match)
       @log.debug "EXIT! #{match.string}"
       exit_line!
     end
@@ -116,12 +117,13 @@ module Elesai; module Megacli
     def adapter_line(adapter,key,value)
       @log.debug "  [#{current_state}] event adapter_line: new #{adapter.inspect}"
       adapter[key.to_sym] = value.to_i
+      @lsi.add_adapter(adapter)
     end
 
     def on_adapter_entry(old_state, event, *args)
       @log.debug "        [#{current_state}] on_entry: leaving #{old_state}; args: #{args}"
 
-      @context.close unless @context.current.nil? or @context.current === Elesai::LSIArray::Adapter
+      @context.close unless @context.current.nil? or Elesai::LSIArray::Adapter === @context.current
       @context.open args[0]
     end
 
@@ -215,13 +217,13 @@ module Elesai; module Megacli
       output.each_line do |line|
         begin
           line.strip!
-          line.gsub(/$=+^/,'')
+          line.gsub!(/^=+$/,'')
           next if line == ''
 
           match_flag = false
-          @megacli.each do |component, c|
-            if line =~ c[:re]
-              c[:method].call(c[:re].match(line))
+          @megacli.each do |k, v|
+            if line =~ v[:re]
+              v[:method].call(k,v[:re].match(line))
               match_flag = true
               break
             else

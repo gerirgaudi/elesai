@@ -19,6 +19,8 @@ module Elesai
           Megacli::PDlist_aAll.new.parse!(self,opts)
         when :vd,:virtualdrive
           Megacli::LDPDinfo_aAll.new.parse!(self,opts)
+        when :adapter
+          Megacli::AdpAllInfo_aAll.new.parse!(self,opts)
         when :bbu
           Megacli::AdpBbuCmd_aAll.new.parse!(self,opts)
         else
@@ -59,9 +61,35 @@ module Elesai
       lsiarrayout
     end
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     ### Adapter
 
     class Adapter < Hash
+
+      class Section < Hash
+        attr_reader :section
+        def initialize(section)
+          @section = section
+        end
+        def inspect
+          "#{self.class}:#@section:#{self.__id__}"
+        end
+      end
 
       def initialize
         self[:virtualdrives] = []
@@ -87,6 +115,14 @@ module Elesai
 
       def add_physicaldrive(pd)
         self[:physicaldrives][pd._id] = pd unless self[:physicaldrives][pd._id].nil?
+      end
+
+      def add_section(section)
+        self[section.section] = section
+      end
+
+      def to_s
+        "[ADAPTER] %4s" % [ self._id ]
       end
 
     end
