@@ -29,7 +29,7 @@ module Elesai; module Action
     end
 
     def exec
-      @lsi = LSIArray.new(:megacli => @options[:megacli], :fake => @options[:fake], :hint => @component)
+      @lsi = LSI.new(:megacli => @options[:megacli], :fake => @options[:fake], :hint => @component)
       @show[@component].call
     end
 

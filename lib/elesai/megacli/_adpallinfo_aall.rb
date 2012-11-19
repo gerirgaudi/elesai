@@ -76,7 +76,7 @@ module Elesai; module Megacli
 
     def section_match(k,match)
       @log.debug "ADPINFO_SECTION! #{k} -> #{match.string}"
-      section_line!(LSIArray::Adapter::Section.new(k))
+      section_line!(LSI::Adapter::Section.new(k))
     end
 
     ### Line Handlers
@@ -88,7 +88,7 @@ module Elesai; module Megacli
     def on_section_entry(old_state, event, *args)
       @log.debug "     [#{current_state}] on_entry: leaving #{old_state}; args: #{args}"
       unless @context.current.nil?
-        @context.close if Elesai::LSIArray::Adapter::Section === @context.current
+        @context.close if Elesai::LSI::Adapter::Section === @context.current
       end
       @context.current.add_section(args[0])
       @context.open(args[0])

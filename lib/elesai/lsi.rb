@@ -2,7 +2,7 @@ require 'elesai/megacli'
 
 module Elesai
 
-  class LSIArray
+  class LSI
 
     attr_reader :adapters, :virtualdrives, :physicaldrives, :bbus, :enclosures
 
@@ -15,9 +15,9 @@ module Elesai
       @bbus = []
 
       case opts[:hint]
-        when :pd,:physicaldrive
+        when :physicaldrive
           Megacli::PDlist_aAll.new.parse!(self,opts)
-        when :vd,:virtualdrive
+        when :virtualdrive
           Megacli::LDPDinfo_aAll.new.parse!(self,opts)
         when :adapter
           Megacli::AdpAllInfo_aAll.new.parse!(self,opts)
@@ -30,37 +30,21 @@ module Elesai
       end
     end
 
-    def add_adapter(a)
-      @adapters[a[:id]] = a if @adapters[a[:id]].nil?
-    end
-
-    def add_virtualdrive(vd)
-      @virtualdrives.push(vd)
-    end
-
-    def add_physicaldrive(pd)
-      @physicaldrives[pd._id] = pd if @physicaldrives[pd._id].nil?
-      @physicaldrives[pd._id]
-    end
-
-    def add_bbu(bbu)
-      @bbus.push(bbu)
-    end
-
-    def to_s
-      lsiarrayout = "LSI Array\n"
-      @adapters.each do |adapter|
-        lsiarrayout += "  adapter #{adapter.id}\n"
-        adapter.virtualdrives.each do |virtualdrive|
-          lsiarrayout += "    +--+ #{virtualdrive.to_str}\n"
-          virtualdrive.physicaldrives.each do |id,physicaldrive|
-            lsiarrayout += "    |  |-- pd #{physicaldrive.to_str}\n"
-          end
-        end
+    def add(component)
+      case component
+        when Adapter
+          @adapters[component[:id]] = component if @adapters[component[:id]].nil?
+        when VirtualDrive
+          @virtualdrives.push(component)
+        when PhysicalDrive
+          @physicaldrives[pd._id] = pd if @physicaldrives[pd._id].nil?
+          return @physicaldrives[pd._id]
+        when BBU
+          @bbus.push(component)
+        else
+          raise StandardError, "invalid component #{component.class}"
       end
-      lsiarrayout
     end
-
 
 
 
@@ -122,7 +106,7 @@ module Elesai
       end
 
       def to_s
-        "[ADAPTER] %4s" % [ self._id ]
+        "[ADAPTER] %2s  %s  %s" % [ self._id,self[:versions][:productname],self[:imageversions][:fwversion] ]
       end
 
     end

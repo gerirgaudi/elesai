@@ -38,17 +38,15 @@ module Elesai; module Megacli
         @context[component.class] = nil
         @log.debug "         * Close #{component.inspect}"
         case component
-          when Elesai::LSIArray::PhysicalDrive
+          when Elesai::LSI::PhysicalDrive
             pd = @lsi.add_physicaldrive(component)
             pd.add_adapter(adapter)
             pd.add_virtualdrive(virtualdrive) unless virtualdrive.nil?
             adapter.add_physicaldrive(pd)
-          when Elesai::LSIArray::VirtualDrive
+          when Elesai::LSI::VirtualDrive
             vd = @lsi.add_virtualdrive(component)
-          when Elesai::LSIArray::Adapter
-            @lsi.add_adapter(component)
-          when Elesai::LSIArray::BBU
-            @lsi.add_bbu(component)
+          when Elesai::LSI::BBU
+            @lsi.add(component)
         end
         @log.debug "           + context: #{@context[:stack]}"
       end
@@ -58,19 +56,19 @@ module Elesai; module Megacli
       end
 
       def adapter
-        @context[Elesai::LSIArray::Adapter]
+        @context[Elesai::LSI::Adapter]
       end
 
       def virtualdrive
-        @context[Elesai::LSIArray::VirtualDrive]
+        @context[Elesai::LSI::VirtualDrive]
       end
 
       def physicaldrive
-        @context[Elesai::LSIArray::PhysicalDrive]
+        @context[Elesai::LSI::PhysicalDrive]
       end
 
       def bbu
-        @context[Elesai::LSIArray::BBU]
+        @context[Elesai::LSI::BBU]
       end
 
     end
@@ -83,7 +81,7 @@ module Elesai; module Megacli
       @log.debug "ADAPTER! #{match.string}"
       key = 'id'
       value = match[:value]
-      adapter_line!(LSIArray::Adapter.new,key,value)
+      adapter_line!(LSI::Adapter.new,key,value)
     end
 
     # Attribute
@@ -117,13 +115,13 @@ module Elesai; module Megacli
     def adapter_line(adapter,key,value)
       @log.debug "  [#{current_state}] event adapter_line: new #{adapter.inspect}"
       adapter[key.to_sym] = value.to_i
-      @lsi.add_adapter(adapter)
+      @lsi.add(adapter)
     end
 
     def on_adapter_entry(old_state, event, *args)
       @log.debug "        [#{current_state}] on_entry: leaving #{old_state}; args: #{args}"
 
-      @context.close unless @context.current.nil? or Elesai::LSIArray::Adapter === @context.current
+      @context.close unless @context.current.nil? or Elesai::LSI::Adapter === @context.current
       @context.open args[0]
     end
 
@@ -150,15 +148,15 @@ module Elesai; module Megacli
       case k
         when :coercedsize, :noncoercedsize, :rawsize, :size
           m = /(?<number>[0-9\.]+)\s+(?<unit>[A-Z]+)/.match(v)
-          v = LSIArray::PhysicalDrive::Size.new(m[:number],m[:unit])
+          v = LSI::PhysicalDrive::Size.new(m[:number],m[:unit])
         when :raidlevel
           m = /Primary-(?<primary>\d+),\s+Secondary-(?<secondary>\d+)/.match(v)
-          v = LSIArray::VirtualDrive::RaidLevel.new(m[:primary],m[:secondary])
+          v = LSI::VirtualDrive::RaidLevel.new(m[:primary],m[:secondary])
         when :firmwarestate
           st,sp = v.gsub(/\s/,'').split(/,/)
           state = st.gsub(/\s/,'_').downcase.to_sym
           spin = sp.gsub(/\s/,'_').downcase.to_sym unless sp.nil?
-          v = LSIArray::PhysicalDrive::FirmwareState.new(state,spin)
+          v = LSI::PhysicalDrive::FirmwareState.new(state,spin)
         when :state
           v = v.gsub(/\s/,'_').downcase.to_sym
         when :mediatype
@@ -167,14 +165,14 @@ module Elesai; module Megacli
           v = v.gsub(/\s+/,' ')
         when :relativedtateofcharge, :absolutestateofcharge, :remainingcapacityalarm, :remainingcapacity
           m = /(?<number>[0-9\.]+)\s+(?<unit>[A-Za-z%]+)/.match(v)
-          v = LSIArray::BBU::NumberUnit.new(m[:number].to_f,m[:unit])
+          v = LSI::BBU::NumberUnit.new(m[:number].to_f,m[:unit])
       end
       c[k] = v
     end
 
     def on_attribute_exit(new_state, event, *args)
       @log.debug "      [#{current_state}] exit: entering #{new_state} throught event #{event}; args: #{args}"
-      @context.close if @context.current.class == Elesai::LSIArray::PhysicalDrive and event != :attribute_line
+      @context.close if @context.current.class == Elesai::LSI::PhysicalDrive and event != :attribute_line
 
       @context.flash!(new_state)
     end
