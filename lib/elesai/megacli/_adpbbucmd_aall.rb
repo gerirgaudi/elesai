@@ -72,35 +72,35 @@ module Elesai; module Megacli
 
     # Regular Expression Match Handlers
 
-    def bbu_match(match)
+    def bbu_match(k,match)
       @log.debug "BBU! #{match.string}"
       key = 'id'
       value = match[:value]
-      adapter_line(LSIArray::Adapter.new,key,value)
-      bbu_line!(LSIArray::BBU.new,key,value)
+      adapter_line(LSI::Adapter.new,key,value)
+      bbu_line!(LSI::BBU.new,key,value)
     end
 
-    def firmwarestatus_match(match)
+    def firmwarestatus_match(k,match)
       @log.debug "BBU FIRMWARE! #{match.string}"
       firmwarestatus_line!
     end
 
-    def designinfo_match(match)
+    def designinfo_match(k,match)
       @log.debug "BBU DESIGN INFO! #{match.string}"
       designinfo_line!
     end
 
-    def properties_match(match)
+    def properties_match(k,match)
       @log.debug "BBU PROPERTIES! #{match.string}"
       properties_line!
     end
 
-    def capacityinfo_match(match)
+    def capacityinfo_match(k,match)
       @log.debug "BBU CAPACITY INFO! #{match.string}"
       capacityinfo_line!
     end
 
-    def gasgaugestatus_match(match)
+    def gasgaugestatus_match(k,match)
       @log.debug "BBU GAS GUAGE STATUS! #{match.string}"
       gasgaugestatus_line!
     end
