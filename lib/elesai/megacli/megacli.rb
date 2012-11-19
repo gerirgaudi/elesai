@@ -39,12 +39,12 @@ module Elesai; module Megacli
         @log.debug "         * Close #{component.inspect}"
         case component
           when Elesai::LSI::PhysicalDrive
-            pd = @lsi.add_physicaldrive(component)
+            pd = @lsi.add(component)
             pd.add_adapter(adapter)
             pd.add_virtualdrive(virtualdrive) unless virtualdrive.nil?
             adapter.add_physicaldrive(pd)
           when Elesai::LSI::VirtualDrive
-            vd = @lsi.add_virtualdrive(component)
+            vd = @lsi.add(component)
           when Elesai::LSI::BBU
             @lsi.add(component)
         end

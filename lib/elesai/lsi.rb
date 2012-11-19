@@ -37,8 +37,8 @@ module Elesai
         when VirtualDrive
           @virtualdrives.push(component)
         when PhysicalDrive
-          @physicaldrives[pd._id] = pd if @physicaldrives[pd._id].nil?
-          return @physicaldrives[pd._id]
+          @physicaldrives[component._id] = component if @physicaldrives[component._id].nil?
+          return @physicaldrives[component._id]
         when BBU
           @bbus.push(component)
         else
