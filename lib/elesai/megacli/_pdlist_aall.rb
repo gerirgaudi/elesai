@@ -58,18 +58,18 @@ module Elesai; module Megacli
 
     ### Match Handlers
 
-    def virtualdrive_match(match)
+    def virtualdrive_match(k,match)
       @log.debug "VIRTUALDRIVE! #{match.string}"
       key = match[:key].gsub(/\s+/,"").downcase
       value = match[:value]
-      virtualdrive_line!(LSIArray::VirtualDrive.new,key,value)
+      virtualdrive_line!(LSI::VirtualDrive.new,key,value)
     end
 
-    def physicaldrive_match(match)
+    def physicaldrive_match(k,match)
       @log.debug "PHYSICALDRIVE! #{match.string}"
       key = match[:key].gsub(/\s+/,"").downcase
       value = match[:value]
-      physicaldrive_line!(LSIArray::PhysicalDrive.new,key,value)
+      physicaldrive_line!(LSI::PhysicalDrive.new,key,value)
     end
 
     ### Line Handlers
@@ -85,7 +85,7 @@ module Elesai; module Megacli
       @log.debug "        [#{current_state}] on_entry: leaving #{old_state}; args: #{args}"
 
       unless @context.current.nil?
-        if @context.current === Elesai::LSIArray::VirtualDrive
+        if Elesai::LSI::VirtualDrive === @context.current
           @context.close
         end
       end

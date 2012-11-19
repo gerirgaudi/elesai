@@ -2,7 +2,7 @@ module Elesai; module Action
 
   class Show
 
-    COMPONENTS = %w(virtualdrive vd physicaldrive pd bbu)
+    COMPONENTS = %w(adapter virtualdrive vd physicaldrive pd bbu)
 
     def initialize(arguments,options)
 
@@ -21,14 +21,15 @@ module Elesai; module Action
       arguments_valid?
       process_arguments
 
-      @show = { :virtualdrive => self.method(:show_virtualdrive),
+      @show = { :adapter => self.method(:show_adapter),
+                :virtualdrive => self.method(:show_virtualdrive),
                 :physicaldrive => self.method(:show_physicaldrive),
                 :bbu => self.method(:show_bbu)
       }
     end
 
     def exec
-      @lsi = LSIArray.new(:megacli => @options[:megacli], :fake => @options[:fake], :hint => @component)
+      @lsi = LSI.new(:megacli => @options[:megacli], :fake => @options[:fake], :hint => @component)
       @show[@component].call
     end
 
@@ -68,6 +69,12 @@ module Elesai; module Action
     def show_bbu
       @lsi.bbus.each do |bbu|
         print "#{bbu}\n"
+      end
+    end
+
+    def show_adapter
+      @lsi.adapters.each do |adapter|
+        print "#{adapter}\n"
       end
     end
 
