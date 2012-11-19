@@ -106,7 +106,7 @@ module Elesai
       end
 
       def to_s
-        "[ADAPTER] %2s  %s  %s" % [ self._id,self[:versions][:productname],self[:imageversions][:fwversion] ]
+        "[ADAPTER] %2s  %s  %s %s  %s" % [ self._id,self[:versions][:productname].gsub(/\s+/,'_'),self[:versions][:fwpackagebuild],self[:imageversions][:fwversion],self[:hwconfiguration][:sasaddress] ]
       end
 
     end
