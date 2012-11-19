@@ -9,14 +9,12 @@ module Elesai; module Megacli
                    :exit          => { :re => /^Exit Code: /,                                                       :method => self.method(:exit_match) },
                    :attribute     => { :re => /^(?<key>[A-Za-z0-9()\s#'-.&]+)[:|=](?<value>.*)/,                    :method => self.method(:attribute_match) }
       }.freeze
-
-      @match = nil
-      @command_arguments = "-pdldinfo -aall"
-      @command_output_file = "ldpdinfo_aall"
+      @command_arguments = "-ldpdinfo -aall".freeze
+      @command_output_file = "ldpdinfo_aall".freeze
     end
 
     def parse!(lsi,opts)
-      fake = opts[:fake].nil? ? "-ldpdinfo -aall" : File.join(opts[:fake],"ldpdinfo_aall")
+      fake = opts[:fake].nil? ? @command_arguments : File.join(opts[:fake],@command_output_file)
       super lsi, :fake => fake, :megacli => opts[:megacli]
     end
 

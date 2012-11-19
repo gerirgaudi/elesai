@@ -205,30 +205,25 @@ module Elesai
         def to_s ; "%d%s" % [self.number,self.unit] end
       end
 
-      class Stub < Hash
+      class Section < Hash
+        attr_reader :section
+        def initialize(section)
+          @section = section
+        end
         def inspect
-          "#{self.class}:#{self.__id__}"
+          "#{self.class}:#{@section.capitalize}:#{self.__id__}"
         end
       end
-      class Status < Stub; end
-      class FirmwareStatus < Stub; end
-      class DesignInfo < Stub; end
-      class Properties < Stub; end
-      class CapacityInfo < Stub; end
-      class GasGaugeStatus < Stub; end
 
       def initialize
-        self[:status] = Status.new
-        self[:firmwarestatus] = FirmwareStatus.new
-        self[:designinfo] = DesignInfo.new
-        self[:properties] = Properties.new
-        self[:capacityinfo] = CapacityInfo.new
-        self[:gasgaugestatus] = GasGaugeStatus.new
-        self[:capacityinfo][:absolutestateofcharge] = '-'
       end
 
       def _id
         self[:id]
+      end
+
+      def add_section(section)
+        self[section.section] = section
       end
 
       def inspect
