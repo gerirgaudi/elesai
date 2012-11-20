@@ -231,10 +231,9 @@ module Elesai
       end
 
       def to_s
-        self[:capacityinfo][:absolutestateofcharge] = '-' unless self[:batterytype] == "iBBU"
-        self[:capacityinfo][:remainingcapacity] = '-' unless self[:batterytype] == "iBBU"
-        "[BBU] %s %-5s %-4s %-11s %3s:%-8s  %s:%s  %s:%s  %7s:%-4s  %s" % [self[:id],self[:batterytype],self[:designinfo][:devicechemistry],self[:firmwarestatus][:chargingstatus],self[:firmwarestatus][:learncycleactive],self[:firmwarestatus][:learncyclestatus],self[:voltage].gsub(/\s/,''),self[:firmwarestatus][:voltage],self[:temperature].gsub(/\s/,''),self[:firmwarestatus][:temperature],self[:capacityinfo][:remainingcapacity],self[:capacityinfo][:absolutestateofcharge],self[:properties][:nextlearntime]]
-        #puts self[:firmwarestatus].keys
+        capacityinfo_absolutestateofcharge = self[:batterytype] == 'iBBU' ? self[:capacityinfo][:absolutestateofcharge] : '-'
+        capacityinfo_remainingcapacity = self[:batterytype] == 'iBBU' ? self[:capacityinfo][:remainingcapacity] : '-'
+        "[BBU] %s %-5s %-4s %-11s %3s:%-8s  %s:%s  %s:%s  %7s:%-4s  %s" % [self[:id],self[:batterytype],self[:designinfo][:devicechemistry],self[:firmwarestatus][:chargingstatus],self[:firmwarestatus][:learncycleactive],self[:firmwarestatus][:learncyclestatus],self[:voltage].gsub(/\s/,''),self[:firmwarestatus][:voltage],self[:temperature].gsub(/\s/,''),self[:firmwarestatus][:temperature],capacityinfo_remainingcapacity,capacityinfo_absolutestateofcharge,self[:properties][:nextlearntime]]
       end
     end
   end

@@ -1,0 +1,502 @@
+                                     
+Adapter #0
+
+Number of Virtual Disks: 2
+Virtual Drive: 0 (Target Id: 0)
+Name                :
+RAID Level          : Primary-5, Secondary-0, RAID Level Qualifier-3
+Size                : 4.0 GB
+Parity Size         : 1.0 GB
+State               : Optimal
+Strip Size          : 64 KB
+Number Of Drives    : 5
+Span Depth          : 1
+Default Cache Policy: WriteBack, ReadAhead, Direct, No Write Cache if Bad BBU
+Current Cache Policy: WriteBack, ReadAhead, Direct, No Write Cache if Bad BBU
+Default Access Policy: Read/Write
+Current Access Policy: Read/Write
+Disk Cache Policy   : Disk's Default
+Encryption Type     : None
+Default Power Savings Policy: Controller Defined
+Current Power Savings Policy: None
+Can spin up in 1 minute: No
+LD has drives that support T10 power conditions: No
+LD's IO profile supports MAX power savings with cached writes: No
+Is VD Cached: No
+Number of Spans: 1
+Span: 0 - Number of PDs: 5
+
+PD: 0 Information
+Enclosure Device ID: 252
+Slot Number: 0
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 0
+Enclosure position: N/A
+Device Id: 11
+WWN: 5001517959641940
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 0362
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x4433221103000000
+Connected Port Number: 3(path0) 
+Inquiry Data: CVPR132400SR300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 252
+Slot Number: 1
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 1
+Enclosure position: N/A
+Device Id: 9
+WWN: 50015179596418ef
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 0362
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x4433221102000000
+Connected Port Number: 2(path0) 
+Inquiry Data: CVPR132400QW300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 2 Information
+Enclosure Device ID: 252
+Slot Number: 2
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 2
+Enclosure position: N/A
+Device Id: 10
+WWN: 5001517959655aa0
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 0362
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x4433221101000000
+Connected Port Number: 1(path0) 
+Inquiry Data: CVPR1335012J300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 3 Information
+Enclosure Device ID: 252
+Slot Number: 3
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 3
+Enclosure position: N/A
+Device Id: 8
+WWN: 5001517959640ad4
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 0362
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x4433221100000000
+Connected Port Number: 0(path0) 
+Inquiry Data: CVPR132301RC300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 4 Information
+Enclosure Device ID: 252
+Slot Number: 4
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 4
+Enclosure position: N/A
+Device Id: 12
+WWN: 5001517959640a25
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 0362
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x4433221104000000
+Connected Port Number: 4(path0) 
+Inquiry Data: CVPR132301L7300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Virtual Drive: 1 (Target Id: 1)
+Name                :
+RAID Level          : Primary-5, Secondary-0, RAID Level Qualifier-3
+Size                : 888.25 GB
+Parity Size         : 222.062 GB
+State               : Optimal
+Strip Size          : 64 KB
+Number Of Drives    : 5
+Span Depth          : 1
+Default Cache Policy: WriteBack, ReadAhead, Direct, No Write Cache if Bad BBU
+Current Cache Policy: WriteBack, ReadAhead, Direct, No Write Cache if Bad BBU
+Default Access Policy: Read/Write
+Current Access Policy: Read/Write
+Disk Cache Policy   : Disk's Default
+Encryption Type     : None
+Default Power Savings Policy: Controller Defined
+Current Power Savings Policy: None
+Can spin up in 1 minute: No
+LD has drives that support T10 power conditions: No
+LD's IO profile supports MAX power savings with cached writes: No
+Is VD Cached: No
+Number of Spans: 1
+Span: 0 - Number of PDs: 5
+
+PD: 0 Information
+Enclosure Device ID: 252
+Slot Number: 0
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 0
+Enclosure position: N/A
+Device Id: 11
+WWN: 5001517959641940
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 0362
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x4433221103000000
+Connected Port Number: 3(path0) 
+Inquiry Data: CVPR132400SR300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 252
+Slot Number: 1
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 1
+Enclosure position: N/A
+Device Id: 9
+WWN: 50015179596418ef
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 0362
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x4433221102000000
+Connected Port Number: 2(path0) 
+Inquiry Data: CVPR132400QW300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 2 Information
+Enclosure Device ID: 252
+Slot Number: 2
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 2
+Enclosure position: N/A
+Device Id: 10
+WWN: 5001517959655aa0
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 0362
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x4433221101000000
+Connected Port Number: 1(path0) 
+Inquiry Data: CVPR1335012J300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 3 Information
+Enclosure Device ID: 252
+Slot Number: 3
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 3
+Enclosure position: N/A
+Device Id: 8
+WWN: 5001517959640ad4
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 0362
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x4433221100000000
+Connected Port Number: 0(path0) 
+Inquiry Data: CVPR132301RC300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 4 Information
+Enclosure Device ID: 252
+Slot Number: 4
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 4
+Enclosure position: N/A
+Device Id: 12
+WWN: 5001517959640a25
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 223.570 GB [0x1bf244b0 Sectors]
+Non Coerced Size: 223.070 GB [0x1be244b0 Sectors]
+Coerced Size: 223.062 GB [0x1be20000 Sectors]
+Firmware state: Online, Spun Up
+Device Firmware Level: 0362
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x4433221104000000
+Connected Port Number: 4(path0) 
+Inquiry Data: CVPR132301L7300EGN  INTEL SSDSA2CW300G3                     4PC10362
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 3.0Gb/s 
+Link Speed: 3.0Gb/s 
+Media Type: Solid State Device
+Drive Temperature : N/A
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 3.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+Exit Code: 0x00
