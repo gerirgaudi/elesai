@@ -62,7 +62,7 @@ module Elesai; module Action
 
       @lsi.bbus.each do |bbu|
 
-        [:voltage, :temperature, :learncyclestatus].each do |attr|
+        [:temperature, :learncyclestatus].each do |attr|
           unless bbu[:firmwarestatus][attr] == 'OK'
             plugin_output += " [BBU:#{bbu._id}:#{attr}:#{bbu[:firmwarestatus][attr]}]"
             plugin_status = :warning if plugin_status == ""
@@ -78,9 +78,13 @@ module Elesai; module Action
 
         if bbu[:batterytype] == 'iBBU'
           if bbu[:firmwarestatus][:learncycleactive] == 'Yes'
-            plugin_output += " [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
+            plugin_output += " learn cycle enabled: [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
           else
-            if bbu[:firmwarestatus][:chargingstatus] == 'None'
+            unless bbu[:firmwarestatus][:voltage] == 'OK'
+              plugin_output += " [BBU:#{bbu._id}:#{attr}:#{bbu[:firmwarestatus][attr]}]"
+              plugin_status = :warning if plugin_status == ""
+            end
+            if bbu[:firmwarestatus][:chargingstatus] == 'None' or bbu[:gasgaugestatus][:discharging] == 'No'
               if bbu[:gasgaugestatus][:absolutestateofcharge].number <= 65
                 plugin_output += " [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
                 plugin_status = :warning if plugin_status == ""
