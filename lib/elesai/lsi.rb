@@ -24,6 +24,7 @@ module Elesai
         when :bbu
           Megacli::AdpBbuCmd_aAll.new.parse!(self,opts)
         else
+          Megacli::AdpAllInfo_aAll.new.parse!(self,opts)
           Megacli::PDlist_aAll.new.parse!(self,opts)
           Megacli::LDPDinfo_aAll.new.parse!(self,opts)
           Megacli::AdpBbuCmd_aAll.new.parse!(self,opts)

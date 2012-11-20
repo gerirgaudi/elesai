@@ -97,7 +97,11 @@ module Elesai; module Action
         end
       end
 
-      plugin_output = " no LSI RAID errors found" if plugin_output.empty? and plugin_status.empty?
+      if plugin_output.empty? and plugin_status.empty?
+        @lsi.adapters.each do |adapter|
+          plugin_output += " [#{adapter._id}: #{adapter[:versions][:productname].gsub(/\s+/,'_')} OK]"
+        end
+      end
       plugin_status = :ok if plugin_status.empty?
 
       case @options[:monitor]
