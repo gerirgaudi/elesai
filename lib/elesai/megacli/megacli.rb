@@ -172,7 +172,7 @@ module Elesai; module Megacli
 
     def on_attribute_exit(new_state, event, *args)
       @log.debug "      [#{current_state}] exit: entering #{new_state} throught event #{event}; args: #{args}"
-      @context.close if @context.current.class == Elesai::LSI::PhysicalDrive and event != :attribute_line
+      @context.close if Elesai::LSI::PhysicalDrive === @context.current and event != :attribute_line
 
       @context.flash!(new_state)
     end
@@ -184,7 +184,7 @@ module Elesai; module Megacli
     end
 
     def on_exit_entry(new_state, event, *args)
-      @log.debug "      [#{current_state}] exit: entering #{new_state} throught event #{event}; args: #{args}"
+      @log.debug "      [#{current_state}] exit: entering #{new_state} through event #{event}; args: #{args}"
       until @context.current.nil? do
         @context.close
       end

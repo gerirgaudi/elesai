@@ -10,6 +10,7 @@ where:
 
 * `<action>` is one of `show` or `check`
 * `<component>` (for `show` action) is one of 
+	* `adapter`
 	* `virtualdrive` (or `vd`)
 	* `physicaldrive` (or `pd`)
 	* `bbu` 
@@ -18,6 +19,7 @@ Global options include:
 
 * `-d`, `--debug`: enable *debug* mode
 * `-f`, `--fake DIRECTORY`: specifies path to directory containing output of MegaCli invocations:
+	* `adpallinfo_aall`: output from `MegaCli -adpallinfo -aall -nolog`
 	* `ldlist_aall`: output from `MegaCli -pdlist -aall -nolog`
 	* `ldpdinfo_aall`: output from `MegaCli -ldpdinfo -aall -nolog`
 	* `adpbbucmd_aall`: output from `MegaCli -adpcbucmd -aall -nolog`
