@@ -1,5 +1,4 @@
 require 'senedsa'
-require 'awesome_print'
 
 module Elesai; module Action
 
