@@ -19,9 +19,8 @@ module Elesai
       @whoami = File.basename($PROGRAM_NAME).to_sym
 
       @options = { :debug => false, :megacli => 'MegaCli' }
-      @action_options = { :monitor => :nagios, :mode => :active }
       @action = nil
-      @foo = nil
+      @elesai = nil
     end
 
     def run
