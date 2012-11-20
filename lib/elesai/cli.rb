@@ -88,7 +88,6 @@ module Elesai
       end
 
       def process_arguments
-        @action_options[:hint] = @arguments[0].nil? ? nil : @arguments[0].to_sym
         true
       end
 
