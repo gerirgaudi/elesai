@@ -1,5 +1,3 @@
-require 'awesome_print'
-
 module Elesai; module Megacli
 
   class AdpAllInfo_aAll <  Megacli
