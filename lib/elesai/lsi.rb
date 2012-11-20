@@ -54,15 +54,6 @@ module Elesai
 
 
 
-
-
-
-
-
-
-
-    ### Adapter
-
     class Adapter < Hash
 
       class Section < Hash
@@ -85,14 +76,6 @@ module Elesai
         "#{self[:id]}"
       end
 
-      def type
-        :adapter
-      end
-
-      def type_of?(type)
-        self.type == type
-      end
-
       def inspect
         "#{self.class}:#{self.__id__}"
       end
@@ -106,12 +89,10 @@ module Elesai
       end
 
       def to_s
-        "[ADAPTER] %2s  %s  %s" % [ self._id,self[:versions][:productname],self[:imageversions][:fwversion] ]
+        "[ADAPTER] %2s  %s  %s %s  %s" % [ self._id,self[:versions][:productname].gsub(/\s+/,'_'),self[:versions][:fwpackagebuild],self[:imageversions][:fwversion],self[:hwconfiguration][:sasaddress] ]
       end
 
     end
-
-    ### Virtual Drive
 
     class VirtualDrive < Hash
 
@@ -138,14 +119,6 @@ module Elesai
         self[:targetid]
       end
 
-      def type
-        :virtualdrive
-      end
-
-      def type_of?(type)
-        self.type == type
-      end
-
       def inspect
         "#{self.class}:#{self.__id__}"
       end
@@ -159,8 +132,6 @@ module Elesai
       end
 
     end
-
-    ### Physical Drive
 
     class PhysicalDrive < Hash
 
@@ -197,14 +168,6 @@ module Elesai
         "e#{self[:enclosuredeviceid].to_s}s#{self[:slotnumber].to_s}".to_sym
       end
 
-      def type
-        :physicaldrive
-      end
-
-      def type_of?(type)
-        self.type == type
-      end
-
       def to_s
         keys = [:deviceid, :firmwarestate, :coercedsize, :mediatype, :pdtype, :mediaerrorcount, :predictivefailurecount,:inquirydata]
         #"[PD] %8s %4s %19s %8.2f%s %5s %5s %3d %3d   %s" % [ self.id, @deviceid, "#{@state}:#{@spin}", @_size.number, @_size.unit, @mediatype, @pdtype, @mediaerrors, @predictivefailure, @inquirydata  ]
@@ -236,38 +199,31 @@ module Elesai
       end
     end
 
-    ### BBU
-
     class BBU < Hash
 
       class NumberUnit < Struct.new(:number, :unit)
         def to_s ; "%d%s" % [self.number,self.unit] end
       end
 
-      class Stub < Hash
+      class Section < Hash
+        attr_reader :section
+        def initialize(section)
+          @section = section
+        end
         def inspect
-          "#{self.class}:#{self.__id__}"
+          "#{self.class}:#{@section.capitalize}:#{self.__id__}"
         end
       end
-      class Status < Stub; end
-      class FirmwareStatus < Stub; end
-      class DesignInfo < Stub; end
-      class Properties < Stub; end
-      class CapacityInfo < Stub; end
-      class GasGaugeStatus < Stub; end
 
       def initialize
-        self[:status] = Status.new
-        self[:firmwarestatus] = FirmwareStatus.new
-        self[:designinfo] = DesignInfo.new
-        self[:properties] = Properties.new
-        self[:capacityinfo] = CapacityInfo.new
-        self[:gasgaugestatus] = GasGaugeStatus.new
-        self[:capacityinfo][:absolutestateofcharge] = '-'
       end
 
       def _id
         self[:id]
+      end
+
+      def add_section(section)
+        self[section.section] = section
       end
 
       def inspect
