@@ -80,7 +80,7 @@ module Elesai; module Action
             plugin_output += " learn cycle enabled: [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
           else
             unless bbu[:firmwarestatus][:voltage] == 'OK'
-              plugin_output += " [BBU:#{bbu._id}:#{attr}:#{bbu[:firmwarestatus][attr]}]"
+              plugin_output += " [BBU:#{bbu._id}:voltage:#{bbu[:firmwarestatus][:voltage]}]"
               plugin_status = :warning if plugin_status == ""
             end
             if bbu[:firmwarestatus][:chargingstatus] == 'None' or bbu[:gasgaugestatus][:discharging] == 'No'
