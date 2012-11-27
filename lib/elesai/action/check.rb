@@ -1,5 +1,4 @@
 require 'senedsa'
-require 'awesome_print'
 
 module Elesai; module Action
 
@@ -81,7 +80,7 @@ module Elesai; module Action
             plugin_output += " learn cycle enabled: [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
           else
             unless bbu[:firmwarestatus][:voltage] == 'OK'
-              plugin_output += " [BBU:#{bbu._id}:#{attr}:#{bbu[:firmwarestatus][attr]}]"
+              plugin_output += " [BBU:#{bbu._id}:voltage:#{bbu[:firmwarestatus][:voltage]}]"
               plugin_status = :warning if plugin_status == ""
             end
             if bbu[:firmwarestatus][:chargingstatus] == 'None' or bbu[:gasgaugestatus][:discharging] == 'No'
@@ -98,7 +97,11 @@ module Elesai; module Action
         end
       end
 
-      plugin_output = " no LSI RAID errors found" if plugin_output.empty? and plugin_status.empty?
+      if plugin_output.empty? and plugin_status.empty?
+        @lsi.adapters.each do |adapter|
+          plugin_output += " [#{adapter._id}: #{adapter[:versions][:productname].gsub(/\s+/,'_')} OK]"
+        end
+      end
       plugin_status = :ok if plugin_status.empty?
 
       case @options[:monitor]
