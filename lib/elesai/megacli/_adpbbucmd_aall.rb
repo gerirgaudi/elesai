@@ -17,7 +17,7 @@ module Elesai; module Megacli
     end
 
     def parse!(lsi,opts)
-      fake = opts[:fake].nil? ? @command_argument : File.join(opts[:fake],@command_output_file)
+      fake = opts[:fake].nil? ? @command_arguments : File.join(opts[:fake],@command_output_file)
       super lsi, :fake => fake, :megacli => opts[:megacli]
     end
 
