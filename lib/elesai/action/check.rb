@@ -61,11 +61,13 @@ module Elesai; module Action
 
       @lsi.bbus.each do |bbu|
 
-        [:temperature, :learncyclestatus].each do |attr|
-          unless bbu[:firmwarestatus][attr] == 'OK'
-            plugin_output += " [BBU:#{bbu._id}:#{attr}:#{bbu[:firmwarestatus][attr]}]"
-            plugin_status = :warning if plugin_status == ""
-          end
+        unless bbu[:firmwarestatus][:temperature] == 'OK'
+          plugin_output += " [BBU:#{bbu._id}:temperature:#{bbu[:firmwarestatus][:temperature]}:#{bbu[:temperature].gsub(/\s/,'')}]"
+        end
+
+        unless bbu[:firmwarestatus][:learncyclestatus] == 'OK'
+          plugin_output += " [BBU:#{bbu._id}:learncyclestatus:#{bbu[:firmwarestatus][:learncyclestatus]}]"
+          plugin_status = :warning if plugin_status == ""
         end
 
         [:batterypackmissing, :batteryreplacementrequired].each do |attr|
