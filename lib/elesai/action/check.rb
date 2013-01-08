@@ -53,9 +53,18 @@ module Elesai; module Action
 
       @lsi.virtualdrives.each do |vd|
         vd_plugin_string = "[VD:#{vd._id}]"
-        unless vd[:state] == :optimal
-          plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
-          plugin_status = :critical
+        case vd[:state]
+          when :offline, :failed
+            plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
+            plugin_status = :critical
+          when :partialdegraded, :degraded
+            plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
+            plugin_status = :warning if plugin_status != :critical
+          when :optimal
+            a = 1
+          else
+            plugin_status = :unknown
+            plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
         end
       end
 
