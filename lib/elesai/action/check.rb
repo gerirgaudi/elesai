@@ -39,7 +39,7 @@ module Elesai; module Action
         unless physicaldrive[:firmwarestate].state == :online or physicaldrive[:firmwarestate].state == :hotspare
           plugin_output += " #{drive_plugin_string}:#{physicaldrive[:firmwarestate].state}"
           plugin_status = :critical if physicaldrive[:firmwarestate] == :failed
-          plugin_status = :warning if plugin_status.empty?
+          plugin_status = :warning if  physicaldrive[:firmwarestate] == :rebuild and plugin_status != :critical
         end
         unless physicaldrive[:mediaerrorcount].to_i < 10
           plugin_output += " #{drive_plugin_string}:MediaError:#{physicaldrive[:mediaerrorcount]}"
