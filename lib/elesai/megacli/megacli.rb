@@ -163,7 +163,7 @@ module Elesai; module Megacli
           v = v.scan(/[A-Z]/).join
         when :inquirydata
           v = v.gsub(/\s+/,' ')
-        when :relativedtateofcharge, :absolutestateofcharge, :remainingcapacityalarm, :remainingcapacity
+        when :relativestateofcharge, :absolutestateofcharge, :remainingcapacityalarm, :remainingcapacity, :designcapacity
           m = /(?<number>[0-9\.]+)\s+(?<unit>[A-Za-z%]+)/.match(v)
           v = LSI::BBU::NumberUnit.new(m[:number].to_f,m[:unit])
       end

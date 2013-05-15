@@ -66,9 +66,17 @@ module Elesai; module Action
             plugin_status = :unknown
             plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
         end
+        unless vd[:currentcachepolicy] =~ /^WriteBack/
+          plugin_status = :critical
+          plugin_output += " #{vd_plugin_string}:(not in writeback mode)"
+        end
       end
 
       @lsi.bbus.each do |bbu|
+
+        unless bbu[:batterystate] == 'Operational'
+          plugin_output += " [BBU:#{bbu._id}:batterystate:#{bbu[:batterystate]}"
+        end
 
         unless bbu[:firmwarestatus][:temperature] == 'OK'
           plugin_output += " [BBU:#{bbu._id}:temperature:#{bbu[:firmwarestatus][:temperature]}:#{bbu[:temperature].gsub(/\s/,'')}]"
@@ -92,17 +100,14 @@ module Elesai; module Action
           else
             unless bbu[:firmwarestatus][:voltage] == 'OK'
               plugin_output += " [BBU:#{bbu._id}:voltage:#{bbu[:firmwarestatus][:voltage]}]"
-              plugin_status = :warning if plugin_status == ""
+              plugin_status = :warning if plugin_status == ''
             end
-            if bbu[:firmwarestatus][:chargingstatus] == 'None' or bbu[:gasgaugestatus][:discharging] == 'No'
-              if bbu[:gasgaugestatus][:absolutestateofcharge].number <= 65
-                plugin_output += " [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
-                plugin_status = :warning if plugin_status == ""
-              end
-              if bbu[:capacityinfo][:remainingcapacity].number <= bbu[:capacityinfo][:remainingcapacityalarm].number
-                plugin_output += " [BBU:remainingcapacity:#{bbu[:capacityinfo][:remainingcapacityalarm]}]"
-                plugin_status = :warning if plugin_status == ""
-              end
+            remainingcapacity = bbu[:capacityinfo][:remainingcapacity].number
+            designcapacity = bbu[:designinfo][:designcapacity].number
+            bbupercent = (remainingcapacity.to_f / designcapacity.to_f) * 100
+            if bbupercent < 70
+              plugin_output += " [BBU: #{bbupercent.to_i} percent of original capacity remaining]"
+              plugin_status = :warning if plugin_status == ''
             end
           end
         end
