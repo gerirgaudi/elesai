@@ -74,10 +74,6 @@ module Elesai; module Action
 
       @lsi.bbus.each do |bbu|
 
-        unless bbu[:batterystate] == 'Operational'
-          plugin_output += " [BBU:#{bbu._id}:batterystate:#{bbu[:batterystate]}"
-        end
-
         unless bbu[:firmwarestatus][:temperature] == 'OK'
           plugin_output += " [BBU:#{bbu._id}:temperature:#{bbu[:firmwarestatus][:temperature]}:#{bbu[:temperature].gsub(/\s/,'')}]"
         end
@@ -95,19 +91,24 @@ module Elesai; module Action
         end
 
         if bbu[:batterytype] == 'iBBU'
-          if bbu[:firmwarestatus][:learncycleactive] == 'Yes'
-            plugin_output += " learn cycle enabled: [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
+          if bbu[:batterystate] != 'Operational'
+            plugin_output += " [BBU:#{bbu._id}:batterystate:#{bbu[:batterystate]}]"
+            plugin_status = :critical
           else
-            unless bbu[:firmwarestatus][:voltage] == 'OK'
-              plugin_output += " [BBU:#{bbu._id}:voltage:#{bbu[:firmwarestatus][:voltage]}]"
-              plugin_status = :warning if plugin_status == ''
-            end
-            remainingcapacity = bbu[:capacityinfo][:remainingcapacity].number
-            designcapacity = bbu[:designinfo][:designcapacity].number
-            bbupercent = (remainingcapacity.to_f / designcapacity.to_f) * 100
-            if bbupercent < 70
-              plugin_output += " [BBU: #{bbupercent.to_i} percent of original capacity remaining]"
-              plugin_status = :warning if plugin_status == ''
+            if bbu[:firmwarestatus][:learncycleactive] == 'Yes'
+              plugin_output += " learn cycle enabled: [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
+            else
+              unless bbu[:firmwarestatus][:voltage] == 'OK'
+                plugin_output += " [BBU:#{bbu._id}:voltage:#{bbu[:firmwarestatus][:voltage]}]"
+                plugin_status = :warning if plugin_status == ''
+              end
+              remainingcapacity = bbu[:capacityinfo][:remainingcapacity].number
+              designcapacity = bbu[:designinfo][:designcapacity].number
+              bbupercent = (remainingcapacity.to_f / designcapacity.to_f) * 100
+              if bbupercent < 70
+                plugin_output += " [BBU: #{bbupercent.to_i} percent of original capacity remaining]"
+                plugin_status = :warning if plugin_status == ''
+              end
             end
           end
         end
