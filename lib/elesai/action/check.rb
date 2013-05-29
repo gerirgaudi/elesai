@@ -93,7 +93,7 @@ module Elesai; module Action
         if bbu[:batterytype] == 'iBBU'
           if bbu[:batterystate] != 'Operational'
             plugin_output += " [BBU:#{bbu._id}:batterystate:#{bbu[:batterystate]}]"
-            plugin_status = :critical
+            plugin_status = :warning
           else
             if bbu[:firmwarestatus][:learncycleactive] == 'Yes'
               plugin_output += " learn cycle enabled: [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
