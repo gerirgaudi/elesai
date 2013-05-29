@@ -66,8 +66,8 @@ module Elesai; module Action
             plugin_status = :unknown
             plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
         end
-        unless vd[:currentcachepolicy] =~ /^WriteBack/
-          plugin_status = :critical
+        unless vd[:currentcachepolicy] =~ /^WriteBack/ and @lsi.bbus[0][:firmwarestatus][:learncycleactive] != 'Yes'
+          plugin_status = :warning
           plugin_output += " #{vd_plugin_string}:(not in writeback mode)"
         end
       end
