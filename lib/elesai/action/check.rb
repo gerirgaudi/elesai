@@ -17,6 +17,7 @@ module Elesai; module Action
       opts.banner = "Usage: #{ID} [options] check [check_options]"
       opts.separator ""
       opts.separator "Check Options"
+      opts.on('--hotspare MIN',                      Integer,              "Minimum number of hotspares")                       { |o| @options[:hotspare]       = o }
       opts.on('-M', '--monitor [nagios]',            [:nagios],            "Monitoring system")                                 { |o| @options[:monitor]        = o }
       opts.on('-m', '--mode [active|passive]',       [:active, :passive],  "Monitoring mode")                                   { |o| @options[:mode]           = o }
       opts.on('-H', '--nsca_hostname HOSTNAME',      String,               "NSCA hostname to send passive checks")              { |o| @options[:nsca_hostame]   = o }
@@ -54,12 +55,10 @@ module Elesai; module Action
         hotspare += 1 if physicaldrive[:firmwarestate].state == :hotspare
       end
 
-      if hotspare == 0
+      if hotspare < @options[:hotspare].to_i
         plugin_status = :warning if plugin_status.empty?
-        plugin_output += " no hotspare found"
+        plugin_output += " hotspare low watermark (require #{@options[:hotspare]}, have #{hotspare})"
       end
-
-      plugin_status = :warning if plugin_status.empty?
 
       @lsi.virtualdrives.each do |vd|
         vd_plugin_string = "[VD:#{vd._id}]"
