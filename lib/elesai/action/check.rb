@@ -34,6 +34,8 @@ module Elesai; module Action
       plugin_output = ""
       plugin_status = ""
 
+      hotspare = 0
+
       @lsi.physicaldrives.each do |id,physicaldrive|
         drive_plugin_string = "[PD:#{physicaldrive._id}:#{physicaldrive[:size]}:#{physicaldrive[:mediatype]}:#{physicaldrive[:pdtype]}]"
         unless physicaldrive[:firmwarestate].state == :online or physicaldrive[:firmwarestate].state == :hotspare
@@ -49,7 +51,15 @@ module Elesai; module Action
           plugin_output += " #{drive_plugin_string}:PredictiveFailure:#{physicaldrive[:predictivefailurecount]}"
           plugin_status = :warning if plugin_status.empty?
         end
+        hotspare += 1 if physicaldrive[:firmwarestate].state == :hotspare
       end
+
+      if hotspare == 0
+        plugin_status = :warning if plugin_status.empty?
+        plugin_output += " no hotspare found"
+      end
+
+      plugin_status = :warning if plugin_status.empty?
 
       @lsi.virtualdrives.each do |vd|
         vd_plugin_string = "[VD:#{vd._id}]"
