@@ -1,0 +1,812 @@
+                                     
+Adapter #0
+
+Number of Virtual Disks: 2
+Virtual Drive: 0 (Target Id: 0)
+Name                :
+RAID Level          : Primary-6, Secondary-0, RAID Level Qualifier-3
+Size                : 9.999 GB
+Is VD emulated      : Yes
+Parity Size         : 3.333 GB
+State               : Partially Degraded
+Strip Size          : 64 KB
+Number Of Drives    : 8
+Span Depth          : 1
+Default Cache Policy: WriteBack, ReadAhead, Direct, No Write Cache if Bad BBU
+Current Cache Policy: WriteBack, ReadAhead, Direct, No Write Cache if Bad BBU
+Default Access Policy: Read/Write
+Current Access Policy: Read/Write
+Disk Cache Policy   : Disabled
+Encryption Type     : None
+Is VD Cached: No
+Number of Spans: 1
+Span: 0 - Number of PDs: 8
+
+PD: 0 Information
+Enclosure Device ID: 16
+Slot Number: 0
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 0
+Enclosure position: 1
+Device Id: 8
+WWN: 5000cca22bc4c561
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A3B0
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc8c
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK2361PAGAHB7WHitachi HUS724040ALE640                 MJAOA3B0
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :29C (84.20 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 16
+Slot Number: 1
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 1
+Enclosure position: 1
+Device Id: 9
+WWN: 5000cca22bc50877
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A3B0
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc8d
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK2361PAGB277WHitachi HUS724040ALE640                 MJAOA3B0
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :30C (86.00 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 2 Information
+Enclosure Device ID: 16
+Slot Number: 2
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 2
+Enclosure position: 1
+Device Id: 10
+WWN: 5000cca22bc4c50f
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A3B0
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc8e
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK2361PAGAH8LWHitachi HUS724040ALE640                 MJAOA3B0
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :29C (84.20 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 3 Information
+Enclosure Device ID: 16
+Slot Number: 3
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 3
+Enclosure position: 1
+Device Id: 11
+WWN: 5000cca22bc4b665
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A3B0
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc8f
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK2361PAGABBHWHitachi HUS724040ALE640                 MJAOA3B0
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :29C (84.20 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 4 Information
+Enclosure Device ID: 16
+Slot Number: 4
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 4
+Enclosure position: 1
+Device Id: 12
+WWN: 5000cca22bc4c52f
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A3B0
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc90
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK2361PAGAH9MWHitachi HUS724040ALE640                 MJAOA3B0
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :29C (84.20 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 5 Information
+Enclosure Device ID: 16
+Slot Number: 5
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 5
+Enclosure position: 1
+Device Id: 13
+WWN: 5000cca22bc58781
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A3B0
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc91
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK1361PAGD52AVHitachi HUS724040ALE640                 MJAOA3B0
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :28C (82.40 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 6 Information
+Enclosure Device ID: 16
+Slot Number: 6
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 6
+Enclosure position: 1
+Device Id: 14
+WWN: 5000cca22be79da9
+Sequence Number: 11
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Rebuild
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A580
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc92
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK1331PAJU4MHXHGST HUS724040ALE640                    MJAOA580
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :27C (80.60 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 7 Information
+Enclosure Device ID: 16
+Slot Number: 7
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 7
+Enclosure position: 1
+Device Id: 15
+WWN: 5000cca22bc586d8
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A3B0
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc93
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK1361PAGD4WWVHitachi HUS724040ALE640                 MJAOA3B0
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :29C (84.20 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Virtual Drive: 1 (Target Id: 1)
+Name                :
+RAID Level          : Primary-6, Secondary-0, RAID Level Qualifier-3
+Size                : 21.819 TB
+Is VD emulated      : Yes
+Parity Size         : 7.272 TB
+State               : Partially Degraded
+Strip Size          : 64 KB
+Number Of Drives    : 8
+Span Depth          : 1
+Default Cache Policy: WriteBack, ReadAhead, Direct, No Write Cache if Bad BBU
+Current Cache Policy: WriteBack, ReadAhead, Direct, No Write Cache if Bad BBU
+Default Access Policy: Read/Write
+Current Access Policy: Read/Write
+Disk Cache Policy   : Disabled
+Encryption Type     : None
+Is VD Cached: No
+Number of Spans: 1
+Span: 0 - Number of PDs: 8
+
+PD: 0 Information
+Enclosure Device ID: 16
+Slot Number: 0
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 0
+Enclosure position: 1
+Device Id: 8
+WWN: 5000cca22bc4c561
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A3B0
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc8c
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK2361PAGAHB7WHitachi HUS724040ALE640                 MJAOA3B0
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :29C (84.20 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 1 Information
+Enclosure Device ID: 16
+Slot Number: 1
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 1
+Enclosure position: 1
+Device Id: 9
+WWN: 5000cca22bc50877
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A3B0
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc8d
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK2361PAGB277WHitachi HUS724040ALE640                 MJAOA3B0
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :30C (86.00 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 2 Information
+Enclosure Device ID: 16
+Slot Number: 2
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 2
+Enclosure position: 1
+Device Id: 10
+WWN: 5000cca22bc4c50f
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A3B0
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc8e
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK2361PAGAH8LWHitachi HUS724040ALE640                 MJAOA3B0
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :29C (84.20 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 3 Information
+Enclosure Device ID: 16
+Slot Number: 3
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 3
+Enclosure position: 1
+Device Id: 11
+WWN: 5000cca22bc4b665
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A3B0
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc8f
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK2361PAGABBHWHitachi HUS724040ALE640                 MJAOA3B0
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :29C (84.20 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 4 Information
+Enclosure Device ID: 16
+Slot Number: 4
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 4
+Enclosure position: 1
+Device Id: 12
+WWN: 5000cca22bc4c52f
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A3B0
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc90
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK2361PAGAH9MWHitachi HUS724040ALE640                 MJAOA3B0
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :29C (84.20 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 5 Information
+Enclosure Device ID: 16
+Slot Number: 5
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 5
+Enclosure position: 1
+Device Id: 13
+WWN: 5000cca22bc58781
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A3B0
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc91
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK1361PAGD52AVHitachi HUS724040ALE640                 MJAOA3B0
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :28C (82.40 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 6 Information
+Enclosure Device ID: 16
+Slot Number: 6
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 6
+Enclosure position: 1
+Device Id: 14
+WWN: 5000cca22be79da9
+Sequence Number: 11
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Rebuild
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A580
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc92
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK1331PAJU4MHXHGST HUS724040ALE640                    MJAOA580
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :27C (80.60 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+PD: 7 Information
+Enclosure Device ID: 16
+Slot Number: 7
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 7
+Enclosure position: 1
+Device Id: 15
+WWN: 5000cca22bc586d8
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SATA
+
+Raw Size: 3.638 TB [0x1d1c0beb0 Sectors]
+Non Coerced Size: 3.637 TB [0x1d1b0beb0 Sectors]
+Coerced Size: 3.637 TB [0x1d1b00000 Sectors]
+Emulated Drive: Yes
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: A3B0
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x500304800030cc93
+Connected Port Number: 0(path0) 
+Inquiry Data:       PK1361PAGD4WWVHitachi HUS724040ALE640                 MJAOA3B0
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :29C (84.20 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+Exit Code: 0x00

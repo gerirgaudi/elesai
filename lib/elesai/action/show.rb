@@ -14,7 +14,7 @@ module Elesai; module Action
       opts = OptionParser.new
       opts.banner = "Usage: #{ID} [options] show <component>"
       opts.separator ""
-      opts.separator "      <component> is physicaldisk|pd, virtualdisk|vd, bbu"
+      opts.separator "      <component> is adapter, physicaldisk|pd, virtualdisk|vd, bbu"
       opts.order!(@arguments)
 
       options_valid?

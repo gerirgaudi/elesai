@@ -17,6 +17,7 @@ module Elesai; module Action
       opts.banner = "Usage: #{ID} [options] check [check_options]"
       opts.separator ""
       opts.separator "Check Options"
+      opts.on('--hotspare MIN',                      Integer,              "Minimum number of hotspares")                       { |o| @options[:hotspare]       = o }
       opts.on('-M', '--monitor [nagios]',            [:nagios],            "Monitoring system")                                 { |o| @options[:monitor]        = o }
       opts.on('-m', '--mode [active|passive]',       [:active, :passive],  "Monitoring mode")                                   { |o| @options[:mode]           = o }
       opts.on('-H', '--nsca_hostname HOSTNAME',      String,               "NSCA hostname to send passive checks")              { |o| @options[:nsca_hostame]   = o }
@@ -34,12 +35,14 @@ module Elesai; module Action
       plugin_output = ""
       plugin_status = ""
 
+      hotspare = 0
+
       @lsi.physicaldrives.each do |id,physicaldrive|
         drive_plugin_string = "[PD:#{physicaldrive._id}:#{physicaldrive[:size]}:#{physicaldrive[:mediatype]}:#{physicaldrive[:pdtype]}]"
         unless physicaldrive[:firmwarestate].state == :online or physicaldrive[:firmwarestate].state == :hotspare
           plugin_output += " #{drive_plugin_string}:#{physicaldrive[:firmwarestate].state}"
-          plugin_status = :critical if physicaldrive[:firmwarestate] == :failed
-          plugin_status = :warning if plugin_status.empty?
+          plugin_status = :critical if physicaldrive[:firmwarestate].state == :failed
+          plugin_status = :warning if  physicaldrive[:firmwarestate].state == :rebuild and plugin_status != :critical
         end
         unless physicaldrive[:mediaerrorcount].to_i < 10
           plugin_output += " #{drive_plugin_string}:MediaError:#{physicaldrive[:mediaerrorcount]}"
@@ -49,23 +52,44 @@ module Elesai; module Action
           plugin_output += " #{drive_plugin_string}:PredictiveFailure:#{physicaldrive[:predictivefailurecount]}"
           plugin_status = :warning if plugin_status.empty?
         end
+        hotspare += 1 if physicaldrive[:firmwarestate].state == :hotspare
+      end
+
+      if hotspare < @options[:hotspare].to_i
+        plugin_status = :warning if plugin_status.empty?
+        plugin_output += " hotspare low watermark (require #{@options[:hotspare]}, have #{hotspare})"
       end
 
       @lsi.virtualdrives.each do |vd|
         vd_plugin_string = "[VD:#{vd._id}]"
-        unless vd[:state] == :optimal
-          plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
-          plugin_status = :critical
+        case vd[:state]
+          when :offline, :failed
+            plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
+            plugin_status = :critical
+          when :partially_degraded, :degraded
+            plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
+            plugin_status = :warning if plugin_status != :critical
+          when :optimal
+            a = 1
+          else
+            plugin_status = :unknown
+            plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
+        end
+        unless vd[:currentcachepolicy] =~ /^WriteBack/ and @lsi.bbus[0][:firmwarestatus][:learncycleactive] != 'Yes'
+          plugin_status = :warning
+          plugin_output += " #{vd_plugin_string}:(not in writeback mode)"
         end
       end
 
       @lsi.bbus.each do |bbu|
 
-        [:temperature, :learncyclestatus].each do |attr|
-          unless bbu[:firmwarestatus][attr] == 'OK'
-            plugin_output += " [BBU:#{bbu._id}:#{attr}:#{bbu[:firmwarestatus][attr]}]"
-            plugin_status = :warning if plugin_status == ""
-          end
+        unless bbu[:firmwarestatus][:temperature] == 'OK'
+          plugin_output += " [BBU:#{bbu._id}:temperature:#{bbu[:firmwarestatus][:temperature]}:#{bbu[:temperature].gsub(/\s/,'')}]"
+        end
+
+        unless bbu[:firmwarestatus][:learncyclestatus] == 'OK'
+          plugin_output += " [BBU:#{bbu._id}:learncyclestatus:#{bbu[:firmwarestatus][:learncyclestatus]}]"
+          plugin_status = :warning if plugin_status == ""
         end
 
         [:batterypackmissing, :batteryreplacementrequired].each do |attr|
@@ -76,21 +100,23 @@ module Elesai; module Action
         end
 
         if bbu[:batterytype] == 'iBBU'
-          if bbu[:firmwarestatus][:learncycleactive] == 'Yes'
-            plugin_output += " learn cycle enabled: [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
+          if bbu[:batterystate] != 'Operational'
+            plugin_output += " [BBU:#{bbu._id}:batterystate:#{bbu[:batterystate]}]"
+            plugin_status = :warning
           else
-            unless bbu[:firmwarestatus][:voltage] == 'OK'
-              plugin_output += " [BBU:#{bbu._id}:voltage:#{bbu[:firmwarestatus][:voltage]}]"
-              plugin_status = :warning if plugin_status == ""
-            end
-            if bbu[:firmwarestatus][:chargingstatus] == 'None' or bbu[:gasgaugestatus][:discharging] == 'No'
-              if bbu[:gasgaugestatus][:absolutestateofcharge].number <= 65
-                plugin_output += " [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
-                plugin_status = :warning if plugin_status == ""
+            if bbu[:firmwarestatus][:learncycleactive] == 'Yes'
+              plugin_output += " learn cycle enabled: [BBU:absolutestateofcharge:#{bbu[:gasgaugestatus][:absolutestateofcharge]}]"
+            else
+              unless bbu[:firmwarestatus][:voltage] == 'OK'
+                plugin_output += " [BBU:#{bbu._id}:voltage:#{bbu[:firmwarestatus][:voltage]}]"
+                plugin_status = :warning if plugin_status == ''
               end
-              if bbu[:capacityinfo][:remainingcapacity].number <= bbu[:capacityinfo][:remainingcapacityalarm].number
-                plugin_output += " [BBU:remainingcapacity:#{bbu[:capacityinfo][:remainingcapacityalarm]}]"
-                plugin_status = :warning if plugin_status == ""
+              remainingcapacity = bbu[:capacityinfo][:remainingcapacity].number
+              designcapacity = bbu[:designinfo][:designcapacity].number
+              bbupercent = (remainingcapacity.to_f / designcapacity.to_f) * 100
+              if bbupercent < 70
+                plugin_output += " [BBU: #{bbupercent.to_i} percent of original capacity remaining]"
+                plugin_status = :warning if plugin_status == ''
               end
             end
           end

@@ -1,0 +1,593 @@
+                                     
+Adapter #0
+
+Enclosure Device ID: 16
+Slot Number: 0
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 0
+Enclosure position: 1
+Device Id: 4
+WWN: 5000C5003B7899F8
+Sequence Number: 2
+Media Error Count: 3
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SAS
+
+Raw Size: 279.396 GB [0x22ecb25c Sectors]
+Non Coerced Size: 278.896 GB [0x22dcb25c Sectors]
+Coerced Size: 278.875 GB [0x22dc0000 Sectors]
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: 0008
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x5000c5003b7899f9
+SAS Address(1): 0x0
+Connected Port Number: 0(path0) 
+Inquiry Data: SEAGATE ST3300657SS     00086SJ2FPWP            
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :36C (96.80 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Port-1 :
+Port status: Active
+Port's Linkspeed: Unknown 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Enclosure Device ID: 16
+Slot Number: 1
+Drive's postion: DiskGroup: 0, Span: 0, Arm: 1
+Enclosure position: 1
+Device Id: 5
+WWN: 5000C5003B77696C
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SAS
+
+Raw Size: 279.396 GB [0x22ecb25c Sectors]
+Non Coerced Size: 278.896 GB [0x22dcb25c Sectors]
+Coerced Size: 278.875 GB [0x22dc0000 Sectors]
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: 0008
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x5000c5003b77696d
+SAS Address(1): 0x0
+Connected Port Number: 0(path0) 
+Inquiry Data: SEAGATE ST3300657SS     00086SJ2E9YY            
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :33C (91.40 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Port-1 :
+Port status: Active
+Port's Linkspeed: Unknown 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Enclosure Device ID: 16
+Slot Number: 2
+Drive's postion: DiskGroup: 2, Span: 0, Arm: 0
+Enclosure position: 1
+Device Id: 6
+WWN: 5000C5003B78D1D8
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SAS
+
+Raw Size: 279.396 GB [0x22ecb25c Sectors]
+Non Coerced Size: 278.896 GB [0x22dcb25c Sectors]
+Coerced Size: 278.875 GB [0x22dc0000 Sectors]
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: 0008
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x5000c5003b78d1d9
+SAS Address(1): 0x0
+Connected Port Number: 0(path0) 
+Inquiry Data: SEAGATE ST3300657SS     00086SJ2F5VA            
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :33C (91.40 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Port-1 :
+Port status: Active
+Port's Linkspeed: Unknown 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Enclosure Device ID: 16
+Slot Number: 3
+Drive's postion: DiskGroup: 2, Span: 0, Arm: 1
+Enclosure position: 1
+Device Id: 7
+WWN: 5000C5003B78C278
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SAS
+
+Raw Size: 279.396 GB [0x22ecb25c Sectors]
+Non Coerced Size: 278.896 GB [0x22dcb25c Sectors]
+Coerced Size: 278.875 GB [0x22dc0000 Sectors]
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: 0008
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x5000c5003b78c279
+SAS Address(1): 0x0
+Connected Port Number: 0(path0) 
+Inquiry Data: SEAGATE ST3300657SS     00086SJ2F76A            
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :32C (89.60 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Port-1 :
+Port status: Active
+Port's Linkspeed: Unknown 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Enclosure Device ID: 16
+Slot Number: 6
+Drive's postion: DiskGroup: 1, Span: 0, Arm: 0
+Enclosure position: 1
+Device Id: 8
+WWN: 5000C500342565A8
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SAS
+
+Raw Size: 2.728 TB [0x15d50a3b0 Sectors]
+Non Coerced Size: 2.728 TB [0x15d40a3b0 Sectors]
+Coerced Size: 2.728 TB [0x15d400000 Sectors]
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: 0002
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x5000c500342565a9
+SAS Address(1): 0x0
+Connected Port Number: 0(path0) 
+Inquiry Data: SEAGATE ST33000650SS    0002Z2905B3P            
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :40C (104.00 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Port-1 :
+Port status: Active
+Port's Linkspeed: Unknown 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Enclosure Device ID: 16
+Slot Number: 7
+Drive's postion: DiskGroup: 1, Span: 0, Arm: 1
+Enclosure position: 1
+Device Id: 9
+WWN: 5000C5003424C108
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SAS
+
+Raw Size: 2.728 TB [0x15d50a3b0 Sectors]
+Non Coerced Size: 2.728 TB [0x15d40a3b0 Sectors]
+Coerced Size: 2.728 TB [0x15d400000 Sectors]
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: 0002
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x5000c5003424c109
+SAS Address(1): 0x0
+Connected Port Number: 0(path0) 
+Inquiry Data: SEAGATE ST33000650SS    0002Z2905HHW            
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :37C (98.60 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Port-1 :
+Port status: Active
+Port's Linkspeed: Unknown 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Enclosure Device ID: 16
+Slot Number: 8
+Drive's postion: DiskGroup: 1, Span: 1, Arm: 0
+Enclosure position: 1
+Device Id: 10
+WWN: 5000C500342D8A10
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SAS
+
+Raw Size: 2.728 TB [0x15d50a3b0 Sectors]
+Non Coerced Size: 2.728 TB [0x15d40a3b0 Sectors]
+Coerced Size: 2.728 TB [0x15d400000 Sectors]
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: 0002
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x5000c500342d8a11
+SAS Address(1): 0x0
+Connected Port Number: 0(path0) 
+Inquiry Data: SEAGATE ST33000650SS    0002Z2906Q12            
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :35C (95.00 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Port-1 :
+Port status: Active
+Port's Linkspeed: Unknown 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Enclosure Device ID: 16
+Slot Number: 9
+Drive's postion: DiskGroup: 1, Span: 1, Arm: 1
+Enclosure position: 1
+Device Id: 11
+WWN: 5000C5003409098C
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SAS
+
+Raw Size: 2.728 TB [0x15d50a3b0 Sectors]
+Non Coerced Size: 2.728 TB [0x15d40a3b0 Sectors]
+Coerced Size: 2.728 TB [0x15d400000 Sectors]
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: 0002
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x5000c5003409098d
+SAS Address(1): 0x0
+Connected Port Number: 0(path0) 
+Inquiry Data: SEAGATE ST33000650SS    0002Z2900VLZ            
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :33C (91.40 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Port-1 :
+Port status: Active
+Port's Linkspeed: Unknown 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Enclosure Device ID: 16
+Slot Number: 10
+Drive's postion: DiskGroup: 3, Span: 0, Arm: 0
+Enclosure position: 1
+Device Id: 12
+WWN: 5000C50034060354
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SAS
+
+Raw Size: 2.728 TB [0x15d50a3b0 Sectors]
+Non Coerced Size: 2.728 TB [0x15d40a3b0 Sectors]
+Coerced Size: 2.728 TB [0x15d400000 Sectors]
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: 0002
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x5000c50034060355
+SAS Address(1): 0x0
+Connected Port Number: 0(path0) 
+Inquiry Data: SEAGATE ST33000650SS    0002Z2900KMP            
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :31C (87.80 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Port-1 :
+Port status: Active
+Port's Linkspeed: Unknown 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Enclosure Device ID: 16
+Slot Number: 11
+Drive's postion: DiskGroup: 3, Span: 0, Arm: 1
+Enclosure position: 1
+Device Id: 13
+WWN: 5000C5003409097C
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SAS
+
+Raw Size: 2.728 TB [0x15d50a3b0 Sectors]
+Non Coerced Size: 2.728 TB [0x15d40a3b0 Sectors]
+Coerced Size: 2.728 TB [0x15d400000 Sectors]
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: 0002
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x5000c5003409097d
+SAS Address(1): 0x0
+Connected Port Number: 0(path0) 
+Inquiry Data: SEAGATE ST33000650SS    0002Z2900VHJ            
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :29C (84.20 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Port-1 :
+Port status: Active
+Port's Linkspeed: Unknown 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Enclosure Device ID: 16
+Slot Number: 12
+Drive's postion: DiskGroup: 3, Span: 1, Arm: 0
+Enclosure position: 1
+Device Id: 14
+WWN: 5000C500342CBD90
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SAS
+
+Raw Size: 2.728 TB [0x15d50a3b0 Sectors]
+Non Coerced Size: 2.728 TB [0x15d40a3b0 Sectors]
+Coerced Size: 2.728 TB [0x15d400000 Sectors]
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: 0002
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x5000c500342cbd91
+SAS Address(1): 0x0
+Connected Port Number: 0(path0) 
+Inquiry Data: SEAGATE ST33000650SS    0002Z2906F7G            
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :39C (102.20 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Port-1 :
+Port status: Active
+Port's Linkspeed: Unknown 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+Enclosure Device ID: 16
+Slot Number: 13
+Drive's postion: DiskGroup: 3, Span: 1, Arm: 1
+Enclosure position: 1
+Device Id: 15
+WWN: 5000C50034255D04
+Sequence Number: 2
+Media Error Count: 0
+Other Error Count: 0
+Predictive Failure Count: 0
+Last Predictive Failure Event Seq Number: 0
+PD Type: SAS
+
+Raw Size: 2.728 TB [0x15d50a3b0 Sectors]
+Non Coerced Size: 2.728 TB [0x15d40a3b0 Sectors]
+Coerced Size: 2.728 TB [0x15d400000 Sectors]
+Firmware state: Online, Spun Up
+Commissioned Spare : No
+Emergency Spare : No
+Device Firmware Level: 0002
+Shield Counter: 0
+Successful diagnostics completion on :  N/A
+SAS Address(0): 0x5000c50034255d05
+SAS Address(1): 0x0
+Connected Port Number: 0(path0) 
+Inquiry Data: SEAGATE ST33000650SS    0002Z2905AYZ            
+FDE Capable: Not Capable
+FDE Enable: Disable
+Secured: Unsecured
+Locked: Unlocked
+Needs EKM Attention: No
+Foreign State: None 
+Device Speed: 6.0Gb/s 
+Link Speed: 6.0Gb/s 
+Media Type: Hard Disk Device
+Drive Temperature :35C (95.00 F)
+PI Eligibility:  No 
+Drive is formatted for PI information:  No
+PI: No PI
+Port-0 :
+Port status: Active
+Port's Linkspeed: 6.0Gb/s 
+Port-1 :
+Port status: Active
+Port's Linkspeed: Unknown 
+Drive has flagged a S.M.A.R.T alert : No
+
+
+
+
+Exit Code: 0x00
