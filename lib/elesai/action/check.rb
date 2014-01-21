@@ -66,7 +66,7 @@ module Elesai; module Action
           when :offline, :failed
             plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
             plugin_status = :critical
-          when :partialdegraded, :degraded
+          when :partially_degraded, :degraded
             plugin_output += " #{vd_plugin_string}:#{vd[:state]}"
             plugin_status = :warning if plugin_status != :critical
           when :optimal
