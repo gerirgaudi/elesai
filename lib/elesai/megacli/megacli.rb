@@ -229,7 +229,7 @@ module Elesai; module Megacli
               next
             end
           end
-          raise StandardError, "cannot parse '#{line}'" unless match_flag
+          $stderr.puts "cannot parse '#{line}'" unless match_flag
         rescue ArgumentError # ignore lines with invalid byte sequence in UTF-8
           next
         end
